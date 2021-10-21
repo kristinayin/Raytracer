@@ -1,6 +1,6 @@
 #include "RayTracer.h"
 
-void RayTracer::clear() const {
+void RayTracer::clear() const {//what does this func do?
 }
 
 void RayTracer::render(const Scene& _scene) const {
