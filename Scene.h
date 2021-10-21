@@ -1,7 +1,7 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
 
-#include "object.h"
+#include "Object.h"
 
 class Scene {
   public:
