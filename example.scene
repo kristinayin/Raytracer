@@ -1,0 +1,10 @@
+Camera eye 0 0 0 at 0 0 -1 up 0 1 0
+Projection perspective 1 45 16:9
+Sphere center 0 -5 -10 radius 3
+Plane p 0 0 0 n 0 1 0
+
+Camera
+	Eye	0  0  0
+	At	0  0 -1
+	Up	0  1  0
+~Camera
