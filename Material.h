@@ -21,7 +21,7 @@ struct Material {
     glm::vec3 l(0.f, 0.f, 0.f);//light vector??
     glm::vec4 lNew = glm::vec4(l, 0.f);//convert to vector 4
     glm::vec4 diffuseAns = kd*Id*glm::max(0.f, glm::dot(nNew, lNew));//diffuse lighting eqn
-    retrun diffuseAns;
+    return diffuseAns;
   }
 
   glm::vec4 specular(float xk, float yk, float zk, float xI, float yI, float zI, float p){
