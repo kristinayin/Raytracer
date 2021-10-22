@@ -16,6 +16,13 @@ public:
         point = vec3(0,0,0);
         normal = vec3(0,0,0);
     }
+    
+    /*
+    Better way to set up constructors?
+    Plane() : point(vec3(0,0,0)), normal(vec3(0,0,0)) {}
+    ...something like that
+    */
+    
     Plane(int y, vec3 place) {
         point = place;
         normal = vec3(0,y,0);
