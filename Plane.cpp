@@ -16,7 +16,7 @@ Collision Plane:: collide(const Ray& _ray) const {
 
         if(t>0){
             x = _ray.at(t);
-            Collision hit(x, normal);//might need to change this function a bit; not sure if we need material
+            Collision hit(x, normal, m_material);//might need to change this function a bit; not sure if we need material
             return hit;
         }
     }
