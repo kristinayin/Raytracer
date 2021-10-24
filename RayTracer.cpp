@@ -1,15 +1,13 @@
 #include "RayTracer.h"
+#include "Camera.h"
 
 void RayTracer::clear() const {//what does this func do? //iterate framebuffer to set to background
 }
 
 
-glm::vec3 getDirection( float tau, float sigma, float focal){
-  glm::vec3 w(0.f, 0.f, -1.f);
-  glm::vec3 u(1.f, 0.f, 0.f);
-  glm::vec3 v(0.f, 1.f, 0.f);
+glm::vec3 getDirection(float tau, float sigma, const Camera& c){
   glm::vec3 dir;
-  dir= focal*w + tau*u + sigma*v;
+  dir= c.focal*c.w + tau*c.u + sigma*c.v;
   return dir;
 }
 
@@ -27,6 +25,7 @@ float sigmaVal(float row, float top, float bott, float pixelY){//finding the val
 
 void RayTracer::render(const Scene& _scene) const {
 
+  Camera dummy;
   int length=1360;
   int height= 768;
   float t = 1*tan(45/2);
@@ -39,6 +38,11 @@ void RayTracer::render(const Scene& _scene) const {
     for(int j = 0; j<height; j++){//height is # of rows
       //using ray struct that takes in some origin and direction
       glm::vec3 direction;
+      
+      direction = getDirection(tauVal(i, r, l, length), sigmaVal(i, t, b, height), 1.f);
+
+      direction = getDirection(tauVal(i, 1360, 1360, 1360), sigmaVal(i, 768, 768, 768), dummy);
+
       direction = getDirection(tauVal(i, r, l, length), sigmaVal(i, t, b, height), 1.f);
       //create camera class to represent origin??
       Ray r(origin,direction);
