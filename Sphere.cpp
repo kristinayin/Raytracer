@@ -2,9 +2,9 @@
 
 Collision Sphere::collide(const Ray& _ray) const {
 
-  float A = glm::pow(_ray.m_direction, 2.f);
+  float A = glm::dot(_ray.m_direction, _ray.m_direction);
   float B = glm::dot(2*_ray.m_direction, (_ray.m_origin - m_center));
-  float C = glm::pow((_ray.m_origin - m_center), 2.f) - glm::pow(m_radius, 2.f);
+  float C = glm::dot((_ray.m_origin - m_center), (_ray.m_origin - m_center)) - glm::pow(m_radius, 2.f);
 
   //both formulas use the discriminant
   float t1 = (-B+glm::sqrt(glm::pow(B, 2.f) - 4*A*C))/(2.f*A);
@@ -26,6 +26,8 @@ Collision Sphere::collide(const Ray& _ray) const {
     Collision hit2(x, n, m_material);
     return hit2;
   }
+
+
   
   return Collision();//does it return miss constructor?
   //return hit
