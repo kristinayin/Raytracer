@@ -2,6 +2,8 @@
 #define _RAY_H_
 
 #include "GLInclude.h"
+//terminal says it needs this??
+#include <memory>
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Ray

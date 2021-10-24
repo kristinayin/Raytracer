@@ -1,6 +1,7 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
 
+#include <vector>
 #include "Object.h"
 
 class Scene {
