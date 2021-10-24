@@ -30,7 +30,9 @@ struct Material {
     glm::vec4 Is(xI, yI, zI, 0.f);//intensity for specular
     glm::vec3 v(0.f, 0.f, 0.f);//direction of camera
     glm::vec4 vNew = glm::vec4(v, 0.f);//converted to vec4
-    glm::vec3 h = (v+l)/glm::vec3 length(v+l);//This has an out of scope error is l supposed to be light?
+    glm::vec3 l(0.f, 0.f, 0.f);//light vector??
+    glm::vec3 length(v+l);//magnitude of v+l
+    glm::vec3 h = (v+l)/length;//This has an out of scope error is l supposed to be light?
     glm::vec4 hNew = glm::vec4(h, 0.f);//converted to vec4
     glm::vec4 specularAns = ks*Is*(glm::pow(glm::max(0.f, glm::dot(vNew, hNew)), p));//specular lighting eqn
     return specularAns;
