@@ -4,7 +4,8 @@
 #include "GLInclude.h"
 #include <vector>
 
-class Light(){
-
+class Light(glm::vec3 p, glm::vec3 c){
+    glm::vec3 point
+    
 
 }
