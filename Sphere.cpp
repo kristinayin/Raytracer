@@ -18,12 +18,12 @@ Collision Sphere::collide(const Ray& _ray) const {
   if(t1<t2 && t1>0){
     x = _ray.at(t1);
     n = (x - m_center)/m_radius;
-    Collision hit1(x, n, m_material);
+    Collision hit1(x, n, &m_material);
     return hit1;
   }else if(t2<t1 && t2>0){
     x = _ray.at(t2);
     n = (x - m_center)/m_radius;
-    Collision hit2(x, n, m_material);
+    Collision hit2(x, n, &m_material);
     return hit2;
   }
 

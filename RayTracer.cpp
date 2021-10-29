@@ -39,11 +39,11 @@ void RayTracer::render(const Scene& _scene) const {
       //using ray struct that takes in some origin and direction
       glm::vec3 direction;
       
-      direction = getDirection(tauVal(i, r, l, length), sigmaVal(i, t, b, height), 1.f);
+      direction = getDirection(tauVal(i, r, l, length), sigmaVal(i, t, b, height), dummy);
 
       direction = getDirection(tauVal(i, 1360, 1360, 1360), sigmaVal(i, 768, 768, 768), dummy);
 
-      direction = getDirection(tauVal(i, r, l, length), sigmaVal(i, t, b, height), 1.f);
+      direction = getDirection(tauVal(i, r, l, length), sigmaVal(i, t, b, height), dummy);
       //create camera class to represent origin??
       Ray r(origin,direction);
       for(int i = 0; i<_scene.objects.size(); i++){

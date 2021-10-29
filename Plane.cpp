@@ -15,9 +15,11 @@ Collision Plane:: collide(const Ray& _ray) const {
     if(detectCollision > 0){
         float t = (glm::dot((point - _ray.m_origin), normal))/(detectCollision);
 
+        
+
         if(t>0){
             x = _ray.at(t);
-            Collision hit(x, normal, m_material);//might need to change this function a bit; not sure if we need material
+            Collision hit(x, normal, &m_material);//might need to change this function a bit; not sure if we need material
             return hit;
         }
     }
