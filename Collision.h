@@ -20,7 +20,9 @@ struct Collision {
   };
   
   // Constructors
-  Collision() : m_type(Type::kMiss) {};
+  Collision() : m_type(Type::kMiss) {
+    bool hm = false;
+  };
 
   Collision(const glm::vec3& _x, const glm::vec3& _n, const Material*  _m) : 
     m_type(Type::kHit), m_x{_x}, m_normal{_n}, m_material{_m} {};
@@ -29,6 +31,7 @@ struct Collision {
   glm::vec3              m_x; ///< Point of collision
   glm::vec3         m_normal; ///< Normal at collision
   const Material* m_material; ///< Material of surface
+  bool hm =true; //
 };
 
 /*Collision planeIntersection(Ray i, Plane j){
