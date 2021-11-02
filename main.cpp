@@ -15,6 +15,10 @@
 
 // Engine
 #include "GLInclude.h"
+#include "RayTracer.h"
+#include "Scene.h"
+#include "Plane.h"
+#include "Sphere.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global variables - avoid these

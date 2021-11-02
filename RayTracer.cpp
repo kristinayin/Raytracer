@@ -1,17 +1,16 @@
 #include "RayTracer.h"
 #include "Camera.h"
+#include "Collision.h"
 
 void RayTracer::clear() const {//what does this func do? //iterate framebuffer to set to background
   //prob do some for loop in this function by using the m_frame
 }
-
 
 glm::vec3 getDirection(float tau, float sigma, const Camera& c){
   glm::vec3 dir;
   dir= c.focal*c.w + tau*c.u + sigma*c.v;
   return dir;
 }
-
 
 //ASK JORY ABOUT LRBT!!!
 float tauVal(float col, float right, float left, float pixelX){//finding the value of tau (x-axis)
@@ -48,19 +47,20 @@ void RayTracer::render(const Scene& _scene) const {
       //create camera class to represent origin??
       Ray r(origin,direction);
       for(int i = 0; i<_scene.objects.size(); i++){
-        Collision h_ = _scene.objects[i]->collide(r);
-        Collision t_();
+        
+        Collision h_ = _scene.objects[i]->collide(r);//tests to see if a ray has collided with scene object
+        //Collision.Type miss = Collision.Type::kMiss;
+        //figure out if it hits something and then get the color of the x value
+        //get the x value and the color and then send it into the g_frame
+        if(h_.m_type!= 0){
+
+        }
         //theres an issue with the > operator
-       // if( h_.m_type > 0){
-
-       // }
-
+       
       }
-      //using collision function for the sphere
-
-      //use material struct???
     }
   }
+  
   // for each column i do
   //   for each row j do
   //     generate a ray origin and direction
