@@ -32,6 +32,7 @@ void RayTracer::render(const Scene& _scene) const {
   float b = -t;
   float r = (length/height)*t;
   float l = -r;
+  std::unique_ptr<glm::vec4[]> m_frame{nullptr};
   m_frame = std::make_unique<glm::vec4[]>(length*height);
 
   glm::vec3 origin(0.f,0.f,0.f);
@@ -47,7 +48,7 @@ void RayTracer::render(const Scene& _scene) const {
       direction = getDirection(tauVal(i, r, l, length), sigmaVal(j, t, b, height), dummy);
       //create camera class to represent origin??
       Ray r(origin,direction);
-      for(int i = 0; i<_scene.objects.size(); i++){
+      for(int i = 0; i<_scene.objects.size(); i++){//iterates through objects in scene to look for collisions with the ray
         
         Collision h_ = _scene.objects[i]->collide(r);//tests to see if a ray has collided with scene object
         //Collision.Type miss = Collision.Type::kMiss;
@@ -56,9 +57,12 @@ void RayTracer::render(const Scene& _scene) const {
         if(h_.hm == true){
          // float r = i/length;
           //float c = i%length
-          m_frame[height*(i-1)+j]
+
+          m_frame[height*i+j]= glm::vec4(.5f, .5f, .5f, .5f);// this should draw pixels to the framebuffer and give them a generic color
         }
         //theres an issue with the > operator
+
+
        
       }
     }

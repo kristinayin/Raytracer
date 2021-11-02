@@ -21,4 +21,6 @@ class RayTracer : public Renderer {
     std::unique_ptr<glm::vec4[]> m_frame{nullptr}; ///< Framebuffer
 };
 
+
+
 #endif
