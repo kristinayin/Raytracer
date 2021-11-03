@@ -12,6 +12,7 @@ class Object {
     // Constructors and Destructors
     Object() = default;
     virtual ~Object() = default;
+    
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Determine a collision between a ray and the object

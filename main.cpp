@@ -19,6 +19,7 @@
 #include "Scene.h"
 #include "Plane.h"
 #include "Sphere.h"
+#include "Object.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global variables - avoid these
@@ -26,6 +27,10 @@
 // Window
 int g_width{1360};
 int g_height{768};
+RayTracer rt= RayTracer(g_width, g_height);//for testing purposes
+
+//Scene
+//Get help from Jory for this
 
 // Framebuffer
 std::unique_ptr<glm::vec4[]> g_frame{nullptr}; ///< Framebuffer
@@ -76,7 +81,6 @@ draw(GLFWwindow* _window, double _currentTime) {
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
-
   // Simple static :P
   for(int i = 0; i < g_width*g_height; ++i)
     g_frame[i] = glm::vec4(float(rand())/RAND_MAX, float(rand())/RAND_MAX,
@@ -167,6 +171,7 @@ int
 main(int _argc, char** _argv) {
   //////////////////////////////////////////////////////////////////////////////
   // Initialize
+  
   std::cout << "Initializing GLFWWindow" << std::endl;
   // GLFW
   glfwSetErrorCallback(errorCallback);
