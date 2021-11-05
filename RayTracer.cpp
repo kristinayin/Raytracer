@@ -19,7 +19,7 @@ void RayTracer::clear() const {//what does this func do? //iterate framebuffer t
 glm::vec3 getDirection(float tau, float sigma, const Camera& c){
   glm::vec3 dir;
   //std::cout<<c.focal<<"focal"<<std::endl;
-  dir= c.focal*c.w + tau*c.u + sigma*c.v;
+  dir= (-1)*c.focal*c.w + tau*c.u + sigma*c.v;
   return dir;
 }
 
