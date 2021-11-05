@@ -20,6 +20,7 @@ glm::vec3 getDirection(float tau, float sigma, const Camera& c){
   glm::vec3 dir;
   //std::cout<<c.focal<<"focal"<<std::endl;
   dir= c.focal*c.w + tau*c.u + sigma*c.v;
+
   return glm::normalize(dir);
 }
 
