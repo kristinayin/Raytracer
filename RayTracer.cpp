@@ -19,8 +19,8 @@ void RayTracer::clear() const {//what does this func do? //iterate framebuffer t
 glm::vec3 getDirection(float tau, float sigma, const Camera& c){
   glm::vec3 dir;
   //std::cout<<c.focal<<"focal"<<std::endl;
-  dir= (-1)*c.focal*c.w + tau*c.u + sigma*c.v;
-  return dir;
+  dir= c.focal*c.w + tau*c.u + sigma*c.v;
+  return glm::normalize(dir);
 }
 
 //ASK JORY ABOUT LRBT!!!
@@ -44,7 +44,7 @@ void RayTracer::render(const Scene& _scene) const {
 
   int length=1360;
   int height= 768;
-  float t = 1*tan(45/2);
+  float t = 1*tan(45*glm::pi<float>()/360.f);
   float b = -t;
   float r = (length/height)*t;
   float l = -r;
@@ -58,20 +58,22 @@ void RayTracer::render(const Scene& _scene) const {
       //create camera class to represent origin??
       Ray r(origin,direction);
       //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;
-      for(int i = 0; i<_scene.objects.size(); i++){//iterates through objects in scene to look for collisions with the ray
+      for(int k = 0; k<_scene.objects.size(); k++){//iterates through objects in scene to look for collisions with the ray
         
-        Collision h_ = _scene.objects[i]->collide(r);//tests to see if a ray has collided with scene object
+        Collision h_ = _scene.objects[k]->collide(r);//tests to see if a ray has collided with scene object
         //Collision.Type miss = Collision.Type::kMiss;
         //figure out if it hits something and then get the color of the x value
         //get the x value and the color and then send it into the g_frame
 
 
-        if(h_.m_type==Collision::Type::kHit){//made a bad quick fix ask how to use enum
-          std::cout<<" ray has hit the plane"<<std::endl;
-          m_frame[height*i+j]= glm::vec4(0.f, 0.f, 0.f, 0.f);// this should draw pixels to the framebuffer and give them a generic color
+        if(h_.m_type==Collision::Type::kHit){
+          //std::cout<<" ray has hit the plane"<<std::endl;
+          m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);// this should draw pixels to the framebuffer and give them a generic color
         }
         //theres an issue with the > operator
       }
+      //glm::vec4 color((direction+glm::vec3(1,1,1))/2,1);
+      //m_frame[length*j+i]= color;
     }
   }
   //commenting out now but might be useful later

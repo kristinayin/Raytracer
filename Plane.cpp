@@ -12,7 +12,7 @@ Collision Plane:: collide(const Ray& _ray) const {
     glm::vec3 x;//point of collision on plane
 
     float detectCollision = glm::dot(_ray.m_direction, normal);//check if direction dot normal isn't 0
-    if(detectCollision > 0){
+    if(detectCollision != 0){
         float t = (glm::dot((point - _ray.m_origin), normal))/(detectCollision);
 
         

@@ -53,17 +53,17 @@ float g_framesPerSecond{0.f};
 void
 initialize(GLFWwindow* _window) {
   glClearColor(0.f, 0.f, 0.f, 1.f);
-  Plane *p = new Plane(1, glm::vec3(0,-1,-3));
-  Plane *p2 = new Plane(1, glm::vec3(0,-1,0));
+  Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0));
+  /*Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0));
   Sphere *s1 = new Sphere(glm::vec3(0,2,0),3);
   Sphere *s2 = new Sphere(glm::vec3(2,0,0),3);
-  Sphere *s3 = new Sphere(glm::vec3(0,0,2),3);
+  Sphere *s3 = new Sphere(glm::vec3(0,0,2),3);*/
 
   scn.addObject(p);
-  scn.addObject(p2);
-  scn.addObject(s1);
-  scn.addObject(s2);
-  scn.addObject(s3);
+  //scn.addObject(p2);
+  //scn.addObject(s1);
+  //scn.addObject(s2);
+  //scn.addObject(s3);
 
   g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);
 }
@@ -218,6 +218,17 @@ main(int _argc, char** _argv) {
 
   //////////////////////////////////////////////////////////////////////////////
   // Main loop
+  Ray ry = Ray(glm::vec3(0,0,0),glm::vec3(0,0,-2));
+  Sphere sp = Sphere(glm::vec3(0,0,-1),3);
+  Plane pl= Plane(glm::vec3(0,0,1), glm::vec3(0,-1,0));
+  Collision h = pl.collide(ry);
+  Collision h2 = sp.collide(ry);
+  if(h.m_type==Collision::Type::kHit){
+    std::cout<<" ray has hit the plane"<<std::endl;
+  }
+  if(h2.m_type==Collision::Type::kHit){
+    std::cout<<" ray has hit the plane"<<std::endl;
+  }
   run(window);
 
   //////////////////////////////////////////////////////////////////////////////
@@ -225,6 +236,8 @@ main(int _argc, char** _argv) {
   std::cout << "Destroying GLFWWindow" << std::endl;
   glfwDestroyWindow(window);
   glfwTerminate();
+
+ 
 
   return 0;
 }

@@ -12,7 +12,7 @@
 
 class Plane : public Object {
   public:
-    Plane(float y, const glm::vec3& place) : point(place), normal(0, y, 0) {}
+    Plane(const glm::vec3& norm, const glm::vec3& place) : point(place), normal(norm) {}
 
     Collision collide(const Ray&_ray) const override;
 
