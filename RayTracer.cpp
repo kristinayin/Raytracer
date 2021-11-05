@@ -18,10 +18,10 @@ void RayTracer::clear() const {//what does this func do? //iterate framebuffer t
 
 glm::vec3 getDirection(float tau, float sigma, const Camera& c){
   glm::vec3 dir;
-  //std::cout<<c.focal<<"focal"<<std::endl;
   dir= c.focal*c.w + tau*c.u + sigma*c.v;
 
   return glm::normalize(dir);
+
 }
 
 //ASK JORY ABOUT LRBT!!!
@@ -45,9 +45,9 @@ void RayTracer::render(const Scene& _scene) const {
 
   int length=1360;
   int height= 768;
-  float t = 1*tan(45*glm::pi<float>()/360.f);
+  float t = 1.f*tan(glm::radians(45.f/2));
   float b = -t;
-  float r = (length/height)*t;
+  float r = ((float)length/height)*t;
   float l = -r;
 
   glm::vec3 origin(0.f,0.f,0.f);
