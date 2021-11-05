@@ -21,7 +21,7 @@ class RayTracer : public Renderer {
     //std::unique_ptr<glm::vec4[]> render(const Scene& s);
     //maybe make some kind of initializer for m_frame
 
-  private:
+  //private:
     int m_width;
     int m_height;
     std::unique_ptr<glm::vec4[]> m_frame{nullptr}; ///< Framebuffer

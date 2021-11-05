@@ -6,6 +6,7 @@
 
 class Scene {
   public:
+    Scene(){}
     void addObject(Object *_obj);
     //making objects vector public for now
   //private:

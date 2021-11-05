@@ -21,14 +21,13 @@
 #include "Sphere.h"
 #include "Object.h"
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // Global variables - avoid these
 
 // Window
 int g_width{1360};
 int g_height{768};
-Scene scn = Scene();
-
 RayTracer rt= RayTracer(g_width, g_height);//for testing purposes
 
 //Scene
@@ -53,17 +52,6 @@ float g_framesPerSecond{0.f};
 void
 initialize(GLFWwindow* _window) {
   glClearColor(0.f, 0.f, 0.f, 1.f);
-  Plane *p = new Plane(1, glm::vec3(0,-1,-3));
-  Plane *p2 = new Plane(1, glm::vec3(0,-1,0));
-  Sphere *s1 = new Sphere(glm::vec3(0,2,0),3);
-  Sphere *s2 = new Sphere(glm::vec3(2,0,0),3);
-  Sphere *s3 = new Sphere(glm::vec3(0,0,2),3);
-
-  scn.addObject(p);
-  scn.addObject(p2);
-  scn.addObject(s1);
-  scn.addObject(s2);
-  scn.addObject(s3);
 
   g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);
 }
@@ -89,13 +77,17 @@ draw(GLFWwindow* _window, double _currentTime) {
   // Clear
   glClear(GL_COLOR_BUFFER_BIT);
 
-  rt.clear();  
+  for(int i = 0; i < g_width*g_height; ++i)
+    g_frame[i] = glm::vec4(0.f, 0.4f, 0.f, 0.f);
+
   //////////////////////////////////////////////////////////////////////////////
   // Draw
   // Simple static :P
-  rt.render(scn);
-  
-  
+  for(int i = 0; i < g_width*g_height; ++i)
+    g_frame[i] = glm::vec4(float(rand())/RAND_MAX, float(rand())/RAND_MAX,
+                           float(rand())/RAND_MAX, 1.f);
+
+  glDrawPixels(g_width, g_height, GL_RGBA, GL_FLOAT, g_frame.get());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -166,65 +158,4 @@ keyCallback(GLFWwindow* _window, int _key, int _scancode,
 /// @param _msg Error message
 void errorCallback(int _code, const char* _msg) {
   std::cerr << "Error " << _code << ": " << _msg << std::endl;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Main
-
-////////////////////////////////////////////////////////////////////////////////
-/// @brief main
-/// @param _argc Count of command line arguments
-/// @param _argv Command line arguments
-/// @return Application success status
-int
-main(int _argc, char** _argv) {
-  //////////////////////////////////////////////////////////////////////////////
-  // Initialize
-
-
-  Scene scn = Scene();
-  //rt.render(scn);
-  
-  std::cout << "Initializing GLFWWindow" << std::endl;
-  // GLFW
-  glfwSetErrorCallback(errorCallback);
-  if(!glfwInit()) {
-    std::cerr << "GLFW Cannot initialize" << std::endl;
-    return 1;
-  }
-
-  GLFWwindow* window = glfwCreateWindow(
-    g_width, g_height, "Spiderling: A Rudamentary Game Engine", NULL, NULL);
-  if(!window) {
-    std::cerr << "GLFW Cannot create window" << std::endl;
-    return 1;
-  }
-
-  glfwMakeContextCurrent(window);
-  glfwSwapInterval(1);
-
-  glfwGetFramebufferSize(window, &g_width, &g_height);
-  glViewport(0, 0, g_width, g_height);  // Initialize viewport
-
-
-  // Assign callback functions
-  std::cout << "Assigning Callback functions" << std::endl;
-  glfwSetFramebufferSizeCallback(window, resize);
-  glfwSetKeyCallback(window, keyCallback);
-
-  // Program initialize
-  std::cout << "Initializing application" << std::endl;
-  initialize(window);
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Main loop
-  run(window);
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Cleanup GLFW Window
-  std::cout << "Destroying GLFWWindow" << std::endl;
-  glfwDestroyWindow(window);
-  glfwTerminate();
-
-  return 0;
 }
