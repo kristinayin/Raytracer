@@ -11,6 +11,14 @@ class Scene {
     //making objects vector public for now
   //private:
     std::vector<Object*> objects;
+    
+    /**
+    #include <iostream>//stringstream
+     
+    void readFromFile(const std::string& file);
+    std::vector<Light*> lights; // needs light class
+    */
+    
 };
 
 #endif
