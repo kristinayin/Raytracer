@@ -10,8 +10,6 @@ Collision Sphere::collide(const Ray& _ray) const {
   float t1 = (-B+glm::sqrt(glm::pow(B, 2.f) - 4*A*C))/(2.f*A);
   float t2 = (-B-glm::sqrt(glm::pow(B, 2.f) - 4*A*C))/(2.f*A);
 
-  //Collision miss;
-  //Collision hit();
   glm::vec3 x;//point of collision on sphere
   glm::vec3 n;//normal from collision point on sphere
 
@@ -29,7 +27,6 @@ Collision Sphere::collide(const Ray& _ray) const {
 
 
   
-  return Collision();//does it return miss constructor?
-  //return hit
-  //return miss
+  return Collision();
+  //return hit or miss
 }

@@ -37,10 +37,6 @@ float sigmaVal(float row, float top, float bott, float pixelY){//finding the val
 
 
 void RayTracer::render(const Scene& _scene) const {
-  /////////////////////////////////////////////////////////////////////////////////////
-  //Window stuff?
-  
-///////////////////////////////////////////////////////////////////////////////////////////
   Camera dummy;
 
   int length=1360;
@@ -70,8 +66,8 @@ void RayTracer::render(const Scene& _scene) const {
         if(h_.m_type==Collision::Type::kHit){
           //std::cout<<" ray has hit the plane"<<std::endl;
           m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);// this should draw pixels to the framebuffer and give them a generic color
+          //compute shadow color at that point
         }
-        //theres an issue with the > operator
       }
       //glm::vec4 color((direction+glm::vec3(1,1,1))/2,1);
       //m_frame[length*j+i]= color;
@@ -79,8 +75,7 @@ void RayTracer::render(const Scene& _scene) const {
   }
   //commenting out now but might be useful later
   //std::cout<<m_width<<"  = mwidth "<< m_height<< " mheight "<<std::endl;
-    glDrawPixels(m_width, m_height, GL_RGBA, GL_FLOAT, m_frame.get());
-  //return m_frame;//sends framebuffer
+  glDrawPixels(m_width, m_height, GL_RGBA, GL_FLOAT, m_frame.get());
 }
 
 
