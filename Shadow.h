@@ -3,7 +3,8 @@
 
 #include <GLInclude.h>
 
-#include
+#include <Plane.h>
+#include <Lighting.h>
 
 class Shadow{
 
@@ -11,7 +12,9 @@ class Shadow{
 
 #endif
 
-//if camera intersects point on sphere
-    //  do additional ray tracing  from point of collision to the light source
-    //  if point on sphere intersects at light source only, apply ADS
-    //  else apply only ambient lighting (when point on sphere intersects another point on sphere)
+//make a glm::vec3 that goes from plane to light
+
+//if camera intersects point on plane
+    //  do additional ray tracing from point of collision on plane to the light source
+    //  if ray from plane intersects a point on sphere
+    //      apply ambient lighting on that spot
