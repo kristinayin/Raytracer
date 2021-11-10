@@ -54,6 +54,30 @@ parse_obj_file(const std::string& _filename) {
     getline(ifs, line);
 
     // Parse here!
+      
+    /*
+     
+     // copied from scene.cpp in raytracer --> function
+     std::vector<std::string> parse(std::string str){
+        std::vector<std::string> split;
+        int found;
+        while(str.find(" ")!=-1){
+          found=str.find(" ");
+          split.push_back(str.substr(0,found));
+          str=str.substr(found+1);
+        }
+        split.push_back(str);
+        return split;
+      }
+     
+     std::vector<std::string> parsed;
+     parsed = parse(line);
+     
+     if(parsed[0] == "v") {
+         vector i = glm::vec3(stingToFloat(parsed[1]),stringToFloat(parsed[2]),stringToFloat(parsed[3]));
+        // add vertex to vector of vertices
+     }
+     */
   }
 
   std::cout << "Number of positions: " <<    positions.size() << std::endl;
