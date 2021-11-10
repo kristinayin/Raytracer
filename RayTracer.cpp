@@ -65,6 +65,21 @@ void RayTracer::render(const Scene& _scene) const {
 
         if(h_.m_type==Collision::Type::kHit){
           //std::cout<<" ray has hit the plane"<<std::endl;
+          
+          //Scatch code for shadow computation:
+          //Light l (but we'll need to add vector<Light> in the future)
+
+          /*
+          glm::vec3 lightDir = l.point - h_.m_x; //ray direction from point of collision to light source
+          Ray toLight(h_.m_x, lightDir);
+          Collision shadow = _scene.objects[k]->collide(toLight);
+
+          //Intuition:
+          //If ray r hits underside of sphere, use plane collision (or use normals) when doing shadow collision?
+          //if ray r hits plane, use sphere collision when doing shadow collision?
+          */
+
+
           m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);// this should draw pixels to the framebuffer and give them a generic color
           //compute shadow color at that point
         }

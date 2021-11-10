@@ -18,7 +18,7 @@ class Object {
     /// @brief Determine a collision between a ray and the object
     /// @param _ray Ray
     /// @return Collision information
-    virtual Collision collide(const Ray& _ray) const = 0;//what does this func do?
+    virtual Collision collide(const Ray& _ray) const = 0;
 };
 
 #endif
