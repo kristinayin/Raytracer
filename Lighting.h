@@ -8,31 +8,48 @@ class Light: public Object{
     //public:
         glm::vec3 point;
         //light intensities for Ambient diffuse & specuar components
-        glm::vec3 intensities;
         glm::vec3 direction;
         float theta;//cut off angle
         glm::vec3 LAC;//linearattenuation constants
         float attenuation;
+        glm::vec3 i_a;
+        glm::vec3 i_d;
+        glm::vec3 i_s;
 
+        glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o);
+
+        //global ambient light
+        Light(const glm::vec3&ia){
+            i_a=ia;//only requires one intensity
+        }
+
+        //directional
+        Light(const glm::vec3& d, const glm::vec3& ia, const glm::vec3& id, const glm::vec3& is){
+            direction= d;
+            i_a=ia;
+            i_d=id;
+            i_s=is;
+        }
+        
         //point light
-        Light(const glm::vec3& p, const glm::vec3& color, const glm::vec3& attenconst){
+        Light(const glm::vec3& p, const glm::vec3& ia, const glm::vec3& id, const glm::vec3& is, const glm::vec3& attenconst){
              point = p;
-             intensities = color;
+             i_a=ia;
+             i_d=id;
+             i_s=is;
              LAC = attenconst;
         }
         //spotlight
-        Light(const glm::vec3& p, const glm::vec3& color,const glm::vec3& attenconst, glm::vec3 d, float t, float a){
+        Light( const glm::vec3& p, const glm::vec3& d,  const float t, const glm::vec3& ia, const glm::vec3& id, const glm::vec3& is, const glm::vec3& attenconst, const float a){
             point = p;
-            intensities = color;
-            LAC = attenconst;
             direction = d;
             theta = t;
-            attenuation = a;
-
-
-
-        }
-  
+            i_a=ia;
+            i_d=id;
+            i_s=is;
+            LAC = attenconst;
+            attenuation = a;//angular attenuation constant
+        } 
 };
 
 #endif
