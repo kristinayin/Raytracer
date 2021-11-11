@@ -5,6 +5,10 @@
 /// @brief Material
 ////////////////////////////////////////////////////////////////////////////////
 struct Material {
+
+  glm::vec3 kd;
+
+  
   glm::vec4 ambient(float xk, float yk, float zk, float xI, float yI, float zI){
     glm::vec4 ka(xk, yk, zk, 0.f);//material for ambient
     glm::vec4 Ia(xI, yI, zI, 0.f);//intensity to ambient

@@ -3,6 +3,7 @@
 
 #include "Collision.h"
 #include "Ray.h"
+#include "Material.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Abstract base for all objects
@@ -19,6 +20,7 @@ class Object {
     /// @param _ray Ray
     /// @return Collision information
     virtual Collision collide(const Ray& _ray) const = 0;
+    virtual Material getMaterial();
 };
 
 #endif

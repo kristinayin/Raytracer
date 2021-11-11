@@ -17,5 +17,7 @@ glm::vec3 calculateDirection(const glm::vec3& p, const glm::vec3& x){
 }
 
 glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o){
+    //you'll is collide for this and you need to ask jory about l hat 
+    i_d*Object o.getMaterial().kd*max(0,);
 
 }

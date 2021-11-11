@@ -12,13 +12,16 @@
 
 class Plane : public Object {
   public:
-    Plane(const glm::vec3& norm, const glm::vec3& place) : point(place), normal(norm) {}
+    
+    Plane(const glm::vec3& norm, const glm::vec3& place, const Material m) : point(place), normal(norm), m_material(m) {}
 
     Collision collide(const Ray&_ray) const override;
 
+    Material getMaterial();
+
   private://making this private because its causing an out of scope error?
     glm::vec3 point, normal;//point on the plane and plane's normal
-    Material m_material;//plane material
+    Material m_material;//plane material find out how to make this private
 };
 
 #endif

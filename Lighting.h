@@ -5,7 +5,7 @@
 #include <vector>
 
 class Light: public Object{
-    //public:
+    public:
         glm::vec3 point;
         //light intensities for Ambient diffuse & specuar components
         glm::vec3 direction;
