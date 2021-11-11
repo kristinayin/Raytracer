@@ -32,7 +32,7 @@ float sigmaVal(float row, float top, float bott, float pixelY){//finding the val
   return bott + ((top - bott)/pixelY)*(row + 0.5);
 }
 
-Collision Raytracer::isCollision(Ray r, Scene s){
+Collision isCollision(const Ray& r, const Scene& s){
   for(int k = 0; k<s.objects.size(); k++){//iterates through objects in scene to look for collisions with the ray
         Collision h_ = s.objects[k]->collide(r);//tests to see if a ray has collided with scene object
 
@@ -50,7 +50,7 @@ Collision Raytracer::isCollision(Ray r, Scene s){
 
 void RayTracer::render(const Scene& _scene) const {
   Camera dummy;
-  Light test(glm::vec3 a{3, 5, 2}, glm::vec4 b{0.1, 0.1, 0.1, 1}, glm::vec4 c{0.8, 0.8, 0.8, 1}, glm::vec4 d{0.8, 0.8, 0.8, 1}, glm::vec3 e{0.8, 0.8, 0.8});
+  //Light test(glm::vec3 a{3, 5, 2}, glm::vec4 b{0.1, 0.1, 0.1, 1}, glm::vec4 c{0.8, 0.8, 0.8, 1}, glm::vec4 d{0.8, 0.8, 0.8, 1}, glm::vec3 e{0.8, 0.8, 0.8});
 
   int length=1360;
   int height= 768;
@@ -67,17 +67,22 @@ void RayTracer::render(const Scene& _scene) const {
       //create camera class to represent origin??
       Ray r(dummy._eye,direction);
       //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;
-      Collision pointOfColl = Collision(r, _scene);
+      Collision pointOfColl = isCollision(r, _scene);
 
-      glm::vec3 lightDir = test.point - pointOfColl.m_x; //ray direction from point of collision to light source
-      Ray toLight(pointOfColl.m_x, lightDir);
+      if(pointOfColl.m_type == Collision::Type::kHit){
+        Light test(glm::vec3 a(3, 5, 2), glm::vec4 b(0.1, 0.1, 0.1, 1), glm::vec4 c(0.8, 0.8, 0.8, 1), glm::vec4 d(0.8, 0.8, 0.8, 1), glm::vec3 e(0.8, 0.8, 0.8));
 
-      Collision shadow = Collision(toLight, _scene);//sees if shadow occurs at this point based on other objects
-      if(shadow.m_type == Collision::Type::kHit){
-        m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);
-      }else{
-        m_frame[length*j+i]= glm::vec4(0.f, 0.f, 0.f, 1.f);
+        glm::vec3 lightDir = test.point - pointOfColl.m_x; //ray direction from point of collision to light source
+        Ray toLight(pointOfColl.m_x, lightDir);
+
+        Collision shadow = isCollision(toLight, _scene);//sees if shadow occurs at this point based on other objects
+        if(shadow.m_type == Collision::Type::kHit){
+          m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);
+        }else{
+          m_frame[length*j+i]= glm::vec4(0.f, 0.f, 0.f, 1.f);
+        }
       }
+      
       
       //std::cout<<" ray has hit the plane"<<std::endl;
     

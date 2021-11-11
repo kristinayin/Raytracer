@@ -19,7 +19,7 @@ class RayTracer : public Renderer {
     }
     void clear() const override;
     void render(const Scene& _scene) const override;
-    Collision isCollision(const Ray& _r, const Scene& _s);
+    //Collision isCollision(const Ray& _r, const Scene& _s);
 
   //private:
     int m_width;
