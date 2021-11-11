@@ -17,22 +17,18 @@ void RayTracer::clear() const {//what does this func do? //iterate framebuffer t
 }
 
 glm::vec3 getDirection(float tau, float sigma, const Camera& c){
-  glm::vec3 dir;
-  dir= c.focal*c.w + tau*c.u + sigma*c.v;
-
+  glm::vec3 dir = c.focal*c.w + tau*c.u + sigma*c.v;
   return glm::normalize(dir);
 
 }
 
 //ASK JORY ABOUT LRBT!!!
 float tauVal(float col, float right, float left, float pixelX){//finding the value of tau (x-axis)
-  float tau = left + ((right - left)/pixelX)*(col + 0.5);
-  return tau;
+  return left + ((right - left)/pixelX)*(col + 0.5);;
 }
 
 float sigmaVal(float row, float top, float bott, float pixelY){//finding the value of sigma (y-axis)
-  float sigma = bott + ((top - bott)/pixelY)*(row + 0.5);
-  return sigma;
+  return bott + ((top - bott)/pixelY)*(row + 0.5);
 }
 
 
@@ -73,11 +69,11 @@ void RayTracer::render(const Scene& _scene) const {
           glm::vec3 lightDir = l.point - h_.m_x; //ray direction from point of collision to light source
           Ray toLight(h_.m_x, lightDir);
           Collision shadow = _scene.objects[k]->collide(toLight);
-
+          */
           //Intuition:
           //If ray r hits underside of sphere, use plane collision (or use normals) when doing shadow collision?
           //if ray r hits plane, use sphere collision when doing shadow collision?
-          */
+          
 
 
           m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);// this should draw pixels to the framebuffer and give them a generic color
