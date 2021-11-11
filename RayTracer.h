@@ -6,6 +6,7 @@
 
 // Engine
 #include "Renderer.h"
+#include "Scene.h"
 //#include <memory>
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Ray tracer
@@ -18,8 +19,7 @@ class RayTracer : public Renderer {
     }
     void clear() const override;
     void render(const Scene& _scene) const override;
-    //std::unique_ptr<glm::vec4[]> render(const Scene& s);
-    //maybe make some kind of initializer for m_frame
+    Collision isCollision(const Ray& _r, const Scene& _s);
 
   //private:
     int m_width;

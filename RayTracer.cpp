@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "Collision.h"
 #include "Plane.h"
+#include "Lighting.h"
 
 
 #include <chrono>
@@ -31,9 +32,10 @@ float sigmaVal(float row, float top, float bott, float pixelY){//finding the val
   return bott + ((top - bott)/pixelY)*(row + 0.5);
 }
 
-Collision isCollision(Ray r, Scene s){
-  for(int k = 0; k<_s.objects.size(); k++){//iterates through objects in scene to look for collisions with the ray
-        Collision h_ = _s.objects[k]->collide(r);//tests to see if a ray has collided with scene object
+Collision Raytracer::isCollision(Ray r, Scene s){
+  for(int k = 0; k<s.objects.size(); k++){//iterates through objects in scene to look for collisions with the ray
+        Collision h_ = s.objects[k]->collide(r);//tests to see if a ray has collided with scene object
+
         //figure out if it hits something and then get the color of the x value
         //get the x value and the color and then send it into the g_frame
         if(h_.m_type==Collision::Type::kHit){
@@ -48,6 +50,7 @@ Collision isCollision(Ray r, Scene s){
 
 void RayTracer::render(const Scene& _scene) const {
   Camera dummy;
+  Light test(glm::vec3 a{3, 5, 2}, glm::vec4 b{0.1, 0.1, 0.1, 1}, glm::vec4 c{0.8, 0.8, 0.8, 1}, glm::vec4 d{0.8, 0.8, 0.8, 1}, glm::vec3 e{0.8, 0.8, 0.8});
 
   int length=1360;
   int height= 768;
@@ -64,10 +67,10 @@ void RayTracer::render(const Scene& _scene) const {
       //create camera class to represent origin??
       Ray r(dummy._eye,direction);
       //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;
-      Collision point = Collision(r, _scene);
+      Collision pointOfColl = Collision(r, _scene);
 
-      glm::vec3 lightDir = l.point - h_.m_x; //ray direction from point of collision to light source
-      Ray toLight(h_.m_x, lightDir);
+      glm::vec3 lightDir = test.point - pointOfColl.m_x; //ray direction from point of collision to light source
+      Ray toLight(pointOfColl.m_x, lightDir);
 
       Collision shadow = Collision(toLight, _scene);//sees if shadow occurs at this point based on other objects
       if(shadow.m_type == Collision::Type::kHit){
@@ -75,17 +78,9 @@ void RayTracer::render(const Scene& _scene) const {
       }else{
         m_frame[length*j+i]= glm::vec4(0.f, 0.f, 0.f, 1.f);
       }
-      //compute shadow color at that point
-          //std::cout<<" ray has hit the plane"<<std::endl;
-          
-          //Scatch code for shadow computation:
-          //Light l (but we'll need to add vector<Light> in the future)
-
-          /*
-          
-          
-          Collision shadow = _scene.objects[k]->collide(toLight);
-          */
+      
+      //std::cout<<" ray has hit the plane"<<std::endl;
+    
       // this should draw pixels to the framebuffer and give them a generic color
       //glm::vec4 color((direction+glm::vec3(1,1,1))/2,1);
       //m_frame[length*j+i]= color;

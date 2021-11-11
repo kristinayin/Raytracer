@@ -16,7 +16,7 @@ class Light: public Object{
         glm::vec3 i_d;
         glm::vec3 i_s;
 
-        glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o);
+        //glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o);
 
         //global ambient light
         Light(const glm::vec3&ia){
@@ -32,7 +32,7 @@ class Light: public Object{
         }
         
         //point light
-        Light(const glm::vec3& p, const glm::vec3& ia, const glm::vec3& id, const glm::vec3& is, const glm::vec3& attenconst){
+        Light(const glm::vec3& p, const glm::vec4& ia, const glm::vec4& id, const glm::vec4& is, const glm::vec3& attenconst){
              point = p;
              i_a=ia;
              i_d=id;
