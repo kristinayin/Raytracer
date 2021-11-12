@@ -3,6 +3,7 @@
 #include "Sphere.h"
 #include "Scene.h"
 
+/*
 //calculates direction to light from a point x
 glm::vec3 calculateDirection(const glm::vec3& p, const glm::vec3& x){
     glm::vec3 n, d, r;
@@ -21,3 +22,4 @@ glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o){
     i_d*Object o.getMaterial().kd*max(0,);
 
 }
+*/

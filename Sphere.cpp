@@ -33,6 +33,8 @@ Collision Sphere::collide(const Ray& _ray) const {
   //return hit or miss
 }
 
+/*
 Material getMaterial(){
   return m_material;
 }
+*/
