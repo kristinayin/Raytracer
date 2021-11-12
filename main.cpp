@@ -56,14 +56,14 @@ initialize(GLFWwindow* _window) {
   Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0));
   Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0));
   Sphere *s1 = new Sphere(glm::vec3(0,2,-10),1);
-  Sphere *s2 = new Sphere(glm::vec3(2,0,0),3);
+  Sphere *s2 = new Sphere(glm::vec3(1,4,-8),2);
   Sphere *s3 = new Sphere(glm::vec3(0,0,2),3);
 
   //scn.addObject(p);
   
   scn.addObject(p2);
   scn.addObject(s1);
-  //scn.addObject(s2);
+  scn.addObject(s2);
   //scn.addObject(s3);
 
   g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);
