@@ -77,9 +77,10 @@ void RayTracer::render(const Scene& _scene) const {
 
         Collision shadow = isCollision(toLight, _scene);//sees if shadow occurs at this point based on other objects
         if(shadow.m_type == Collision::Type::kHit){
-          m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);
-        }else{
           m_frame[length*j+i]= glm::vec4(0.f, 0.f, 0.f, 1.f);
+        }else{
+          m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);
+          
         }
       }
       
