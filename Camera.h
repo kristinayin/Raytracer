@@ -3,7 +3,6 @@
 
 // GL
 #include "GLInclude.h"
-//#include "Ray.h" //not sure if we need this
 
 struct Camera{
     glm::vec3 _eye{0, 0, 0}; 

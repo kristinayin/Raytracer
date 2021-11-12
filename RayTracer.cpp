@@ -12,24 +12,20 @@
 
 void RayTracer::clear() const {//what does this func do? //iterate framebuffer to set to background
   //prob do some for loop in this function by using the m_frame
+
   for(int i = 0; i< m_width * m_height; i++){
     m_frame[i]=glm::vec4(1.f,1.f,1.f,1.f);
   }
 }
 
-glm::vec3 getDirection(float tau, float sigma, const Camera& c){
+glm::vec3 getDirection(float col, float right, float left, float pixelX, 
+                       float row, float top, float bott, float pixelY, const Camera& c){
+  
+  float tau = left + ((right - left)/pixelX)*(col + 0.5);
+  float sigma = bott + ((top - bott)/pixelY)*(row + 0.5);
   glm::vec3 dir = c.focal*c.w + tau*c.u + sigma*c.v;
   return glm::normalize(dir);
 
-}
-
-//ASK JORY ABOUT LRBT!!!
-float tauVal(float col, float right, float left, float pixelX){//finding the value of tau (x-axis)
-  return left + ((right - left)/pixelX)*(col + 0.5);;
-}
-
-float sigmaVal(float row, float top, float bott, float pixelY){//finding the value of sigma (y-axis)
-  return bott + ((top - bott)/pixelY)*(row + 0.5);
 }
 
 Collision isCollision(const Ray& r, const Scene& s){
@@ -50,7 +46,6 @@ Collision isCollision(const Ray& r, const Scene& s){
 
 void RayTracer::render(const Scene& _scene) const {
   Camera dummy;
-  //Light test(glm::vec3 a{3, 5, 2}, glm::vec4 b{0.1, 0.1, 0.1, 1}, glm::vec4 c{0.8, 0.8, 0.8, 1}, glm::vec4 d{0.8, 0.8, 0.8, 1}, glm::vec3 e{0.8, 0.8, 0.8});
 
   int length=1360;
   int height= 768;
@@ -61,25 +56,24 @@ void RayTracer::render(const Scene& _scene) const {
 
   for(int i = 0; i<length; i++){//length is # of col
     for(int j = 0; j<height; j++){//height is # of rows
-      //using ray struct that takes in some origin and direction
-      glm::vec3 direction;//initializes direction
-      direction = getDirection(tauVal(i, r, l, length), sigmaVal(j, t, b, height), dummy);//calculates direction
-      //create camera class to represent origin??
-      Ray r(dummy._eye,direction);
+      
+      glm::vec3 direction = getDirection(i, r, l, length, j, t, b, height, dummy);//calculates direction from camera to fragment
+
+      Ray r(dummy._eye,direction);//using ray struct that takes in some origin and direction
       //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;
       Collision pointOfColl = isCollision(r, _scene);
 
       if(pointOfColl.m_type == Collision::Type::kHit){
         Light test(glm::vec3 (3, 5, 2), glm::vec4 (0.1, 0.1, 0.1, 1), glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec3 (0.8, 0.8, 0.8));
 
-        glm::vec3 lightDir = test.getPoint() - pointOfColl.m_x; //ray direction from point of collision to light source
+        glm::vec3 lightDir = test.getPoint() - pointOfColl.m_x;//ray direction from point of collision to light source
         Ray toLight(pointOfColl.m_x, lightDir);
 
         Collision shadow = isCollision(toLight, _scene);//sees if shadow occurs at this point based on other objects
         if(shadow.m_type == Collision::Type::kHit){
-          m_frame[length*j+i]= glm::vec4(0.f, 0.f, 0.f, 1.f);
+          m_frame[length*j+i]= glm::vec4(0.f, 0.f, 0.f, 1.f);//black
         }else{
-          m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);
+          m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);//grey
           
         }
       }
