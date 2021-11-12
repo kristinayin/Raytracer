@@ -7,6 +7,10 @@
 struct Material {
 
   glm::vec3 kd;
+  glm::vec3 ks;
+  glm::vec3 ka;
+
+
 
   
   glm::vec4 ambient(float xk, float yk, float zk, float xI, float yI, float zI){

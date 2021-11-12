@@ -2,9 +2,10 @@
 #define _LIGHTING_H_
 
 #include "GLInclude.h"
+#include "Camera.h"
 #include <vector>
 
-class Light: public Object{
+class Light{
     public:
         glm::vec3 point;
         //light intensities for Ambient diffuse & specuar components
@@ -50,6 +51,9 @@ class Light: public Object{
             LAC = attenconst;
             attenuation = a;//angular attenuation constant
         } 
+        glm::vec3 calculateDirection(const glm::vec3& p, const glm::vec3& x);
+        glm::vec3 lambertianShading(Ray x, Plane o);
+        glm::vec3 blinPhongShading(Ray x, Plane o, Material m, Camera c);
 };
 
 #endif
