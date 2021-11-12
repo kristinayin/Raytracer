@@ -70,16 +70,17 @@ void RayTracer::render(const Scene& _scene) const {
       Collision pointOfColl = isCollision(r, _scene);
 
       if(pointOfColl.m_type == Collision::Type::kHit){
-        Light test(glm::vec3 a(3, 5, 2), glm::vec4 b(0.1, 0.1, 0.1, 1), glm::vec4 c(0.8, 0.8, 0.8, 1), glm::vec4 d(0.8, 0.8, 0.8, 1), glm::vec3 e(0.8, 0.8, 0.8));
+        Light test(glm::vec3 (3, 5, 2), glm::vec4 (0.1, 0.1, 0.1, 1), glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec3 (0.8, 0.8, 0.8));
 
-        glm::vec3 lightDir = test.point - pointOfColl.m_x; //ray direction from point of collision to light source
+        glm::vec3 lightDir = test.getPoint() - pointOfColl.m_x; //ray direction from point of collision to light source
         Ray toLight(pointOfColl.m_x, lightDir);
 
         Collision shadow = isCollision(toLight, _scene);//sees if shadow occurs at this point based on other objects
         if(shadow.m_type == Collision::Type::kHit){
-          m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);
-        }else{
           m_frame[length*j+i]= glm::vec4(0.f, 0.f, 0.f, 1.f);
+        }else{
+          m_frame[length*j+i]= glm::vec4(.5f, .5f, .5f, 1.f);
+          
         }
       }
       

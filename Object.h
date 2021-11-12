@@ -20,7 +20,7 @@ class Object {
     /// @param _ray Ray
     /// @return Collision information
     virtual Collision collide(const Ray& _ray) const = 0;
-    virtual Material getMaterial();
+    //virtual Material getMaterial() const = 0;
 };
 
 #endif
