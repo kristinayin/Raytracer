@@ -21,7 +21,7 @@ class Plane : public Object {
 
     glm::vec3 getNormal();
 
-  private://making this private because its causing an out of scope error?
+  private:
     glm::vec3 point, normal;//point on the plane and plane's normal
     Material m_material;//plane material find out how to make this private
 };
