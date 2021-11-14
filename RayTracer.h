@@ -18,7 +18,7 @@ class RayTracer : public Renderer {
       m_frame = std::make_unique<glm::vec4[]>(m_width * m_height);
     }
     void clear() const override;
-    void render(const Scene& _scene) const override;
+    void render(const Scene& _scene, const Lights& lts) const override;
 
   private:
     int m_width;

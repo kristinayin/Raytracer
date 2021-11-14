@@ -6,21 +6,77 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Material
 ////////////////////////////////////////////////////////////////////////////////
-class Material {
+struct Material {
 
-  Material(const glm::vec3& _kd, const glm::vec3& _ks, const glm::vec3& _ka): kd(_kd), ks(_ks), ka(_ka) {}
+  Material(const glm::vec3& _kd, const glm::vec3& _ks, const glm::vec3& _ka, float _p): kd(_kd), ks(_ks), ka(_ka) {}
 
   glm::vec3 kd;
   glm::vec3 ks;
   glm::vec3 ka;
+  float p;
 
   glm::vec3 Direction(const glm::vec3& p, const glm::vec3& x);
 
   glm::vec4 lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x);
 
-  glm::vec4 blinnPhong(const Light& L, const glm::vec3 cam, const glm::vec3& x);
+  glm::vec4 blinnPhong(const Light& L, const glm::vec3& cam, const glm::vec3& x);
 
   glm::vec4 ambientLight(const Light& L);
+
+  glm::vec4 ADSLighting(const glm::vec4& A, const glm::vec4& D,const glm::vec4& S);
+
+glm::vec3 Direction(const glm::vec3& p, const glm::vec3& x){
+    glm::vec3 n, d, r;
+    //numerator
+    n= p-x;
+    //denominator
+    d= p-x;
+    //result
+    r=d/glm::length(d);
+    return r;
+}
+
+glm::vec4 Material :: lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x){
+    glm::vec3 l = L.getPoint();
+    l=Direction(x,l);
+    return kd*L.getId()*max(0,dot(n,l));
+}
+
+glm::vec4 Material :: blinnPhong(const Light& L, const glm::vec3& cam, const glm::vec3& x){
+    glm::vec3 v = Direction(x, cam);
+    glm::vec3 l = L.getPoint();
+    l=Direction(x,l);
+    glm::vec3 h= v+l;
+    h=glm::normalize(h);
+    return pow(ks*L.getIs()*std::max(0, glm::dot(v, h)), p);
+}
+
+glm::vec4 Material :: ambientLight(const Light& L){
+    return ka*L.getIa();
+}
+
+  glm::vec4 ADSLighting(conat Light& L, const glm::vec3& normal, const glm::vec3& x,const glm::vec3& cam){
+
+      glm::vec4 ambient; 
+      glm::vec4 diffuse;
+      glm::vec4 specular;
+
+    glm::vec3 l = L.getPoint();
+    l=Direction(x,l);
+    diffuse = kd*L.getId()*max(0,dot(n,l));
+
+    glm::vec3 v = Direction(x, cam);
+    glm::vec3 h= v+l;
+    h=glm::normalize(h);
+    specular = pow(ks*L.getIs()*std::max(0, glm::dot(v, h)), p);
+
+
+    ambient = ka*L.getIa();
+
+    return ambient + diffuse + specular;
+  }
+
+  
 
   /*
   glm::vec4 ambient(float xk, float yk, float zk, float xI, float yI, float zI){
