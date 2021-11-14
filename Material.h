@@ -34,13 +34,13 @@ float Max(float z, float _m){
   }
 }
 
-glm::vec4 lambertian(Light& L, const glm::vec3& normal, const glm::vec3& x){
+glm::vec4 lambertian(Light L, const glm::vec3& normal, const glm::vec3& x){
     glm::vec3 d = L.getPoint(); 
     glm::vec3 l =Direction(x,d);
     return kd*L.getId()*Max(0.f,glm::dot(normal,l));
 }
 
-glm::vec4 blinnPhong(Light& L, const glm::vec3& cam, const glm::vec3& x){
+glm::vec4 blinnPhong(Light L, const glm::vec3& cam, const glm::vec3& x){
     glm::vec3 v = Direction(x, cam);
     glm::vec3 d = L.getPoint();
     glm::vec3 l=Direction(x,d);
@@ -49,11 +49,11 @@ glm::vec4 blinnPhong(Light& L, const glm::vec3& cam, const glm::vec3& x){
     return ks*L.getIs()*glm::pow(Max(0, glm::dot(v, h)), p);
 }
 
-glm::vec4 ambientLight(Light& L){
+glm::vec4 ambientLight(Light L){
     return ka*L.getIa();
 }
 
-  glm::vec4 ADSLighting(Light& L, const glm::vec3& normal, const glm::vec3& x,const glm::vec3& cam){
+  glm::vec4 ADSLighting(Light L, const glm::vec3& normal, const glm::vec3& x,const glm::vec3& cam){
 
     glm::vec4 ambient; 
     glm::vec4 diffuse;
