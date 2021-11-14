@@ -8,22 +8,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 struct Material {
 
-  Material(const glm::vec3& _kd, const glm::vec3& _ks, const glm::vec3& _ka, float _p): kd(_kd), ks(_ks), ka(_ka) {}
+  Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka) {}
 
-  glm::vec3 kd;
-  glm::vec3 ks;
-  glm::vec3 ka;
+  glm::vec4 kd;
+  glm::vec4 ks;
+  glm::vec4 ka;
   float p;
-
-  glm::vec3 Direction(const glm::vec3& p, const glm::vec3& x);
-
-  glm::vec4 lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x);
-
-  glm::vec4 blinnPhong(const Light& L, const glm::vec3& cam, const glm::vec3& x);
-
-  glm::vec4 ambientLight(const Light& L);
-
-  glm::vec4 ADSLighting(const glm::vec4& A, const glm::vec4& D,const glm::vec4& S);
 
 glm::vec3 Direction(const glm::vec3& p, const glm::vec3& x){
     glm::vec3 n, d, r;
@@ -36,39 +26,47 @@ glm::vec3 Direction(const glm::vec3& p, const glm::vec3& x){
     return r;
 }
 
-glm::vec4 Material :: lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x){
-    glm::vec3 l = L.getPoint();
-    l=Direction(x,l);
-    return kd*L.getId()*max(0,dot(n,l));
+float Max(float z, float _m){
+  if(z<_m){
+    return _m;
+  }else{
+    return z;
+  }
 }
 
-glm::vec4 Material :: blinnPhong(const Light& L, const glm::vec3& cam, const glm::vec3& x){
+glm::vec4 lambertian(Light& L, const glm::vec3& normal, const glm::vec3& x){
+    glm::vec3 d = L.getPoint(); 
+    glm::vec3 l =Direction(x,d);
+    return kd*L.getId()*Max(0.f,glm::dot(normal,l));
+}
+
+glm::vec4 blinnPhong(Light& L, const glm::vec3& cam, const glm::vec3& x){
     glm::vec3 v = Direction(x, cam);
-    glm::vec3 l = L.getPoint();
-    l=Direction(x,l);
+    glm::vec3 d = L.getPoint();
+    glm::vec3 l=Direction(x,d);
     glm::vec3 h= v+l;
     h=glm::normalize(h);
-    return pow(ks*L.getIs()*std::max(0, glm::dot(v, h)), p);
+    return ks*L.getIs()*glm::pow(Max(0, glm::dot(v, h)), p);
 }
 
-glm::vec4 Material :: ambientLight(const Light& L){
+glm::vec4 ambientLight(Light& L){
     return ka*L.getIa();
 }
 
-  glm::vec4 ADSLighting(conat Light& L, const glm::vec3& normal, const glm::vec3& x,const glm::vec3& cam){
+  glm::vec4 ADSLighting(Light& L, const glm::vec3& normal, const glm::vec3& x,const glm::vec3& cam){
 
-      glm::vec4 ambient; 
-      glm::vec4 diffuse;
-      glm::vec4 specular;
+    glm::vec4 ambient; 
+    glm::vec4 diffuse;
+    glm::vec4 specular;
 
-    glm::vec3 l = L.getPoint();
-    l=Direction(x,l);
-    diffuse = kd*L.getId()*max(0,dot(n,l));
+    glm::vec3 d = L.getPoint(); 
+    glm::vec3 l =Direction(x,d);
+    diffuse = kd*L.getId()*Max(0,glm::dot(normal,l));
 
     glm::vec3 v = Direction(x, cam);
     glm::vec3 h= v+l;
     h=glm::normalize(h);
-    specular = pow(ks*L.getIs()*std::max(0, glm::dot(v, h)), p);
+    specular = ks*L.getIs()*glm::pow(Max(0, glm::dot(v, h)), p);
 
 
     ambient = ka*L.getIa();

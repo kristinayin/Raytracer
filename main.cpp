@@ -55,12 +55,17 @@ void
 initialize(GLFWwindow* _window) {
   glClearColor(0.f, 0.f, 0.f, 1.f);
   glm::vec4 color(.3f,.2f,.4f,1);
-  Material m = new Material(color,color,color);
+  glm::vec4 color2(.1f,.4f,.8f,1);
+  glm::vec4 color3(.2f,.7f,.5f,1);
+
+  Material m = new Material(color,color,color,1.f);
+  Material m2 = new Material(color2,color2,color2,1.f);
+  Material m3 = new Material(color3,color3,color3,1.f);
   Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
   Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
-  Sphere *s1 = new Sphere(glm::vec3(0,2,-10),1);
-  Sphere *s2 = new Sphere(glm::vec3(1,4,-8),2);
-  Sphere *s3 = new Sphere(glm::vec3(0,0,2),3);
+  Sphere *s1 = new Sphere(glm::vec3(0,2,-10),1,m2);
+  Sphere *s2 = new Sphere(glm::vec3(1,4,-8),2,m3);
+  Sphere *s3 = new Sphere(glm::vec3(0,0,2),3,m);
 
   //scn.addObject(p);
   

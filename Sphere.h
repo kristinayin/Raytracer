@@ -15,8 +15,8 @@
 class Sphere : public Object {//sphere inherits Object class
   public:
     Sphere(const glm::vec3 _c,
-           float _r/*, Material m*/) :
-      m_center{_c}, m_radius{_r}/*, m_material(m)*/ {}
+           float _r, Material m) :
+      m_center{_c}, m_radius{_r}, m_material(m) {}
 
     Collision collide(const Ray& _ray) const override;
     //Material getMaterial();
