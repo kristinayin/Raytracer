@@ -77,13 +77,14 @@ void RayTracer::render(const Scene& _scene) const {
           if(shadow.m_type == Collision::Type::kMiss){
             color+= pointOfColl.m_material->lambertian(_scene.Lights[k], pointOfColl.m_normal,pointOfColl.m_x)
             + pointOfColl.m_material->blinnPhong(_scene.Lights[k],dummy._eye,pointOfColl.m_x);
-          }
-        }
 
-        Light test(glm::vec3 (3, 5, 2), glm::vec4 (0.1, 0.1, 0.1, 1), glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec3 (0.8, 0.8, 0.8));
+          }
+          
+        }
+        m_frame[length*j+i]= color;
        
       }
-      m_frame[length*j+i]= glm::vec4(0.f, 0.f, 0.f, 1.f);//black
+      
       
       //std::cout<<" ray has hit the plane"<<std::endl;
     
