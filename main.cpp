@@ -20,6 +20,7 @@
 #include "Plane.h"
 #include "Sphere.h"
 #include "Object.h"
+#include "Material.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global variables - avoid these
@@ -53,6 +54,7 @@ float g_framesPerSecond{0.f};
 void
 initialize(GLFWwindow* _window) {
   glClearColor(0.f, 0.f, 0.f, 1.f);
+  Material m = new Material()
   Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0));
   Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0));
   Sphere *s1 = new Sphere(glm::vec3(0,2,-10),1);

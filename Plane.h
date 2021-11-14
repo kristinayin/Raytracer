@@ -13,11 +13,11 @@
 class Plane : public Object {
   public:
     
-    Plane(const glm::vec3& norm, const glm::vec3& place/*, const Material m*/) : point(place), normal(norm)/*, m_material(m)*/ {}
+    Plane(const glm::vec3& norm, const glm::vec3& place, const Material& m) : point(place), normal(norm), m_material(m) {}
 
     Collision collide(const Ray&_ray) const override;
 
-    //Material getMaterial();
+    Material getMaterial();
 
     glm::vec3 getNormal();
 

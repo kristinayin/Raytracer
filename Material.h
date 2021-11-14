@@ -1,18 +1,28 @@
 #ifndef _MATERIAL_H_
 #define _MATERIAL_H_
 
+#include "GLInclude.h"
+#include "Lighting.h"
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Material
 ////////////////////////////////////////////////////////////////////////////////
-struct Material {
+class Material {
+
+  Material(const glm::vec3& _kd, const glm::vec3& _ks, const glm::vec3& _ka): kd(_kd), ks(_ks), ka(_ka) {}
 
   glm::vec3 kd;
   glm::vec3 ks;
   glm::vec3 ka;
 
+  glm::vec3 Direction(const glm::vec3& p, const glm::vec3& x);
 
+  glm::vec4 lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x);
 
-  
+  glm::vec4 blinnPhong(const Light& L, const glm::vec3 cam, const glm::vec3& x);
+
+  glm::vec4 ambientLight(const Light& L);
+
+  /*
   glm::vec4 ambient(float xk, float yk, float zk, float xI, float yI, float zI){
     glm::vec4 ka(xk, yk, zk, 0.f);//material for ambient
     glm::vec4 Ia(xI, yI, zI, 0.f);//intensity to ambient
@@ -44,7 +54,7 @@ struct Material {
     glm::vec4 hNew = glm::vec4(h, 0.f);//converted to vec4
     glm::vec4 specularAns = ks*Is*(glm::pow(glm::max(0.f, glm::dot(vNew, hNew)), p));//specular lighting eqn
     return specularAns;
-  }
+  }*/
 };
 
 #endif
