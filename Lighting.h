@@ -17,11 +17,11 @@ class Light{
 
         //directional
         Light(const glm::vec3& d, const glm::vec4& ia, const glm::vec4& id, 
-              const glm::vec4& is): direction(d), i_a(ia), i_d(id), i_s(is) {}
+              const glm::vec4& is): direction(d), i_a(ia), i_d(id), i_s(is) {}//linear attenuation always have value of 1
         
         //point light
         Light(const glm::vec3& p, const glm::vec4& ia, const glm::vec4& id, const glm::vec4& is, 
-              const glm::vec3& attenconst): point(p), i_a(ia), i_d(id), i_s(is), LAC(attenconst) {}
+              const glm::vec3& attenconst): point(p), i_a(ia), i_d(id), i_s(is), LAC(attenconst) {}//angluar attenuation always has value of 1
 
 
         //spotlight

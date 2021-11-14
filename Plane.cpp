@@ -25,9 +25,6 @@ Collision Plane:: collide(const Ray& _ray) const {
 
     return Collision();
 }
-glm::vec3 Plane::getNormal(){
-    return normal;//getting weird out of scope errors
-}
 
 /*
 Material getMaterial(){
