@@ -34,13 +34,13 @@ float Max(float z, float _m){
   }
 }
 
-glm::vec4 lambertian(Light L, const glm::vec3& normal, const glm::vec3& x){
+glm::vec4 lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x){
     glm::vec3 d = L.getPoint(); 
     glm::vec3 l =Direction(x,d);
     return kd*L.getId()*Max(0.f,glm::dot(normal,l));
 }
 
-glm::vec4 blinnPhong(Light L, const glm::vec3& cam, const glm::vec3& x){
+glm::vec4 blinnPhong(const Light& L, const glm::vec3& cam, const glm::vec3& x){
     glm::vec3 v = Direction(x, cam);
     glm::vec3 d = L.getPoint();
     glm::vec3 l=Direction(x,d);
