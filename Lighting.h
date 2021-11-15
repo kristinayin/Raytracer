@@ -42,6 +42,9 @@ class Light{
          glm::vec4 getIs(){
             return i_s;
         }  
+        glm::vec3 getLAC(){
+            return LAC;
+        }  
 
 
     private:

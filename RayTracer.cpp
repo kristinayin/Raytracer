@@ -75,8 +75,10 @@ void RayTracer::render(const Scene& _scene) const {
 
           Collision shadow = isCollision(toLight, _scene);//sees if shadow occurs at this point based on other objects
           if(shadow.m_type == Collision::Type::kMiss){
-            color+= pointOfColl.m_material->lambertian(_scene.Lights[k], pointOfColl.m_normal,pointOfColl.m_x)
-            + pointOfColl.m_material->blinnPhong(_scene.Lights[k],dummy._eye,pointOfColl.m_x);
+            float dist = glm::distance(_scene.Lights[k].getPoint(), pointOfColl.m_x);//gets distance needed for attenuation
+            float al = 1/_scene.Lights[k].getLAC()[0] + _scene.Lights[k].getLAC()[1]*dist + _scene.Lights[k].getLAC()[2] * dist * dist;//attenuation
+            color+= al * pointOfColl.m_material->lambertian(_scene.Lights[k], pointOfColl.m_normal,pointOfColl.m_x)//color calculation
+            + al * pointOfColl.m_material->blinnPhong(_scene.Lights[k],dummy._eye,pointOfColl.m_x);
 
           }
           
