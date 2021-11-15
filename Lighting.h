@@ -2,11 +2,6 @@
 #define _LIGHTING_H_
 
 #include "GLInclude.h"
-#include "Camera.h"
-#include <vector>
-#include "Ray.h"
-#include "Plane.h"
-#include "Material.h"
 
 class Light{
     public:
