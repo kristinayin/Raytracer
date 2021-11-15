@@ -54,7 +54,7 @@ class Light{
         glm::vec4 i_s;
 
         //glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o);
-        glm::vec3 calculateDirection(const glm::vec3& p, const glm::vec3& x);
+        //glm::vec3 calculateDirection(const glm::vec3& p, const glm::vec3& x);
         //glm::vec3 lambertianShading(Ray x, Plane o);
         //glm::vec3 blinPhongShading(Ray x, Plane o, Material m, Camera c);
 };

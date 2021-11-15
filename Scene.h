@@ -12,7 +12,7 @@ class Scene {
     //making objects vector public for now
   //private:
     std::vector<Object*> objects;
-    std::vector<Light> Lights;//adding a light vector
+    std::vector<Light*> Lights;//adding a light vector
     
     /**
     #include <iostream>//stringstream
