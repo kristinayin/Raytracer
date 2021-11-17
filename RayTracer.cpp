@@ -11,7 +11,6 @@
 #include <memory>
 #include <thread>
 //Frankie
-//
 void RayTracer::clear() const {//what does this func do? //iterate framebuffer to set to background
   //prob do some for loop in this function by using the m_frame
 
