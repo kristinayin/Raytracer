@@ -8,7 +8,7 @@ class Scene {
   public:
     Scene(){}
     void addObject(Object *_obj);
-    void addLight(Light lt);
+    void addLight(Light * lt);
     //making objects vector public for now
   //private:
     std::vector<Object*> objects;
