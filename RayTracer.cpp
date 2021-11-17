@@ -10,7 +10,7 @@
 #include <iostream>
 #include <memory>
 #include <thread>
-
+//Frankie
 void RayTracer::clear() const {//what does this func do? //iterate framebuffer to set to background
   //prob do some for loop in this function by using the m_frame
 
@@ -18,7 +18,7 @@ void RayTracer::clear() const {//what does this func do? //iterate framebuffer t
     m_frame[i]=glm::vec4(1.f,1.f,1.f,1.f);
   }
 }
-
+//Frankie/Patrick
 glm::vec3 getDirection(float col, float right, float left, float pixelX, 
                        float row, float top, float bott, float pixelY, const Camera& c){
   
@@ -44,7 +44,7 @@ Collision isCollision(const Ray& r, const Scene& s){
   return Collision(); 
 }
 
-
+//Frankie Z/Patrick L
 void RayTracer::render(const Scene& _scene) const {
   Camera dummy;
 

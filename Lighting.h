@@ -2,7 +2,7 @@
 #define _LIGHTING_H_
 
 #include "GLInclude.h"
-
+//Frankie Z
 class Light{
     public:
         //glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o);
