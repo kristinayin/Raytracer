@@ -6,7 +6,7 @@
 //
 #include "Plane.h"
 
-
+//Frankie Z.
 Collision Plane:: collide(const Ray& _ray) const {
 
     glm::vec3 x;//point of collision on plane
