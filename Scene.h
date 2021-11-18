@@ -10,9 +10,18 @@ class Scene {
     void addObject(Object *_obj);
     void addLight(Light lt);
     //making objects vector public for now
-  //private:
+
+    std::vector<Object*> getObj(){
+      return objects;
+    }
+
+    std::vector<Light> getLights(){
+      return lights;
+    }
+    
+  private:
     std::vector<Object*> objects;
-    std::vector<Light*> Lights;//adding a light vector
+    std::vector<Light> lights;//adding a light vector
     
     /**
     #include <iostream>//stringstream
