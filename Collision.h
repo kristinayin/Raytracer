@@ -20,15 +20,16 @@ struct Collision {
   };
   
   // Constructors
-  Collision() : m_type(Type::kMiss) {};
+  Collision() : m_type(Type::kMiss), m_t(0){};
 
-  Collision(const glm::vec3& _x, const glm::vec3& _n, const Material*  _m) : 
-    m_type(Type::kHit), m_x{_x}, m_normal{_n}, m_material{_m} {};
+  Collision(const glm::vec3& _x, const glm::vec3& _n, const Material*  _m, float _t) : 
+    m_type(Type::kHit), m_x{_x}, m_normal{_n}, m_material{_m}, m_t(_t){};
 
   Type                m_type; ///< Type of collision object
   glm::vec3              m_x; ///< Point of collision
   glm::vec3         m_normal; ///< Normal at collision
   const Material* m_material; ///< Material of surface
+  float m_t;                    // parameter t on the ray
 };
 
 #endif

@@ -29,16 +29,29 @@ glm::vec3 getDirection(float col, float right, float left, float pixelX,
 
 }
 
+//Patrick
 Collision isCollision(const Ray& r, const Scene& s){
+
+  Collision dummy = Collision();
+
   for(int k = 0; k<s.getObj().size(); k++){//iterates through objects in scene to look for collisions with the ray
         Collision h_ = s.getObj()[k]->collide(r);//tests to see if a ray has collided with scene object
 
         //figure out if it hits something and then get the color of the x value
         //get the x value and the color and then send it into the g_frame
         if(h_.m_type==Collision::Type::kHit){
-          return h_;
+          if(dummy.m_t == 0){
+            dummy = h_;
+          }else if(h_.m_t < dummy.m_t){//used to compare t values if our ray hits more than one obj
+            dummy = h_;
+          }
+          //return h_;
           
         }
+  }
+
+  if(dummy.m_t != 0){
+    return dummy;
   }
 
   return Collision(); 
