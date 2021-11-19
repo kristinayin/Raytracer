@@ -90,11 +90,12 @@ void RayTracer::render(const Scene& _scene) const {
           if(shadow.m_type == Collision::Type::kMiss){
             float dist = glm::distance(_scene.getLights()[k].getPoint(), pointOfColl.m_x);//gets distance needed for attenuation
 
-            //float al = 1/_scene.lights[k].getLAC()[0] + _scene.lights[k].getLAC()[1]*dist + _scene.lights[k].getLAC()[2] * dist * dist;//attenuation
-            float al = 1;
+            //float al = 1/((_scene.getLights()[k].getLAC()[0]) + (_scene.getLights()[k].getLAC()[1]*dist) + (_scene.getLights()[k].getLAC()[2] * (dist * dist)));//attenuation
+            float al = 1;//this needs to be fixed
             color+= al*(pointOfColl.m_material->lambertian(_scene.getLights()[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
-
-            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], dummy._eye, pointOfColl.m_x));//adding Blinnfong shading
+            //glm::vec3 tocamera= getDirection()
+            //specular light needs to be fixed
+            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], r.m_direction, pointOfColl.m_x));//adding Blinnfong shading
           }
           
         }

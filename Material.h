@@ -10,7 +10,7 @@
 //Frankie
 struct Material {
 
-  Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka) {}
+  Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka),p(_p) {}
 
   glm::vec4 kd;
   glm::vec4 ks;
