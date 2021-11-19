@@ -25,19 +25,19 @@ class Light{
               const float a): point(p), direction(d), theta(t), i_a(ia), i_d(id), i_s(is), 
               LAC(attenconst), attenuation(a) {}// a is angular attenuation constant
 
-        glm::vec3 getPoint(){
+        const glm::vec3& getPoint()const{
             return point;
         }    
-        glm::vec4 getIa(){
+        const glm::vec4& getIa()const{
             return i_a;
         }  
-         glm::vec4 getId(){
+         const glm::vec4& getId()const{
             return i_d;
         }
-         glm::vec4 getIs(){
+         const glm::vec4& getIs()const {
             return i_s;
         }  
-        glm::vec3 getLAC(){
+        const glm::vec3& getLAC()const{
             return LAC;
         }  
 

@@ -79,9 +79,9 @@ void RayTracer::render(const Scene& _scene) const {
 
             float al = 1/_scene.lights[k].getLAC()[0] + _scene.lights[k].getLAC()[1]*dist + _scene.lights[k].getLAC()[2] * dist * dist;//attenuation
 
-            color+= al*(pointOfColl.m_material->lambertian(_scene.Lights[k], pointOfColl.m_normal, pointOfColl.m_x);//lambertian shading
+            color+= al*(pointOfColl.m_material->lambertian(_scene.lights[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
 
-            color+= al*(pointOfColl.m_material->blinnPhong(_scene.Lights[k], dummy._eye, pointOfColl.m_x));//adding Blinnfong shading
+            color+= al*(pointOfColl.m_material->blinnPhong(_scene.lights[k], dummy._eye, pointOfColl.m_x));//adding Blinnfong shading
           }
           
         }

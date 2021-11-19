@@ -5,11 +5,11 @@ void Scene::addObject(Object *_obj){
     objects.push_back(_obj);
 }
 
-/*
+
 void Scene::addLight(Light lt){
     lights.push_back(lt);
 }
-*/
+
 
 /**
 #include <string>

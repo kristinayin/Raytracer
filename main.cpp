@@ -58,17 +58,18 @@ initialize(GLFWwindow* _window) {
   glm::vec4 color2(.1f,.4f,.8f,1);
   glm::vec4 color3(.2f,.7f,.5f,1);
 
-  Material m = new Material(color,color,color,1.f);
-  Material m2 = new Material(color2,color2,color2,1.f);
-  Material m3 = new Material(color3,color3,color3,1.f);
+  Material m = Material(color,color,color,1.f);
+  Material m2 = Material(color2,color2,color2,1.f);
+  Material m3 = Material(color3,color3,color3,1.f);
   Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
   Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
   Sphere *s1 = new Sphere(glm::vec3(0,2,-10),1,m2);
   Sphere *s2 = new Sphere(glm::vec3(1,4,-8),2,m3);
   Sphere *s3 = new Sphere(glm::vec3(0,0,2),3,m);
+  Light l(glm::vec3(0,1.5,0),glm::vec4(0.5,0.5,0.5,1),glm::vec4(1,1,1,1),glm::vec4(1,1,1,1));
 
   //scn.addObject(p);
-  
+  scn.addLight(l);
   scn.addObject(p2);
   scn.addObject(s1);
   scn.addObject(s2);
@@ -227,7 +228,7 @@ main(int _argc, char** _argv) {
 
   //////////////////////////////////////////////////////////////////////////////
   // Main loop
-  Ray ry = Ray(glm::vec3(0,0,0),glm::vec3(0,0,-2));
+  /*Ray ry = Ray(glm::vec3(0,0,0),glm::vec3(0,0,-2));
   Sphere sp = Sphere(glm::vec3(0,0,-1),3);
   Plane pl= Plane(glm::vec3(0,0,1), glm::vec3(0,-1,0));
   Collision h = pl.collide(ry);
@@ -237,7 +238,7 @@ main(int _argc, char** _argv) {
   }
   if(h2.m_type==Collision::Type::kHit){
     std::cout<<" ray has hit the plane"<<std::endl;
-  }
+  }*/
   run(window);
 
   //////////////////////////////////////////////////////////////////////////////
