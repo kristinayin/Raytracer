@@ -8,7 +8,7 @@ struct Camera{
     glm::vec3 _eye{0, 0, 0}; 
     glm::vec3 u{1, 0, 0}; 
     glm::vec3 v{0, 1, 0}; 
-    glm::vec3 w{0, 0, -1};
+    glm::vec3 w{0, 0, 1};
     float focal = 1;
 };
 

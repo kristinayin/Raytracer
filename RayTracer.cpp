@@ -24,7 +24,7 @@ glm::vec3 getDirection(float col, float right, float left, float pixelX,
   
   float tau = left + ((right - left)/pixelX)*(col + 0.5);
   float sigma = bott + ((top - bott)/pixelY)*(row + 0.5);
-  glm::vec3 dir = c.focal*c.w + tau*c.u + sigma*c.v;
+  glm::vec3 dir = -c.focal*c.w + tau*c.u + sigma*c.v;
   return glm::normalize(dir);
 
 }
@@ -50,11 +50,11 @@ Collision isCollision(const Ray& r, const Scene& s){
         }
   }
 
-  if(dummy.m_t != 0){
+  //if(dummy.m_t != 0){
     return dummy;
-  }
+  
 
-  return Collision(); 
+  //return Collision(); 
 }
 
 //Frankie Z/Patrick L
@@ -88,17 +88,18 @@ void RayTracer::render(const Scene& _scene) const {
 
           Collision shadow = isCollision(toLight, _scene);//sees if shadow occurs at this point based on other objects
           if(shadow.m_type == Collision::Type::kMiss){
-            float dist = glm::distance(_scene.getLights()[k].getPoint(), pointOfColl.m_x);//gets distance needed for attenuation
+           float dist = glm::distance(_scene.getLights()[k].getPoint(), pointOfColl.m_x);//gets distance needed for attenuation
 
             //float al = 1/((_scene.getLights()[k].getLAC()[0]) + (_scene.getLights()[k].getLAC()[1]*dist) + (_scene.getLights()[k].getLAC()[2] * (dist * dist)));//attenuation
             float al = 1;//this needs to be fixed
             color+= al*(pointOfColl.m_material->lambertian(_scene.getLights()[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
             //glm::vec3 tocamera= getDirection()
             //specular light needs to be fixed
-            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], r.m_direction, pointOfColl.m_x));//adding Blinnfong shading
+            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], dummy._eye, pointOfColl.m_x));//adding Blinnfong shading
           }
           
         }
+        //color = glm::vec4((r.m_direction + glm::vec3(1, 1, 1))/2, 1.0);
         m_frame[length*j+i]= color;
        
       }

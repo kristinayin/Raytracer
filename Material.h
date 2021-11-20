@@ -18,22 +18,7 @@ struct Material {
   float p;
 
 glm::vec3 Direction(const glm::vec3& p, const glm::vec3& x)const{
-    glm::vec3 n, d, r;
-    //numerator
-    n= p-x;
-    //denominator
-    d= p-x;
-    //result
-    r=d/glm::length(d);
-    return r;
-}
-
-float Max(float z, float _m){
-  if(z<_m){
-    return _m;
-  }else{
-    return z;
-  }
+    return glm::normalize(x - p);
 }
 
 glm::vec4 lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x) const{
@@ -46,8 +31,7 @@ glm::vec4 blinnPhong(const Light& L, const glm::vec3& cam, const glm::vec3& x)co
     glm::vec3 v = Direction(x, cam);
     glm::vec3 d = L.getPoint();
     glm::vec3 l=Direction(x,d);
-    glm::vec3 h= v+l;
-    h=glm::normalize(h);
+    glm::vec3 h= (v+l)/2;//the reflection of l over the normal 
     return ks*L.getIs()*glm::pow(std::max(0.f, glm::dot(v, h)), p);
 }
 
