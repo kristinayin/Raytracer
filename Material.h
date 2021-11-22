@@ -1,6 +1,8 @@
 #ifndef _MATERIAL_H_
 #define _MATERIAL_H_
 
+#include <iostream>
+
 #include "GLInclude.h"
 #include "Lighting.h"
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,11 +29,11 @@ glm::vec4 lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x
     return kd*L.getId()*std::max(0.f,glm::dot(normal,l));
 }
 
-glm::vec4 blinnPhong(const Light& L, const glm::vec3& cam, const glm::vec3& x)const{
-    glm::vec3 v = Direction(x, cam);
+glm::vec4 blinnPhong(const Light& L,const glm::vec3& cam,const glm::vec3& x)const{
+    glm::vec3 v = glm::normalize(Direction(x, cam));
     glm::vec3 d = L.getPoint();
-    glm::vec3 l=Direction(x,d);
-    glm::vec3 h= (v+l)/2;//the reflection of l over the normal 
+    glm::vec3 l = glm::normalize(Direction(x,d));
+    glm::vec3 h= glm::normalize(v+l);
     return ks*L.getIs()*glm::pow(std::max(0.f, glm::dot(v, h)), p);
 }
 
