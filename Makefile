@@ -42,7 +42,6 @@ OBJS = \
        RayTracer.o \
        Sphere.o \
        Scene.o\
-       Lighting.o\
        main.o
 
 DEPS = ${OBJS:%.o=%.d}
