@@ -95,7 +95,7 @@ void RayTracer::render(const Scene& _scene) const {
             color+= al*(pointOfColl.m_material->lambertian(_scene.getLights()[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
             //glm::vec3 tocamera= getDirection()
             //specular light needs to be fixed
-            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k],dummy._eye, pointOfColl.m_x));//adding Blinnfong shading
+            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], dummy._eye, pointOfColl.m_normal, pointOfColl.m_x));//adding Blinnfong shading
           }
           
         }

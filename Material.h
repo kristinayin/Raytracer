@@ -29,12 +29,13 @@ glm::vec4 lambertian(const Light& L, const glm::vec3& normal, const glm::vec3& x
     return kd*L.getId()*std::max(0.f,glm::dot(normal,l));
 }
 
-glm::vec4 blinnPhong(const Light& L,const glm::vec3& cam,const glm::vec3& x)const{
+glm::vec4 blinnPhong(const Light& L,const glm::vec3& cam, const glm::vec3& normal, const glm::vec3& x)const{
     glm::vec3 v = glm::normalize(Direction(x, cam));
     glm::vec3 d = L.getPoint();
-    glm::vec3 l = glm::normalize(Direction(x,d));
-    glm::vec3 h= glm::normalize(v+l);
-    return ks*L.getIs()*glm::pow(std::max(0.f, glm::dot(v, h)), p);
+    glm::vec3 l = glm::normalize(Direction(x,d));//light vector
+    //glm::vec3 h= glm::normalize(v+l);
+    glm::vec3 r = glm::normalize(glm::reflect(-l, normal));//reflected vector
+    return ks*L.getIs()*glm::pow(std::max(0.f, glm::dot(v, r)), p);
 }
 
 glm::vec4 ambientLight(Light L)const{
