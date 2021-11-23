@@ -16,6 +16,14 @@
 // Engine
 #include "GLInclude.h"
 #include "CompileShaders.h"
+/*
+#include "RayTracer.h"
+#include "Scene.h"
+#include "Plane.h"
+#include "Sphere.h"
+#include "Object.h"
+#include "Material.h"
+*/
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Simple vertex class.
