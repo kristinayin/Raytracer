@@ -54,30 +54,34 @@ parse_obj_file(const std::string& _filename) {
     getline(ifs, line);
 
     // Parse here!
-      
-    /*
-     
-     // copied from scene.cpp in raytracer --> function
-     std::vector<std::string> parse(std::string str){
-        std::vector<std::string> split;
-        int found;
-        while(str.find(" ")!=-1){
-          found=str.find(" ");
-          split.push_back(str.substr(0,found));
-          str=str.substr(found+1);
-        }
-        split.push_back(str);
-        return split;
+    std::istringstream iss(line);
+    std::string tag;
+    iss >> tag;
+
+    if(tag == "v") {
+      glm::vec3 p;
+      iss >> p.x >> p.y >> p.z;
+      positions.emplace_back(p);
+    }
+    else if(tag == "vt") {
+      glm::vec2 t;
+      iss >> t.x >> t.y;
+      textures.emplace_back(t);
+    }
+    else if(tag == "vn") {
+      glm::vec3 n;
+      iss >> n.x >> n.y >> n.z;
+      normals.emplace_back(n);
+    }
+    else if(tag == "f") {
+      for(size_t i = 0; i < 3; ++i) {
+        std::string vert;
+        iss >> vert;
+        size_t p, t, n;
+        sscanf(vert.c_str(), "%zu/%zu/%zu", &p, &t, &n);
+        vertices.emplace_back(positions[p-1], normals[n-1], textures[t-1]);
       }
-     
-     std::vector<std::string> parsed;
-     parsed = parse(line);
-     
-     if(parsed[0] == "v") {
-         vector i = glm::vec3(stingToFloat(parsed[1]),stringToFloat(parsed[2]),stringToFloat(parsed[3]));
-        // add vertex to vector of vertices
-     }
-     */
+    }
   }
 
   std::cout << "Number of positions: " <<    positions.size() << std::endl;
