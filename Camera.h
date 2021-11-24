@@ -56,6 +56,11 @@ class Camera{
 
         void moveY(float y);//move up/down
 
+        void Camera::rotateLR(float lr);//look left right
+
+        void Camera::rotateUD(float ud);//look up down 
+
+
     private:
         glm::vec3 _eye;//camera location
         glm::vec3 _at;//where you want the camera to look at

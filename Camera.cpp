@@ -49,3 +49,18 @@ void Camera::moveZ(float z){
     _eye[2] += z;
 }
 
+void Camera::rotateLR(float lr){
+    glm::vec3 at=(_eye[0]+cos(glm::radians(lr)), _eye[1], _eye[2] + sin(glm::radians(lr))); 
+    glm::mat4 direction = lookAt(_eye,at,glm::vec3(0.f,1.f,0.f));
+    u = glm::vec3(direction[0][0], direction[0][1], direction[0][2]);
+    v = glm::vec3(direction[1][0], direction[1][1], direction[1][2]);
+    w = glm::vec3(direction[2][0], direction[2][1], direction[2][2]);
+}
+
+void Camera::rotateUD(float ud){
+    glm::vec3 at=(_eye[0], _eye[1] + sin(glm::radians(ud)), _eye[2] );  
+    glm::mat4 direction = lookAt(_eye, at, glm::vec3(0.f,1.f,0.f));
+    u = glm::vec3(direction[0][0], direction[0][1], direction[0][2]);
+    v = glm::vec3(direction[1][0], direction[1][1], direction[1][2]);
+    w = glm::vec3(direction[2][0], direction[2][1], direction[2][2]);
+}
