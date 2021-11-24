@@ -42,6 +42,7 @@ OBJS = \
        RayTracer.o \
        Sphere.o \
        Scene.o\
+       CompileShaders.o\
        main.o
 
 DEPS = ${OBJS:%.o=%.d}

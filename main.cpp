@@ -22,8 +22,31 @@
 #include "Object.h"
 #include "Material.h"
 
+/*
+#include "GLInclude.h"
+#include "CompileShaders.h"
+*/
+
+/*
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Simple vertex class.
+struct Vertex {
+  glm::vec4 pos; ///< Position
+  glm::vec4 col; ///< Color
+
+  Vertex(const glm::vec4& _pos, const glm::vec4& _col) :
+    pos{_pos}, col{_col}{}
+};
+*/
+
 ////////////////////////////////////////////////////////////////////////////////
 // Global variables - avoid these
+
+/*
+// Rendering system
+enum class Renderer {RayTracer, Rasterizer};
+constexpr Renderer g_renderer = Renderer::Rasterizer;
+*/
 
 // Window
 int g_width{1360};
@@ -35,8 +58,17 @@ RayTracer rt= RayTracer(g_width, g_height);//for testing purposes
 //Scene
 //Get help from Jory for this
 
-// Framebuffer
+// RayTracer
+//GLuint     g_texture; ///< Texture Object
+//GLuint g_framebuffer; ///< Framebuffer Object
 std::unique_ptr<glm::vec4[]> g_frame{nullptr}; ///< Framebuffer
+
+/*
+// Rasterizer
+GLuint g_program{0}; ///< Shader program
+GLuint     g_vao{0}; ///< Vertex Array Object
+GLuint     g_vbo{0}; ///< Vertex Buffer Object
+*/
 
 // Frame rate
 const unsigned int FPS = 60;
@@ -68,7 +100,7 @@ initialize(GLFWwindow* _window) {
 
   Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
   //Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
-  Sphere *s1 = new Sphere(glm::vec3(0,2,-10), 1,m2);
+  Sphere *s1 = new Sphere(glm::vec3(0,2,-10), 1,m);
   Sphere *s2 = new Sphere(glm::vec3(1,3,-15), 2,m3);
   //Sphere *s3 = new Sphere(glm::vec3(0,0,2),3,m);
   Light l(glm::vec3 (0, 5, -10), glm::vec4 (0.1, 0.1, 0.1, 1), glm::vec4 (0.5, 0.7, 0.4, 1), 
@@ -85,6 +117,55 @@ initialize(GLFWwindow* _window) {
   //scn.addObject(s3);
 
   g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);
+
+  //code is from Proj02 when dealing w/ rasterizer
+  /*
+  switch(g_renderer) {
+    case Renderer::RayTracer:
+      // Generate texture
+      glGenTextures(1, &g_texture);
+
+      // Generate framebuffer
+      glGenFramebuffers(1, &g_framebuffer);
+
+      g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);
+
+      break;
+    case Renderer::Rasterizer:
+      glEnable(GL_DEPTH_TEST);
+
+      g_program = compileProgram("Shaders/passthrough.vert",
+                                "Shaders/passthrough.frag");
+
+      // Simple static data
+      static Vertex vertices[] = {
+        Vertex{glm::vec4{-1.f, -1.f, 0, 1}, glm::vec4{1.f, 0.f, 0.f, 1.f}},
+        Vertex{glm::vec4{ 1.f,  0.f, 0, 1}, glm::vec4{0.f, 1.f, 0.f, 1.f}},
+        Vertex{glm::vec4{ 0.f,  1.f, 0, 1}, glm::vec4{0.f, 0.f, 1.f, 1.f}}
+      };
+
+      // Generate vertex array
+      glGenVertexArrays(1, &g_vao);
+      glBindVertexArray(g_vao);
+
+      // Generate/specify vertex buffer
+      glGenBuffers(1, &g_vbo);
+      glBindBuffer(GL_ARRAY_BUFFER, g_vbo);
+      glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*3, vertices, GL_STATIC_DRAW);
+
+      glEnableVertexAttribArray(0);
+      glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE,
+                            sizeof(Vertex), (char*)NULL + 0);
+      glEnableVertexAttribArray(1);
+      glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE,
+                            sizeof(Vertex), (char*)NULL + sizeof(glm::vec4));
+
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+      glBindVertexArray(0);
+
+      break;
+  }
+  */
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -92,6 +173,12 @@ initialize(GLFWwindow* _window) {
 ///
 /// Responsible for setting window size (viewport) and projection matrix.
 void resize(GLFWwindow* window, int _w, int _h) {
+  /*
+  // Resize the framebuffer if we are ray tracing and the screen gets larger.
+  if (g_renderer == Renderer::RayTracer && g_width*g_height >= _w*_h) {
+    g_frame = std::make_unique<glm::vec4[]>(_w*_h);
+  }
+  */
   g_width = _w;
   g_height = _h;
 
@@ -108,13 +195,55 @@ draw(GLFWwindow* _window, double _currentTime) {
   // Clear
   glClear(GL_COLOR_BUFFER_BIT);
 
+  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //from Proj02 file
+
+  /*
+  if(g_renderer == Renderer::RayTracer) {
+    // Not strictly necessary...
+    for(int i = 0; i < g_width*g_height; ++i)
+      g_frame[i] = glm::vec4(0.f, 0.4f, 0.f, 0.f);
+  }
+  */
+
   rt.clear();  
   //////////////////////////////////////////////////////////////////////////////
   // Draw
-  // Simple static :P
+  //from Proj02 code
+  /*
+  switch(g_renderer) {
+    case Renderer::RayTracer:
+      // Simple static :P
+      for(int i = 0; i < g_width*g_height; ++i)
+        g_frame[i] = glm::vec4(float(rand())/RAND_MAX, float(rand())/RAND_MAX,
+                              float(rand())/RAND_MAX, 1.f);
+
+      // Open GL3 way of copying an image from the CPU to the
+      // full screen on the GPU
+      glBindTexture(GL_TEXTURE_2D, g_texture);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, g_width, g_height, 0, GL_RGBA,
+                  GL_FLOAT, g_frame.get());
+
+
+      glBindFramebuffer(GL_DRAW_FRAMEBUFFER, g_framebuffer);
+      glFramebufferTexture(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, g_texture, 0);
+
+      glBindFramebuffer(GL_READ_FRAMEBUFFER, g_framebuffer);
+      glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+      glBlitFramebuffer(0, 0, g_width, g_height, 0, 0, g_width, g_height,
+                        GL_COLOR_BUFFER_BIT, GL_NEAREST);
+      glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+      glBindTexture(GL_TEXTURE_2D, 0);
+      break;
+
+    case Renderer::Rasterizer:
+      // Render the triangle
+      glBindVertexArray(g_vao);
+      glDrawArrays(GL_TRIANGLES, 0, 3);
+      glBindVertexArray(0);
+      break;
+  }
+  */
   rt.render(scn);
-  
-  
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -179,6 +308,26 @@ keyCallback(GLFWwindow* _window, int _key, int _scancode,
   }
 }
 
+/*
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Callback function for window closing
+/// @param _window
+void
+windowCloseCallback(GLFWwindow* _window) {
+  // Clean up memory by releasing GPU resources
+  switch(g_renderer) {
+    case Renderer::RayTracer:
+      glDeleteTextures(1, &g_texture);
+      glDeleteFramebuffers(1, &g_framebuffer);
+      break;
+    case Renderer::Rasterizer:
+      glDeleteBuffers(1, &g_vbo);
+      glDeleteVertexArrays(1, &g_vao);
+      break;
+  }
+}
+*/
+
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Error handler
 /// @param _code Error code
@@ -199,8 +348,6 @@ int
 main(int _argc, char** _argv) {
   //////////////////////////////////////////////////////////////////////////////
   // Initialize
-
-
   Scene scn = Scene();
   //rt.render(scn);
   
@@ -211,6 +358,13 @@ main(int _argc, char** _argv) {
     std::cerr << "GLFW Cannot initialize" << std::endl;
     return 1;
   }
+
+  /*
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  */
 
   GLFWwindow* window = glfwCreateWindow(
     g_width, g_height, "Spiderling: A Rudamentary Game Engine", NULL, NULL);
