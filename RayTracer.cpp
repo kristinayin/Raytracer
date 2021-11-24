@@ -29,7 +29,7 @@ glm::vec3 getDirection(float col, float right, float left, float pixelX,
 
 }
 
-//Patrick
+//Patrick/Kristina
 Collision isCollision(const Ray& r, const Scene& s){
 
   Collision dummy = Collision();
@@ -49,17 +49,13 @@ Collision isCollision(const Ray& r, const Scene& s){
           
         }
   }
-
-  //if(dummy.m_t != 0){
-    return dummy;
+  return dummy;
   
-
-  //return Collision(); 
 }
 
 //Frankie Z/Patrick L
 void RayTracer::render(const Scene& _scene) const {
-  Camera dummy;
+  Camera dummy = _scene.getCam();
 
   int length=1360;
   int height= 768;

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Object.h"
+#include "Camera.h"
 
 class Scene {
   public:
@@ -19,10 +20,14 @@ class Scene {
       return lights;
     }
 
+    const Camera& getCam() const{
+      return c;
+    }
+
   private:
     std::vector<Object*> objects;
     std::vector<Light> lights;//adding a light vector
-    
+    Camera c;
     /**
     #include <iostream>//stringstream
      
