@@ -118,6 +118,7 @@ initialize(GLFWwindow* _window) {
 
   g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);
 
+  //initialize method to Renderer (like initialize g_frame)
   //code is from Proj02 when dealing w/ rasterizer
   /*
   switch(g_renderer) {
@@ -255,6 +256,9 @@ run(GLFWwindow* _window) {
   std::cout << "Starting main loop" << std::endl;
 
   while(!glfwWindowShouldClose(_window)) {
+    //keyboard input??
+    //char x;
+    //cin>>x;
     draw(_window, glfwGetTime());
     ////////////////////////////////////////////////////////////////////////////
     // Show

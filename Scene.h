@@ -24,6 +24,10 @@ class Scene {
       return c;
     }
 
+  glm::mat4 mv(glm::mat4 view, glm::mat4 transfomation){
+    return view*transformation;
+  }
+
   private:
     std::vector<Object*> objects;
     std::vector<Light> lights;//adding a light vector

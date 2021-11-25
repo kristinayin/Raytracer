@@ -24,7 +24,8 @@ glm::vec3 getDirection(float col, float right, float left, float pixelX,
   
   float tau = left + ((right - left)/pixelX)*(col + 0.5);
   float sigma = bott + ((top - bott)/pixelY)*(row + 0.5);
-  glm::vec3 dir = -c.focal*c.w + tau*c.u + sigma*c.v;
+  glm::vec3 dir = -c.focal*c.w + tau*c.u + sigma*c.v;//need to change focal length to something like n.getN();
+  //u, v, w will just be the unit vectors
   return glm::normalize(dir);
 
 }
@@ -55,7 +56,7 @@ Collision isCollision(const Ray& r, const Scene& s){
 
 //Frankie Z/Patrick L
 void RayTracer::render(const Scene& _scene) const {
-  Camera dummy = _scene.getCam();
+  const Camera &camera = _scene.getCam();
 
   int length=1360;
   int height= 768;
@@ -67,9 +68,9 @@ void RayTracer::render(const Scene& _scene) const {
   for(int i = 0; i<length; i++){//length is # of col
     for(int j = 0; j<height; j++){//height is # of rows
       
-      glm::vec3 direction = getDirection(i, r, l, length, j, t, b, height, dummy);//calculates direction from camera to fragment
+      glm::vec3 direction = getDirection(i, r, l, length, j, t, b, height, camera);//calculates direction from camera to fragment
 
-      Ray r(dummy._eye,direction);//using ray struct that takes in some origin and direction
+      Ray r(camera._eye,direction);//using ray struct that takes in some origin and direction
       //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;
       Collision pointOfColl = isCollision(r, _scene);
       
@@ -91,7 +92,7 @@ void RayTracer::render(const Scene& _scene) const {
             color+= al*(pointOfColl.m_material->lambertian(_scene.getLights()[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
             //glm::vec3 tocamera= getDirection()
             //specular light needs to be fixed
-            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], dummy._eye, pointOfColl.m_normal, pointOfColl.m_x));//adding Blinnfong shading
+            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], camera._eye, pointOfColl.m_normal, pointOfColl.m_x));//adding Blinnfong shading
           }
           
         }

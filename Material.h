@@ -12,6 +12,8 @@
 //Frankie, Patrick
 struct Material {
 
+  //update Material struct
+  //use ifstream to read in values
   Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka),p(_p) {}
 
   glm::vec4 kd;
