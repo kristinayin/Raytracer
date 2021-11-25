@@ -1,7 +1,7 @@
-Camera eye 0 0 0 at 0 0 -1 up 0 1 0
+Camera eye 0 0 0 at 0 0 -1 up 0 1 0 ~Camera
 Projection perspective 1 45 16:9
 Sphere center 0 -5 -10 radius 3 ~Sphere
-Plane p 0 0 0 n 0 1 0 ~Plane // sets point to (0,0,0) and normal to (0,1,0)
+Plane p 0 0 0 n 0 1 0 ~Plane // sets point to (0,0,0) and normal to (0,1,0) ~Plane
 
 Camera
 	Eye	0  0  0
