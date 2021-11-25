@@ -52,7 +52,6 @@ parse_obj_file(const std::string& _filename) {
   std::string line;
   while(ifs) {
     getline(ifs, line);
-
     // Parse here!
     std::istringstream iss(line);
     std::string tag;
