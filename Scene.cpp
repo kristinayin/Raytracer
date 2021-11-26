@@ -32,8 +32,9 @@ void Scene::addLight(Light lt){
     return split;
   }
  
- // take in example.scene file
- void Scene::readFromFile(const std::string& file) {
+// take in example.scene file
+// to do: take in lights
+void Scene::readFromFile(const std::string& file) {
     std::string line;
     std::ifstream File;
     File.open(file);
@@ -84,8 +85,10 @@ void Scene::addLight(Light lt){
                         cUp = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3])); 
                     }
                 }
+                c = new Camera(cEye, cAt, cUp, float 1, float 10);
             }
+        }
     }
- }
+}
  
 
