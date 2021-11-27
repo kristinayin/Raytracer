@@ -7,7 +7,7 @@
 //Patrick (working on camera transformations for Segment 2)
 class Camera{
     public:
-        Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float _n, float _f): _eye(eye), _at(at), _up(up), _n(n), _f(f) {};
+        Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float n, float f): _eye(eye), _at(at), _up(up), _n(n), _f(f) {};
 
         Camera(): _eye(glm::vec3{0, 0, 0}), _at(glm::vec3 {0, 0, 1}), _up(glm::vec3 {0,1,0}), _n(1), _f(10){};
         //this function is for model matrix (model -> world transformation)

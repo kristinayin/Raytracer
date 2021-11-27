@@ -24,7 +24,7 @@ class Scene {
       return c;
     }
 
-  glm::mat4 mv(glm::mat4 view, glm::mat4 transfomation){
+  glm::mat4 mv(glm::mat4 view, glm::mat4 transformation){
     return view*transformation;
   }
 
