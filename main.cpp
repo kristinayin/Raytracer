@@ -295,16 +295,37 @@ keyCallback(GLFWwindow* _window, int _key, int _scancode,
            int _action, int _mods) {
   if(_action == GLFW_PRESS) {
     switch(_key) {
+      //movement keys
+      case GLFW_KEY_W:
+        scn.getCam().moveX(-1);
+        break;
+       case GLFW_KEY_S:
+        scn.getCam().moveX(1);
+        break;
+       case GLFW_KEY_A:
+        scn.getCam().moveY(-1);
+        break;
+      case GLFW_KEY_D:
+        scn.getCam().moveY(1);
+        break;
+      case GLFW_KEY_LEFT:
+        scn.getCam().rotateLR(float 2);
+        break;
+      case GLFW_KEY_RIGHT:
+        scn.getCam().rotateLR(float -2);
+        break;
+      case GLFW_KEY_UP:
+        scn.getCam().rotateUD(float 2);
+        break;
+      case GLFW_KEY_DOWN:
+        scn.getCam().rotateUD(float -2);
+        break;
       // Escape key : quit application
       case GLFW_KEY_ESCAPE:
         std::cout << "Closing window" << std::endl;
         glfwSetWindowShouldClose(_window, GLFW_TRUE);
         break;
         // Arrow keys
-      case GLFW_KEY_LEFT:
-      case GLFW_KEY_RIGHT:
-        break;
-        // Unhandled
       default:
         std::cout << "Unhandled key: " << _key << std::endl;
         break;
