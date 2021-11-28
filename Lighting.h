@@ -30,8 +30,8 @@ class Light{
         }    
         const glm::vec4& getIa()const{
             return i_a;
-        }  
-         const glm::vec4& getId()const{
+        }
+        const glm::vec4& getId()const{
             return i_d;
         }
          const glm::vec4& getIs()const {

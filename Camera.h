@@ -27,6 +27,14 @@ class Camera{
 
         void rotateUD(float ud);//look up down
 
+        int getN() const{
+            return _n;
+        }
+
+        const glm::vec3& getEye() const{
+            return _eye;
+        }
+
         //need to include a point when doing mv matrix
         //camera uses view matrix
         //object uses transformation matrix

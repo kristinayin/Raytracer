@@ -24,7 +24,7 @@ glm::vec3 getDirection(float col, float right, float left, float pixelX,
   
   float tau = left + ((right - left)/pixelX)*(col + 0.5);
   float sigma = bott + ((top - bott)/pixelY)*(row + 0.5);
-  glm::vec3 dir = -c._f*c.w + tau*c.u + sigma*c.v;//need to change focal length to something like n.getN();
+  glm::vec3 dir = -c.getN()*glm::vec3(0, 0, 1) + tau*glm::vec3(1, 0, 0) + sigma*(0, 1, 0);
   //u, v, w will just be the unit vectors
   return glm::normalize(dir);
 
@@ -70,7 +70,7 @@ void RayTracer::render(const Scene& _scene) const {
       
       glm::vec3 direction = getDirection(i, r, l, length, j, t, b, height, camera);//calculates direction from camera to fragment
 
-      Ray r(camera._eye,direction);//using ray struct that takes in some origin and direction
+      Ray r(camera.getEye(),direction);//using ray struct that takes in some origin and direction
       //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;
       Collision pointOfColl = isCollision(r, _scene);
       
@@ -92,7 +92,7 @@ void RayTracer::render(const Scene& _scene) const {
             color+= al*(pointOfColl.m_material->lambertian(_scene.getLights()[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
             //glm::vec3 tocamera= getDirection()
             //specular light needs to be fixed
-            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], camera._eye, pointOfColl.m_normal, pointOfColl.m_x));//adding Blinnfong shading
+            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], camera.getEye(), pointOfColl.m_normal, pointOfColl.m_x));//adding Blinnfong shading
           }
           
         }
