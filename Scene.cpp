@@ -43,32 +43,45 @@ void Scene::readFromFile(const std::string& file) {
             if(line=="Sphere"){
                 glm::vec3 sCenter;
                 float sRadius;
+                // read in material
+                glm::vec4 sKd, sKs, sKa;
+                float sP;
+                Material sMaterial(sKd, sKs, sKa, sP);
                 while(getline(File, line)) {
                     if (line == "~Sphere") { break; }
                     std::vector<std::string> parsed;
                     parsed = parse(line);
                     if(parsed[0] == "center") {
-                        sCenter = glm::vec3(stingToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
+                        sCenter = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
                     }
                     if(parsed[0] == "radius") {
                         sRadius = stringToFloat(parsed[1]);
                     }
+                    /*
+                    if (parsed[0] == "material") {
+                        sMaterial = 
+                    }
+                    */
                 }
-            objects.push_back(new Sphere(sCenter, sRadius));
+            objects.push_back(new Sphere(sCenter, sRadius, sMaterial));
             } else if (line=="Plane") {
                 glm::vec3 pPosition, pNormal;
+                glm::vec4 pKd, pKs, pKa;
+                float pP;
+                Material pMaterial(pKd, pKs, pKa, pP);
+                // read in material
                 while(getline(File, line)) {
                     if (line=="~Plane"){ break; }
                     std::vector<std::string> parsed;
                     parsed = parse(line);
                     if(parsed[0]=="p") {
-                        pPosition = glm::vec3(stingToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
+                        pPosition = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
                     }
                     if(parsed[0]=="n") {
-                        pNormal = glm::vec3(stingToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
+                        pNormal = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
                     }
                 }
-            objects.push_back(new Plane(pNormal, pPostition);
+            objects.push_back(new Plane(pNormal, pPosition, pMaterial));
             } else if (line=="Camera") {
                 glm::vec3 cEye, cAt, cUp;
                 while (getline(File, line)) {
@@ -85,7 +98,7 @@ void Scene::readFromFile(const std::string& file) {
                         cUp = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3])); 
                     }
                 }
-                c = new Camera(cEye, cAt, cUp, float 1, float 10);
+                c = new Camera(cEye, cAt, cUp, 1, 10);
             }
         }
     }
