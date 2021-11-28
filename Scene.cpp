@@ -3,6 +3,7 @@
 #include <string>
 #include "Sphere.h"
 #include "Plane.h"
+#include <fstream>
 
 void Scene::addObject(Object *_obj){
     objects.push_back(_obj);
@@ -94,11 +95,11 @@ void Scene::readFromFile(const std::string& file) {
                     if (parsed[0]=="at") {
                         cAt = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
                     }
-                    if (parsed[0])=="up") {
+                    if (parsed[0]=="up") {
                         cUp = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3])); 
                     }
                 }
-                c = new Camera(cEye, cAt, cUp, 1, 10);
+                c = Camera(cEye, cAt, cUp, 1, 10);
             }
         }
     }
