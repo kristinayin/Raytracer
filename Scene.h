@@ -10,6 +10,7 @@ class Scene {
     Scene(){}
     void addObject(Object *_obj);
     void addLight(Light lt);
+    void readFromFile(const std::string& file);
     //making objects vector public for now
     
     const std::vector<Object*>& getObj() const{
@@ -23,6 +24,7 @@ class Scene {
     const Camera& getCam() const{
       return c;
     }
+    
 
   glm::mat4 mv(glm::mat4 view, glm::mat4 transformation){
     return view*transformation;

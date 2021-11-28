@@ -14,7 +14,7 @@ void Scene::addLight(Light lt){
 }
  
  // converts strings to float values
- void stringToFloat(const std::string& str) {
+ float stringToFloat(const std::string& str) {
     float f = std::stof(str);
     return f;
  }
