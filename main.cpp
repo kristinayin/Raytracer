@@ -23,7 +23,6 @@
 #include "Material.h"
 
 /*
-#include "GLInclude.h"
 #include "CompileShaders.h"
 */
 
@@ -52,7 +51,6 @@ constexpr Renderer g_renderer = Renderer::Rasterizer;
 int g_width{1360};
 int g_height{768};
 Scene scn = Scene();
-
 RayTracer rt= RayTracer(g_width, g_height);//for testing purposes
 
 //Scene
@@ -86,6 +84,7 @@ float g_framesPerSecond{0.f};
 void
 initialize(GLFWwindow* _window) {
   glClearColor(0.f, 0.f, 0.f, 1.f);
+
   glm::vec4 a_color(.6f,.2f,.4f,1);
   glm::vec4 d_color(.1f,.4f,.8f,1);
   glm::vec4 s_color(1.f,.8f,0.f,1);
@@ -108,11 +107,11 @@ initialize(GLFWwindow* _window) {
   //Light l2(glm::vec3(-1,3,1),glm::vec4(0.1,0.1,0.3,1),glm::vec4(0.3,0.7,0.4,1),glm::vec4(0.8,0.7,0.9,1),glm::vec3(1,3,.6));
   //Light l3(glm::vec3(1,7,-15),glm::vec4(0.3,0.2,0.1,1),glm::vec4(0.8,0.9,0.9,1),glm::vec4(0.8,0.9,0.9,1), glm::vec3 (1., 1., 1.));
   //scn.addObject(p);
-  scn.addLight(l);
+  //scn.addLight(l);
   //scn.addLight(l3);
   //scn.addLight(l3);
-  scn.addObject(p);
-  scn.addObject(s1);
+  //scn.addObject(p);
+  //scn.addObject(s1);
   //scn.addObject(s2);
   //scn.addObject(s3);
 
@@ -256,9 +255,6 @@ run(GLFWwindow* _window) {
   std::cout << "Starting main loop" << std::endl;
 
   while(!glfwWindowShouldClose(_window)) {
-    //keyboard input??
-    //char x;
-    //cin>>x;
     draw(_window, glfwGetTime());
     ////////////////////////////////////////////////////////////////////////////
     // Show

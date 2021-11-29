@@ -18,6 +18,6 @@ void Camera::rotateLR(float lr){
 }
 
 //glm::rotate
-void Camera::rotateUD(float ud){
+void Camera::rotateUD(float ud){ 
     _at=glm::vec3 (_eye[0], _eye[1] + sin(glm::radians(ud)), _eye[2] );  
 }

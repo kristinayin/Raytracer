@@ -4,7 +4,7 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include <fstream>
-
+/*
 void Scene::addObject(Object *_obj){
     objects.push_back(_obj);
 }
@@ -13,6 +13,7 @@ void Scene::addObject(Object *_obj){
 void Scene::addLight(Light lt){
     lights.push_back(lt);
 }
+*/
  
  // converts strings to float values
  float stringToFloat(const std::string& str) {
@@ -103,6 +104,8 @@ void Scene::readFromFile(const std::string& file) {
             }
         }
     }
+
+    File.close();
 }
  
 
