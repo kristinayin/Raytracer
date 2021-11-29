@@ -14,10 +14,10 @@ void Camera::moveZ(float z){
 
 //glm::rotate
 void Camera::rotateLR(float lr){
-    glm::vec3 at=(_eye[0]+cos(glm::radians(lr)), _eye[1], _eye[2] + sin(glm::radians(lr))); 
+    _at=glm::vec3(_eye[0]+cos(glm::radians(lr)), _eye[1], _eye[2] + sin(glm::radians(lr))); 
 }
 
 //glm::rotate
 void Camera::rotateUD(float ud){
-    glm::vec3 at=(_eye[0], _eye[1] + sin(glm::radians(ud)), _eye[2] );  
+    _at=glm::vec3 (_eye[0], _eye[1] + sin(glm::radians(ud)), _eye[2] );  
 }

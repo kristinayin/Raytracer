@@ -43,7 +43,8 @@ OBJS = \
        Sphere.o \
        Scene.o\
        CompileShaders.o\
-       main.o
+       main.o\
+       Camera.o
 
 DEPS = ${OBJS:%.o=%.d}
 

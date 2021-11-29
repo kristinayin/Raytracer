@@ -24,6 +24,9 @@ class Scene {
     const Camera& getCam() const{
       return c;
     }
+    Camera& getCam(){
+      return c;
+    }
     
 
   glm::mat4 mv(glm::mat4 view, glm::mat4 transformation){
