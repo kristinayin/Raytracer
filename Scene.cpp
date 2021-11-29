@@ -48,7 +48,7 @@ void Scene::readFromFile(const std::string& file) {
                 // read in material
                 glm::vec4 sKd, sKs, sKa;
                 float sP;
-                Material sMaterial(sKd, sKs, sKa, sP);
+                Material sMaterial;
                 while(getline(File, line)) {
                     if (line == "~Sphere") { break; }
                     std::vector<std::string> parsed;
@@ -59,18 +59,22 @@ void Scene::readFromFile(const std::string& file) {
                     if(parsed[0] == "radius") {
                         sRadius = stringToFloat(parsed[1]);
                     }
-                    /*
                     if (parsed[0] == "material") {
-                        sMaterial = 
+                        sMaterial.readMtl(parsed[1]);
+                        sKa = sMaterial.ka;
+                        sKd = sMaterial.kd;
+                        sKs = sMaterial.ks;
+                        sP = sMaterial.p;
+                        sMaterial = Material(sKd, sKs, sKa, sP);
                     }
-                    */
+                    
                 }
             objects.push_back(new Sphere(sCenter, sRadius, sMaterial));
             } else if (line=="Plane") {
                 glm::vec3 pPosition, pNormal;
                 glm::vec4 pKd, pKs, pKa;
                 float pP;
-                Material pMaterial(pKd, pKs, pKa, pP);
+                Material pMaterial;
                 // read in material
                 while(getline(File, line)) {
                     if (line=="~Plane"){ break; }
@@ -81,6 +85,14 @@ void Scene::readFromFile(const std::string& file) {
                     }
                     if(parsed[0]=="n") {
                         pNormal = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
+                    }
+                    if (parsed[0] == "material") {
+                        pMaterial.readMtl(parsed[1]);
+                        pKa = pMaterial.ka;
+                        pKd = pMaterial.kd;
+                        pKs = pMaterial.ks;
+                        pP = pMaterial.p;
+                        pMaterial = Material(pKd, pKs, pKa, pP);
                     }
                 }
             objects.push_back(new Plane(pNormal, pPosition, pMaterial));

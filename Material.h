@@ -13,19 +13,19 @@
 
 //Frankie, Patrick
 struct Material {
-  glm::vec4 kd;
-  glm::vec4 ks;
-  glm::vec4 ka;
-  float p;
+  glm::vec4 kd;//diffuse
+  glm::vec4 ks;//specular
+  glm::vec4 ka;//ambient
+  float p;//shininess
   //update Material struct
   //use ifstream to read in values
-  /*
+  
   // converts strings to float values
   float stringToFloat(const std::string& str) {
      float f = std::stof(str);
      return f;
   }
- 
+ /*
  // parse through, make each word (split by space) into a string
   std::vector<std::string> parse(std::string str){
      std::vector<std::string> split;
@@ -38,8 +38,8 @@ struct Material {
      split.push_back(str);
      return split;
   }
-
-  void readMtl(const std::string& mltFile){//read thru one mtl file for each obj
+  */
+  void readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
     std::string line;
     std::ifstream mtl;
     mtl.open(mtlFile);
@@ -47,19 +47,30 @@ struct Material {
     if(mtl.is_open()){
       while(getline(mtl, line)){
         if(line == "Ka"){//ambient
-
+          //set ka[0] = first value in line
+          //set ka[1] = second value in line
+          //set ka[2] = third value in line
+          //set ka[3] = 1
         }else if(line == "Kd"){//diffuse
-
+          //set kd[0] = first value in line
+          //set kd[1] = second value in line
+          //set kd[2] = third value in line
+          //set kd[3] = 1
         }else if(line == "Ks"){//specular
-
+          //set ks[0] = first value in line
+          //set ks[1] = second value in line
+          //set ks[2] = third value in line
+          //set ks[3] = 1
         }else if(line == "Ns"){//shininess
-
+          //p = value of Ns
         }
       }
     }
-  }
-  */
 
+    mtl.close();
+  }
+  
+  Material(){};
   Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka),p(_p) {}
 
   
