@@ -1,5 +1,6 @@
 #include "Camera.h"
 
+/*
 void Camera::moveX(float x){
     _eye[0] += x;
 }
@@ -21,3 +22,4 @@ void Camera::rotateLR(float lr){
 void Camera::rotateUD(float ud){ 
     _at=glm::vec3 (_eye[0], _eye[1] + sin(glm::radians(ud)), _eye[2] );  
 }
+*/

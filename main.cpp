@@ -95,7 +95,7 @@ initialize(GLFWwindow* _window) {
 
   Material m = Material(a_color, a_color, s_color, 10.f);
   Material m2 = Material(a_color3,d_color,s_color, 100.f);
-  Material m3 = Material(a_color3,d_color3,s_color3, 1.f);
+  Material m3 = Material(a_color3,d_color3,s_color3, 10.f);
 
   Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
   //Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
@@ -107,12 +107,12 @@ initialize(GLFWwindow* _window) {
   //Light l2(glm::vec3(-1,3,1),glm::vec4(0.1,0.1,0.3,1),glm::vec4(0.3,0.7,0.4,1),glm::vec4(0.8,0.7,0.9,1),glm::vec3(1,3,.6));
   //Light l3(glm::vec3(1,7,-15),glm::vec4(0.3,0.2,0.1,1),glm::vec4(0.8,0.9,0.9,1),glm::vec4(0.8,0.9,0.9,1), glm::vec3 (1., 1., 1.));
   //scn.addObject(p);
-  //scn.addLight(l);
+  scn.addLight(l);
   //scn.addLight(l3);
   //scn.addLight(l3);
-  //scn.addObject(p);
-  //scn.addObject(s1);
-  //scn.addObject(s2);
+  scn.addObject(p);
+  scn.addObject(s1);
+  scn.addObject(s2);
   //scn.addObject(s3);
 
   g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);

@@ -4,7 +4,7 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include <fstream>
-/*
+
 void Scene::addObject(Object *_obj){
     objects.push_back(_obj);
 }
@@ -13,8 +13,8 @@ void Scene::addObject(Object *_obj){
 void Scene::addLight(Light lt){
     lights.push_back(lt);
 }
-*/
- 
+
+ /*
  // converts strings to float values
  float stringToFloat(const std::string& str) {
     float f = std::stof(str);
@@ -48,7 +48,7 @@ void Scene::readFromFile(const std::string& file) {
                 // read in material
                 glm::vec4 sKd, sKs, sKa;
                 float sP;
-                Material sMaterial;
+                //Material sMaterial;
                 while(getline(File, line)) {
                     if (line == "~Sphere") { break; }
                     std::vector<std::string> parsed;
@@ -60,12 +60,14 @@ void Scene::readFromFile(const std::string& file) {
                         sRadius = stringToFloat(parsed[1]);
                     }
                     if (parsed[0] == "material") {
+                        /*
                         sMaterial.readMtl(parsed[1]);
                         sKa = sMaterial.ka;
                         sKd = sMaterial.kd;
                         sKs = sMaterial.ks;
                         sP = sMaterial.p;
                         sMaterial = Material(sKd, sKs, sKa, sP);
+                        
                     }
                     
                 }
@@ -74,7 +76,7 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec3 pPosition, pNormal;
                 glm::vec4 pKd, pKs, pKa;
                 float pP;
-                Material pMaterial;
+                //Material pMaterial;
                 // read in material
                 while(getline(File, line)) {
                     if (line=="~Plane"){ break; }
@@ -87,12 +89,14 @@ void Scene::readFromFile(const std::string& file) {
                         pNormal = glm::vec3(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]));
                     }
                     if (parsed[0] == "material") {
+                        /*
                         pMaterial.readMtl(parsed[1]);
                         pKa = pMaterial.ka;
                         pKd = pMaterial.kd;
                         pKs = pMaterial.ks;
                         pP = pMaterial.p;
                         pMaterial = Material(pKd, pKs, pKa, pP);
+                        
                     }
                 }
             objects.push_back(new Plane(pNormal, pPosition, pMaterial));
@@ -118,6 +122,7 @@ void Scene::readFromFile(const std::string& file) {
     }
 
     File.close();
+    
 }
  
-
+*/
