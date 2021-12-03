@@ -11,9 +11,7 @@
 #include <memory>
 #include <thread>
 //Frankie
-void RayTracer::clear() const {//what does this func do? //iterate framebuffer to set to background
-  //prob do some for loop in this function by using the m_frame
-
+void RayTracer::clear() const {//makes a blank white screen
   for(int i = 0; i< m_width * m_height; i++){
     m_frame[i]=glm::vec4(1.f,1.f,1.f,1.f);
   }
@@ -46,7 +44,6 @@ Collision isCollision(const Ray& r, const Scene& s){
           }else if(h_.m_t < dummy.m_t){//used to compare t values if our ray hits more than one obj
             dummy = h_;
           }
-          //return h_;
           
         }
   }
@@ -57,7 +54,6 @@ Collision isCollision(const Ray& r, const Scene& s){
 //Frankie Z/Patrick L
 void RayTracer::render(const Scene& _scene) const {
   const Camera &camera = _scene.getCam();
-  //Camera camera;
   int length=1360;
   int height= 768;
   float t = 1.f*tan(glm::radians(45.f/2));
@@ -90,8 +86,6 @@ void RayTracer::render(const Scene& _scene) const {
             //float al = 1/((_scene.getLights()[k].getLAC()[0]) + (_scene.getLights()[k].getLAC()[1]*dist) + (_scene.getLights()[k].getLAC()[2] * (dist * dist)));//attenuation
             float al = 1;//this needs to be fixed
             color+= al*(pointOfColl.m_material->lambertian(_scene.getLights()[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
-            //glm::vec3 tocamera= getDirection()
-            //specular light needs to be fixed
             color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], camera.getEye(), pointOfColl.m_normal, pointOfColl.m_x));//adding Blinnfong shading
           }
           
@@ -100,9 +94,6 @@ void RayTracer::render(const Scene& _scene) const {
         m_frame[length*j+i]= color;
        
       }
-      
-      
-      //std::cout<<" ray has hit the plane"<<std::endl;
     
       // this should draw pixels to the framebuffer and give them a generic color
       //glm::vec4 color((direction+glm::vec3(1,1,1))/2,1);

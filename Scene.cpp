@@ -4,11 +4,6 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include <fstream>
-/*
-void Scene::addObject(Object *_obj){
-    objects.push_back(_obj);
-}
-*/
 
 void Scene::addLight(Light lt){
     lights.push_back(lt);
@@ -59,9 +54,7 @@ void Scene::readFromFile(const std::string& file) {
                 Material sMaterial = Material(a_color, d_color, s_color, 10.f);
 
                 std::cout<<"Reading sphere line"<<std::endl;
-                for(int i = 1; i<parsed.size(); i++){
-                    //if (parsed[i] == "~Sphere") { break; }
-                        
+                for(int i = 1; i<parsed.size(); i++){          
                     if(parsed[i] == "center") {
                         std::cout<<"Reading center"<<std::endl;
                         sCenter = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
@@ -78,31 +71,6 @@ void Scene::readFromFile(const std::string& file) {
 
                     }
 
-                /*
-                while(getline(File, line)) {
-                    std::cout<<"Reading sphere line"<<std::endl;
-                    for(int i = 1; i<parsed.size(); i++){
-                        //if (parsed[i] == "~Sphere") { break; }
-                        
-                        if(parsed[i] == "center") {
-                            std::cout<<"Reading center"<<std::endl;
-                            sCenter = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
-                        }
-                        if(parsed[i] == "radius") {
-                            std::cout<<"Reading radius"<<std::endl;
-                            sRadius = stringToFloat(parsed[i+1]);
-                        }
-                        /*
-                        if (parsed[i] == "material") {
-                            sMaterial.readMtl(parsed[i+1]);
-                        }
-                        
-
-                    }
-                    
-                    
-                }
-                */
                 std::cout<<"Added a new sphere"<<std::endl;
                 objects.push_back(new Sphere(sCenter, sRadius, sMaterial));
             
@@ -117,11 +85,7 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec4 s_color3(.6f,.8f,.2f,1);
 
                 Material pMaterial = Material(a_color3, d_color3, s_color3, 10.f);
-                // read in material
-                
-                for(int i = 0; i<parsed.size(); i++){
-                    //if (parsed[i] == "~Plane"){ break; }
-                        
+                for(int i = 0; i<parsed.size(); i++){           
                     if(parsed[i]=="p") {
                         std::cout<<"Reading place: "<<parsed[i+1]<<std::endl;
                         pPosition = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
@@ -137,29 +101,7 @@ void Scene::readFromFile(const std::string& file) {
                     }*/
                         
                 }
-                /*
-                while(getline(File, line)) {
-                    for(int i = 0; i<parsed.size(); i++){
-                        //if (parsed[i] == "~Plane"){ break; }
-                        
-                        if(parsed[i]=="p") {
-                            std::cout<<"Reading place: "<<parsed[i+1]<<std::endl;
-                            pPosition = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
-                        }
-                        if(parsed[i]=="n") {
-                            std::cout<<"Reading normal: "<<parsed[i+1]<<std::endl;
-                            pNormal = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
-                        }
-                        /*
-                        if (parsed[i] == "material") {
-                            pMaterial.readMtl(parsed[i+1]);
-                            
-                        }
-                        
-                    }
-                    
-                }
-                */
+                
                 std::cout<<"Added a new plane"<<std::endl;
                 objects.push_back(new Plane(pNormal, pPosition, pMaterial));
             /*
