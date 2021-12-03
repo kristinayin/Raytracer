@@ -15,7 +15,7 @@ Collision Plane:: collide(const Ray& _ray) const {
     if(detectCollision != 0){
         float t = (glm::dot((point - _ray.m_origin), normal))/(detectCollision);
 
-        if(t>0){
+        if(t>0.001){
             x = _ray.at(t);
             Collision hit(x, normal, &m_material, t);//calculate collision point on plane
             //apply lighting computation here (most likely shadowing effects)

@@ -294,18 +294,18 @@ keyCallback(GLFWwindow* _window, int _key, int _scancode,
   if(_action == GLFW_PRESS) {
     switch(_key) {
       //movement keys
-      /*case GLFW_KEY_W:
-        scn.getCam().moveX(-1);
+      case GLFW_KEY_W:
+        scn.getCam().moveY(1);
 
         break;
        case GLFW_KEY_S:
-        scn.getCam().moveX(1);
-        break;
-       case GLFW_KEY_A:
         scn.getCam().moveY(-1);
         break;
+       case GLFW_KEY_A:
+        scn.getCam().moveX(-1);
+        break;
       case GLFW_KEY_D:
-        scn.getCam().moveY(1);
+        scn.getCam().moveX(1);
         break;
       case GLFW_KEY_LEFT:
         scn.getCam().rotateLR(2);
@@ -318,7 +318,7 @@ keyCallback(GLFWwindow* _window, int _key, int _scancode,
         break;
       case GLFW_KEY_DOWN:
         scn.getCam().rotateUD(-2);
-        break;*/
+        break;
       // Escape key : quit application
       case GLFW_KEY_ESCAPE:
         std::cout << "Closing window" << std::endl;
