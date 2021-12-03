@@ -24,7 +24,7 @@ glm::vec3 getDirection(float col, float right, float left, float pixelX,
   
   float tau = left + ((right - left)/pixelX)*(col + 0.5);
   float sigma = bott + ((top - bott)/pixelY)*(row + 0.5);
-  glm::vec3 dir = -c.focal*c.w + tau*c.u + sigma*c.v;
+  glm::vec3 dir = -c.focal*glm::vec3{0, 0, 1} + tau*glm::vec3{1, 0, 0} + sigma*glm::vec3{0, 1, 0};
   //u, v, w will just be the unit vectors
   return glm::normalize(dir);
 

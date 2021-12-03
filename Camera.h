@@ -5,6 +5,7 @@
 #include "GLInclude.h"
 
 //Patrick (working on camera transformations for Segment 2)
+
 /*
 class Camera{
     public:
@@ -57,7 +58,7 @@ class Camera{
         float _n, _f;//n is near distance and f is far distance
 
         //camera coor
-        /*
+        
         glm::vec3 u;
         glm::vec3 x;
         glm::vec3 w;
@@ -65,6 +66,7 @@ class Camera{
 
 };
 */
+
 
 struct Camera{
     glm::vec3 _eye{0, 0, 0}; 
@@ -100,7 +102,6 @@ struct Camera{
     //need to consider how to transform normal vectors on a sphere
 
 };
-
 
 
 

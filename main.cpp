@@ -84,7 +84,7 @@ float g_framesPerSecond{0.f};
 void
 initialize(GLFWwindow* _window) {
   glClearColor(0.f, 0.f, 0.f, 1.f);
-
+  
   glm::vec4 a_color(.6f,.2f,.4f,1);
   glm::vec4 d_color(.1f,.4f,.8f,1);
   glm::vec4 s_color(1.f,.8f,0.f,1);
@@ -110,11 +110,12 @@ initialize(GLFWwindow* _window) {
   scn.addLight(l);
   //scn.addLight(l3);
   //scn.addLight(l3);
-  scn.addObject(p);
-  scn.addObject(s1);
-  scn.addObject(s2);
+  //scn.addObject(p);
+  //scn.addObject(s1);
+  //scn.addObject(s2);
   //scn.addObject(s3);
-
+  
+  scn.readFromFile("example.scene");
   g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);
 
   //initialize method to Renderer (like initialize g_frame)

@@ -8,10 +8,10 @@
 class Scene {
   public:
     Scene(){}
-    void addObject(Object *_obj);
+    //void addObject(Object *_obj);
     void addLight(Light lt);
     
-    //void readFromFile(const std::string& file);
+    void readFromFile(const std::string& file);
     //making objects vector public for now
     
     const std::vector<Object*>& getObj() const{
@@ -21,15 +21,17 @@ class Scene {
     const std::vector<Light>& getLights() const{
       return lights;
     }
-    /*
+
+
+    
     const Camera& getCam() const{
       return c;
     }
-    /*
+    
     Camera& getCam(){
       return c;
     }
-
+    /*
     glm::mat4 mv(glm::mat4 view, glm::mat4 transformation){
       return view*transformation;
     }
@@ -38,7 +40,7 @@ class Scene {
   private:
     std::vector<Object*> objects;
     std::vector<Light> lights;//adding a light vector
-    //Camera c;
+    Camera c;
     /**
     #include <iostream>//stringstream
      

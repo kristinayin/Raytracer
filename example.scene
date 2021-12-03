@@ -1,10 +1,5 @@
 Camera eye 0 0 0 at 0 0 -1 up 0 1 0 ~Camera
 Projection perspective 1 45 16:9
-Sphere center 0 -5 -10 radius 3 material RaySphereOne.mtl ~Sphere
-Plane p 0 0 0 n 0 1 0 mateiral RayPlane.mtl ~Plane // sets point to (0,0,0) and normal to (0,1,0) ~Plane
-
-Camera
-	Eye	0  0  0
-	At	0  0 -1
-	Up	0  1  0
-~Camera
+Sphere center 0 2 -10 radius 1 ~Sphere
+Sphere center 1 3 -15 radius 2 ~Sphere
+Plane p 0 -1 0 n 0 1 0 ~Plane
