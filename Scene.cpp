@@ -30,45 +30,48 @@ std::vector<std::string> parse(std::string str){
 }
 
 Material readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
-  std::string line;
-  std::ifstream mtl;
-  mtl.open(mtlFile);
+    std::string line;
+    std::ifstream mtl;
+    mtl.open(mtlFile);
 
-  //glm::vec4 getKd;//diffuse
-  //glm::vec4 getKs;//specular
-  //glm::vec4 getKa;//ambient
-  //float getP;
+    glm::vec4 kd;//diffuse
+    glm::vec4 ks;//specular
+    glm::vec4 ka;//ambient
+    float p;
 
-  if(mtl.is_open()){
-    while(getline(mtl, line)){
-      std::vector<std::string> parsed = parse(line);
-      
-      if(parsed[0] == "Ka") {
-          for (int i = 1; parsed.size(); i++) {
-              ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
-
-          }
-      }
-      if(parsed[0]=="Kd") {
-          for (int i = 1; parsed.size(); i++) {
-              kd = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
-          }
-      }
-      if(parsed[0]=="Ks") {
-          for (int i = 1; parsed.size(); i++) {
-              ks = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
-          }
-      }
-      if(parsed[0]=="Ns") {
-          p = sTF(parsed[1]);
+    if(mtl.is_open()){
+      while(getline(mtl, line)){
+        std::vector<std::string> parsed = parse(line);
+        
+        if(parsed[0] == "Ka") {
+            for (int i = 1; parsed.size(); i++) {
+                ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                cout<<ka[0]<<endl;
+            }
+        }
+        if(parsed[0]=="Kd") {
+            for (int i = 1; parsed.size(); i++) {
+                kd = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                cout<<kd[0]<<endl;
+            }
+        }
+        if(parsed[0]=="Ks") {
+            for (int i = 1; parsed.size(); i++) {
+                ks = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                cout<<ks[0]<<endl;
+            }
+        }
+        if(parsed[0]=="Ns") {
+            p = sTF(parsed[1]);
+        }
       }
     }
+
+    mtl.close();
+    
+    return Material(kd, ks, ka, p);
   }
 
-  return Material(kd, ks, ka, p);
-  mtl.close();
-}
- 
 // take in example.scene file
 void Scene::readFromFile(const std::string& file) {
     std::string line;
@@ -93,12 +96,12 @@ void Scene::readFromFile(const std::string& file) {
                 
                 // glm::vec4 sKd, sKs, sKa;
                 // float sP;
-                /*
+                
                 glm::vec4 a_color(.6f,.2f,.4f,1);
                 glm::vec4 d_color(.1f,.4f,.8f,1);
                 glm::vec4 s_color(1.f,.8f,0.f,1);
-                */
-                Material sMaterial; //= Material(a_color, d_color, s_color, 10.f);
+                
+                Material sMaterial = Material(a_color, d_color, s_color, 10.f);
                 
                 cout<<"Making a sphere"<<endl;
                 for(int i = 1; i<parsed.size(); i++){          
@@ -110,12 +113,14 @@ void Scene::readFromFile(const std::string& file) {
                         cout<<"Found radius"<<endl;
                         sRadius = sTF(parsed[i+1]);
                     }
-                        
+                    /*    
                     if (parsed[i] == "material") {
                         cout<<"Found material"<<endl;
-                        sMaterial = new Material readMtl(parsed[i+1]);
+                        //Material getMaterial;
+                        sMaterial = readMtl(parsed[i+1]);
+                        //cout<<sMaterial.ka[0]<<endl;
                     }    
-
+                    */
                 }
                 cout<<"New sphere added"<<endl;
                 objects.push_back(new Sphere(sCenter, sRadius, sMaterial));
@@ -124,12 +129,12 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec3 pPosition, pNormal;
                 glm::vec4 pKd, pKs, pKa;
                 float pP;
-                /*
+                
                 glm::vec4 a_color3(.2f,.7f,.5f,1);
                 glm::vec4 d_color3(.3f,.4f,.2f,1);
                 glm::vec4 s_color3(.6f,.8f,.2f,1);
-                */
-                Material pMaterial; //= Material(a_color3, d_color3, s_color3, 10.f);
+                
+                Material pMaterial = Material(a_color3, d_color3, s_color3, 10.f);
                 cout<<"Making new plane"<<endl;
                 for(int i = 0; i<parsed.size(); i++){           
                     if(parsed[i]=="p") {
@@ -140,12 +145,12 @@ void Scene::readFromFile(const std::string& file) {
                         cout<<"Found normal"<<endl;
                         pNormal = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
-                    
+                    /*
                     if (parsed[i] == "material") {
-                        pMaterial = new Material readMtl(parsed[i+1]);
-                           
+                        pMaterial = readMtl(parsed[i+1]);
+                        //cout<<pMaterial.ka[0]<<endl;
                     }
-                    
+                    */
                         
                 }
                 cout<<"New plane added"<<endl;
@@ -172,7 +177,7 @@ void Scene::readFromFile(const std::string& file) {
                 cout<<"Added camera"<<endl;
                 c = Camera(cEye, cAt, cUp, 1, 10);
                 
-            } /*else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
+            }else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
                 Light sLight;
                 glm::vec4 lIa, lId, lIs;
                 glm::vec3 lD, lP, lAtten;
@@ -231,7 +236,7 @@ void Scene::readFromFile(const std::string& file) {
                 }
                 lights.push_back(sLight);
             
-            }*/
+            }
         }
     }
     File.close();
