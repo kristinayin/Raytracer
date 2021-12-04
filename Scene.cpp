@@ -21,7 +21,7 @@ float sTF(const std::string& str) {
     return f;
 }
  
-/*
+
 std::vector<std::string> parse(std::string str){
     std::vector<std::string> split;
     int found;
@@ -33,23 +33,23 @@ std::vector<std::string> parse(std::string str){
     split.push_back(str);
     return split;
 }
-*/
  
 // take in example.scene file
 void Scene::readFromFile(const std::string& file) {
-    std::vector<std::string> parsed;
     std::string line;
     std::ifstream File;
     File.open(file);
     if (File.is_open()){
         while(getline(File,line)){
             
-            // separates each word of line by spaces using stringstream and put them into parsed vector
+            /* separates each word of line by spaces using stringstream and put them into parsed vector
             std::stringstream s(line);
             std::string word;
             while (s >> word) {
                 parsed.push_back(word);
             }
+            */
+            std::vector<std::string> parsed = parse(line);
             
             if(parsed[0]=="Sphere"){
                 glm::vec3 sCenter;
