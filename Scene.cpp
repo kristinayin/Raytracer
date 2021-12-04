@@ -125,6 +125,7 @@ void Scene::readFromFile(const std::string& file) {
                 c = Camera(cEye, cAt, cUp, 1, 10);
                 
             } else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
+                Light sLight();
                 glm::vec4 lIa, lId, lIs;
                 glm::vec3 lD, lP, lAtten;
                 float lT, lA;
@@ -156,11 +157,11 @@ void Scene::readFromFile(const std::string& file) {
                     }
                     
                     // calling light constructors based on type of light -- in example.scene, light type has to go at the end
-                    if (parsed[i] == "ambient") { Light sLight(lIa); }
-                    if (parsed[i] == "directional") { Light sLight(lD, lIa, lId, lIs); }
-                    if (parsed[i] == "point") { Light sLight(lP, lIa, lId, lIs, lAtten); }
-                    if (parsed[i] == "spotlight") { Light slight(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
-                        
+                    if (parsed[i] == "ambient") { sLight = new Light(lIa); }
+                    if (parsed[i] == "directional") { sLight = new Light(lD, lIa, lId, lIs); }
+                    if (parsed[i] == "point") { sLight = new Light(lP, lIa, lId, lIs, lAtten); }
+                    if (parsed[i] == "spotlight") { slight = new Light(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
+                         
                 }
                 lights.push_back(sLight);
             
