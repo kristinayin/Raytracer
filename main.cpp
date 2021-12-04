@@ -107,7 +107,7 @@ initialize(GLFWwindow* _window) {
   //Light l2(glm::vec3(-1,3,1),glm::vec4(0.1,0.1,0.3,1),glm::vec4(0.3,0.7,0.4,1),glm::vec4(0.8,0.7,0.9,1),glm::vec3(1,3,.6));
   //Light l3(glm::vec3(1,7,-15),glm::vec4(0.3,0.2,0.1,1),glm::vec4(0.8,0.9,0.9,1),glm::vec4(0.8,0.9,0.9,1), glm::vec3 (1., 1., 1.));
   //scn.addObject(p);
-  scn.addLight(l);
+  //scn.addLight(l);
   //scn.addLight(l3);
   //scn.addLight(l3);
   //scn.addObject(p);

@@ -125,7 +125,7 @@ void Scene::readFromFile(const std::string& file) {
                 c = Camera(cEye, cAt, cUp, 1, 10);
                 
             } else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
-                Light sLight();
+                Light sLight;
                 glm::vec4 lIa, lId, lIs;
                 glm::vec3 lD, lP, lAtten;
                 float lT, lA;
