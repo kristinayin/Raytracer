@@ -1,9 +1,13 @@
 #include "Scene.h"
 #include "Object.h"
-#include <string>
 #include "Sphere.h"
 #include "Plane.h"
+#include "Light.h"
+#include "Material.h"
+#include "Camera.h"
+#include <string>
 #include <fstream>
+#include <sstream>
 
 void Scene::addLight(Light lt){
     lights.push_back(lt);
@@ -11,12 +15,12 @@ void Scene::addLight(Light lt){
 
  
  // converts strings to float values
-float stringToFloat(const std::string& str) {
+float sTF(const std::string& str) {
     float f = std::stof(str);
     return f;
 }
  
- // parse through, make each word (split by space) into a string
+/*
 std::vector<std::string> parse(std::string str){
     std::vector<std::string> split;
     int found;
@@ -28,17 +32,24 @@ std::vector<std::string> parse(std::string str){
     split.push_back(str);
     return split;
 }
+*/
  
 // take in example.scene file
-// to do: take in lights
 void Scene::readFromFile(const std::string& file) {
+    std::vector<std::string> parsed;
     std::string line;
     std::ifstream File;
     File.open(file);
     if (File.is_open()){
         while(getline(File,line)){
-            std::vector<std::string> parsed = parse(line);
-            std::cout<<"At the beginning"<<std::endl;
+            
+            // separates each word of line by spaces using stringstream and put them into parsed vector
+            std::stringstream s(line);
+            std::string word;
+            while (s >> word) {
+                parsed.push_back(word);
+            }
+            
             if(parsed[0]=="Sphere"){
                 glm::vec3 sCenter;
                 float sRadius;
@@ -54,10 +65,10 @@ void Scene::readFromFile(const std::string& file) {
 
                 for(int i = 1; i<parsed.size(); i++){          
                     if(parsed[i] == "center") {
-                        sCenter = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
+                        sCenter = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if(parsed[i] == "radius") {
-                        sRadius = stringToFloat(parsed[i+1]);
+                        sRadius = sTF(parsed[i+1]);
                     }
                         /*
                         if (parsed[i] == "material") {
@@ -81,10 +92,10 @@ void Scene::readFromFile(const std::string& file) {
                 Material pMaterial = Material(a_color3, d_color3, s_color3, 10.f);
                 for(int i = 0; i<parsed.size(); i++){           
                     if(parsed[i]=="p") {
-                        pPosition = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
+                        pPosition = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if(parsed[i]=="n") {
-                        pNormal = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
+                        pNormal = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     /*
                     if (parsed[i] == "material") {
@@ -101,21 +112,58 @@ void Scene::readFromFile(const std::string& file) {
                 
                 for (int i = 1; i<parsed.size(); i++) {
                     if (parsed[i] == "eye"){
-                        cEye = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
+                        cEye = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i] == "at") {
-                        cAt = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
+                        cAt = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i] == "up") {
-                        cUp = glm::vec3(stringToFloat(parsed[i+1]), stringToFloat(parsed[i+2]), stringToFloat(parsed[i+3]));
+                        cUp = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                 }
                 c = Camera(cEye, cAt, cUp, 1, 10);
-            }
+                
+            } else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
+                Light sLight;
+                
+                for (int i = 1; i<parsed.size(); i++) {
+                    if (parsed[i]=="ia") {
+                        glm::vec4 lIa = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                    }
+                    if (parsed[i]=="d") {
+                        glm::vec3 lD = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
+                    }
+                    if (parsed[i]=="p") {
+                        glm::vec3 lP = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
+                    }
+                    if (parsed[i]=="t") {
+                        float lT = sTF(parsed[i+1]);
+                    }
+                    if (parsed[i]=="id") {
+                        glm::vec4 lId = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                    }
+                    if (parsed[i]=="is") {
+                        glm::vec4 lIs = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                    }
+                    if (parsed[i]=="attenconst") {
+                        glm::vec3 lAtten = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
+                    }
+                    if (parsed[i]=="a") {
+                        float lA = sTF(parsed[i+1]);
+                    }
+                    
+                    // calling light constructors based on type of light -- in example.scene, light type has to go at the end
+                    if (parsed[i] == "ambient") { sLight = new Light(lIa); }
+                    if (parsed[i] == "directional") { sLight = new Light(lD, lIa, lId, lIs); }
+                    if (parsed[i] == "point") { sLight = new Light(lP, lIa, lId, lIs, lAtten); }
+                    if (parsed[i] == "spotlight") { sLight = new Light(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
+                        
+                }
+                lights.push_back(sLight);
             
+            }
         }
     }
-
     File.close();
     
 }

@@ -35,7 +35,7 @@ class Scene {
 
   private:
     std::vector<Object*> objects;
-    std::vector<Light> lights;//adding a light vector
+    std::vector<Light> lights;
     Camera c;
     /*
     #include <iostream>//stringstream
