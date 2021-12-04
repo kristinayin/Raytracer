@@ -97,13 +97,12 @@ initialize(GLFWwindow* _window) {
   Material m2 = Material(a_color3,d_color,s_color, 100.f);
   Material m3 = Material(a_color3,d_color3,s_color3, 10.f);
 
-  Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
+  //Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
   //Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
-  Sphere *s1 = new Sphere(glm::vec3(0,2,-10), 1,m);
-  Sphere *s2 = new Sphere(glm::vec3(1,3,-15), 2,m3);
+  //Sphere *s1 = new Sphere(glm::vec3(0,2,-10), 1,m);
+  //Sphere *s2 = new Sphere(glm::vec3(1,3,-15), 2,m3);
   //Sphere *s3 = new Sphere(glm::vec3(0,0,2),3,m);
-  Light l(glm::vec3 (0, 5, -10), glm::vec4 (0.1, 0.1, 0.1, 1), glm::vec4 (0.5, 0.7, 0.4, 1), 
-          glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec3 (1., 1., 1.));
+  //Light l(glm::vec3 (0, 5, -10), glm::vec4 (0.1, 0.1, 0.1, 1), glm::vec4 (0.5, 0.7, 0.4, 1), glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec3 (1., 1., 1.));
   //Light l2(glm::vec3(-1,3,1),glm::vec4(0.1,0.1,0.3,1),glm::vec4(0.3,0.7,0.4,1),glm::vec4(0.8,0.7,0.9,1),glm::vec3(1,3,.6));
   //Light l3(glm::vec3(1,7,-15),glm::vec4(0.3,0.2,0.1,1),glm::vec4(0.8,0.9,0.9,1),glm::vec4(0.8,0.9,0.9,1), glm::vec3 (1., 1., 1.));
   //scn.addObject(p);

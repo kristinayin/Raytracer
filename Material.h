@@ -23,7 +23,7 @@ struct Material {
   
 
   // converts strings to float values
-  float stringToFloat(const std::string& str) {
+  float sTF(const std::string& str) {
      float f = std::stof(str);
      return f;
   }
@@ -40,7 +40,7 @@ struct Material {
      split.push_back(str);
      return split;
   }
-  /*
+  
   void readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
     std::string line;
     std::ifstream mtl;
@@ -54,24 +54,22 @@ struct Material {
     if(mtl.is_open()){
       while(getline(mtl, line)){
         if(line == "Ka"){//ambient
-          ka = glm::vec4(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]), 1);
+          ka = glm::vec4(sTF(parsed[1]), sTF(parsed[2]), sTF(parsed[3]), 1);
           
         }else if(line == "Kd"){//diffuse
-          kd = glm::vec4(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]), 1);
+          kd = glm::vec4(sTF(parsed[1]), sTF(parsed[2]), sTF(parsed[3]), 1);
           
         }else if(line == "Ks"){//specular
-          ks = glm::vec4(stringToFloat(parsed[1]), stringToFloat(parsed[2]), stringToFloat(parsed[3]), 1);
+          ks = glm::vec4(sTF(parsed[1]), sTF(parsed[2]), sTF(parsed[3]), 1);
           
         }else if(line == "Ns"){//shininess
-          p = stringToFloat(parsed[1]);
+          p = sTF(parsed[1]);
         }
       }
     }
 
     mtl.close();
   }
-  */
-  
   
   Material(){};
   Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka),p(_p) {}
