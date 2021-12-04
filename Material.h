@@ -41,7 +41,7 @@ struct Material {
      return split;
   }
   
-  void readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
+  Material readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
     std::string line;
     std::ifstream mtl;
     mtl.open(mtlFile);
@@ -58,6 +58,7 @@ struct Material {
         if(parsed[0] == "Ka") {
             for (int i = 1; parsed.size(); i++) {
                 ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+
             }
         }
         if(parsed[0]=="Kd") {
@@ -76,10 +77,11 @@ struct Material {
       }
     }
 
-  mtl.close();
+    return Material(kd, ks, ka, p);
+    mtl.close();
   }
   
-  Material(){};
+  //Material() {};
   Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka),p(_p) {}
 
   

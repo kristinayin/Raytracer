@@ -9,11 +9,6 @@
 #include <fstream>
 #include <sstream>
 using namespace std;
-/*
-void Scene::addLight(Light lt){
-    lights.push_back(lt);
-}
-*/
  
  // converts strings to float values
 float sTF(const std::string& str) {
@@ -55,16 +50,16 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec3 sCenter;
                 float sRadius;
                 
-                /*
+                
                 // glm::vec4 sKd, sKs, sKa;
                 // float sP;
-
+                /*
                 glm::vec4 a_color(.6f,.2f,.4f,1);
                 glm::vec4 d_color(.1f,.4f,.8f,1);
                 glm::vec4 s_color(1.f,.8f,0.f,1);
-
-                Material sMaterial = Material(a_color, d_color, s_color, 10.f);
                 */
+                //Material sMaterial; //= Material(a_color, d_color, s_color, 10.f);
+                
                 cout<<"Making a sphere"<<endl;
                 for(int i = 1; i<parsed.size(); i++){          
                     if(parsed[i] == "center") {
@@ -78,9 +73,8 @@ void Scene::readFromFile(const std::string& file) {
                         
                     if (parsed[i] == "material") {
                         cout<<"Found material"<<endl;
-                        sMaterial.readMtl(parsed[i+1]);
-                    }
-                        
+                        sMaterial = sMaterial.readMtl(parsed[i+1]);
+                    }    
 
                 }
                 cout<<"New sphere added"<<endl;
@@ -90,12 +84,12 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec3 pPosition, pNormal;
                 glm::vec4 pKd, pKs, pKa;
                 float pP;
-
+                /*
                 glm::vec4 a_color3(.2f,.7f,.5f,1);
                 glm::vec4 d_color3(.3f,.4f,.2f,1);
                 glm::vec4 s_color3(.6f,.8f,.2f,1);
-
-                Material pMaterial = Material(a_color3, d_color3, s_color3, 10.f);
+                */
+                Material pMaterial; //= Material(a_color3, d_color3, s_color3, 10.f);
                 cout<<"Making new plane"<<endl;
                 for(int i = 0; i<parsed.size(); i++){           
                     if(parsed[i]=="p") {
@@ -106,11 +100,12 @@ void Scene::readFromFile(const std::string& file) {
                         cout<<"Found normal"<<endl;
                         pNormal = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
-                    /*
+                    
                     if (parsed[i] == "material") {
                         pMaterial.readMtl(parsed[i+1]);
                            
-                    }*/
+                    }
+                    
                         
                 }
                 cout<<"New plane added"<<endl;
@@ -137,7 +132,7 @@ void Scene::readFromFile(const std::string& file) {
                 cout<<"Added camera"<<endl;
                 c = Camera(cEye, cAt, cUp, 1, 10);
                 
-            } else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
+            } /*else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
                 Light sLight;
                 glm::vec4 lIa, lId, lIs;
                 glm::vec3 lD, lP, lAtten;
@@ -147,34 +142,42 @@ void Scene::readFromFile(const std::string& file) {
                 for (int i = 1; i<parsed.size(); i++) {
                     if (parsed[i]=="ia") {
                         cout<<"Found ambient"<<endl;
+                        cout<<parsed[i+1]<<endl;
                         lIa = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="d") {
                         cout<<"Found distance"<<endl;
+                        cout<<parsed[i+1]<<endl;
                         lD = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="p") {
                         cout<<"Found point"<<endl;
+                        cout<<parsed[i+1]<<endl;
                         lP = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="t") {
                         cout<<"Found theta"<<endl;
+                        cout<<parsed[i+1]<<endl;
                         lT = sTF(parsed[i+1]);
                     }
                     if (parsed[i]=="id") {
                         cout<<"Found diffuse"<<endl;
+                        cout<<parsed[i+1]<<endl;
                         lId = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="is") {
                         cout<<"Found specular"<<endl;
+                        cout<<parsed[i+1]<<endl;
                         lIs = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="attenconst") {
                         cout<<"Found linear attencost"<<endl;
+                        cout<<parsed[i+1]<<endl;
                         lAtten = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="a") {
                         cout<<"Found angular attencost"<<endl;
+                        cout<<parsed[i+1]<<endl;
                         lA = sTF(parsed[i+1]);
                     }
                     
@@ -188,7 +191,7 @@ void Scene::readFromFile(const std::string& file) {
                 }
                 lights.push_back(sLight);
             
-            }
+            }*/
         }
     }
     File.close();
