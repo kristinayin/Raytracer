@@ -6,7 +6,7 @@
 class Light{
     public:
         //glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o);
-        Light() {}
+        Light(): {}
         //global ambient light
         Light(const glm::vec4&ia): i_a(ia) {}//only requires one intensity
 
