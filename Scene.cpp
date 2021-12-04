@@ -157,10 +157,11 @@ void Scene::readFromFile(const std::string& file) {
                     }
                     
                     // calling light constructors based on type of light -- in example.scene, light type has to go at the end
+                    
                     if (parsed[i] == "ambient") { sLight = Light(lIa); }
                     if (parsed[i] == "directional") { sLight = Light(lD, lIa, lId, lIs); }
                     if (parsed[i] == "point") { sLight = Light(lP, lIa, lId, lIs, lAtten); }
-                    if (parsed[i] == "spotlight") { slight = Light(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
+                    if (parsed[i] == "spotlight") { sLight = Light(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
                          
                 }
                 lights.push_back(sLight);
