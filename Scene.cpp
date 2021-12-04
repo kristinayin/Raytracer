@@ -178,10 +178,10 @@ void Scene::readFromFile(const std::string& file) {
                 c = Camera(cEye, cAt, cUp, 1, 10);
                 
             }else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
-                Light sLight;
+                
                 glm::vec4 lIa, lId, lIs;
-                glm::vec3 lD, lP, lAtten;
-                float lT, lA;
+                glm::vec3 lP, lAtten;
+                // float lT, lA;
                 
                 cout<<"Creating a new light source"<<endl;
                 for (int i = 1; i<parsed.size(); i++) {
@@ -190,21 +190,25 @@ void Scene::readFromFile(const std::string& file) {
                         cout<<parsed[i+1]<<endl;
                         lIa = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
+                    /*
                     if (parsed[i]=="d") {
                         cout<<"Found distance"<<endl;
                         cout<<parsed[i+1]<<endl;
                         lD = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
+                    */
                     if (parsed[i]=="p") {
                         cout<<"Found point"<<endl;
                         cout<<parsed[i+1]<<endl;
                         lP = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
+                    /*
                     if (parsed[i]=="t") {
                         cout<<"Found theta"<<endl;
                         cout<<parsed[i+1]<<endl;
                         lT = sTF(parsed[i+1]);
                     }
+                    */
                     if (parsed[i]=="id") {
                         cout<<"Found diffuse"<<endl;
                         cout<<parsed[i+1]<<endl;
@@ -220,21 +224,24 @@ void Scene::readFromFile(const std::string& file) {
                         cout<<parsed[i+1]<<endl;
                         lAtten = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
+                    /*
                     if (parsed[i]=="a") {
                         cout<<"Found angular attencost"<<endl;
                         cout<<parsed[i+1]<<endl;
                         lA = sTF(parsed[i+1]);
                     }
+                    */
                     
                     // calling light constructors based on type of light -- in example.scene, light type has to go at the end
-                    
+                    /*
                     if (parsed[i] == "ambient") { sLight = Light(lIa); }
                     if (parsed[i] == "directional") { sLight = Light(lD, lIa, lId, lIs); }
                     if (parsed[i] == "point") { sLight = Light(lP, lIa, lId, lIs, lAtten); }
                     if (parsed[i] == "spotlight") { sLight = Light(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
+                    */
                          
                 }
-                lights.push_back(sLight);
+                lights.push_back(new Light(lP, lIa, lId, lIs, lAtten));
             
             }
         }
