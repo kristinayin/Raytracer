@@ -71,7 +71,7 @@ struct Material {
             }
         }
         if(parsed[0]=="Ns") {
-            p = sTF(parsed[i+1]);
+            p = sTF(parsed[1]);
         }
       }
     }
