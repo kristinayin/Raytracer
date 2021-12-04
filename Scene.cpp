@@ -65,21 +65,25 @@ void Scene::readFromFile(const std::string& file) {
 
                 Material sMaterial = Material(a_color, d_color, s_color, 10.f);
                 */
-
+                cout<<"Making a sphere"<<endl;
                 for(int i = 1; i<parsed.size(); i++){          
                     if(parsed[i] == "center") {
+                        cout<<"Found center"<<endl;
                         sCenter = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if(parsed[i] == "radius") {
+                        cout<<"Found radius"<<endl;
                         sRadius = sTF(parsed[i+1]);
                     }
                         
                     if (parsed[i] == "material") {
+                        cout<<"Found material"<<endl;
                         sMaterial.readMtl(parsed[i+1]);
                     }
                         
 
                 }
+                cout<<"New sphere added"<<endl;
                 objects.push_back(new Sphere(sCenter, sRadius, sMaterial));
             
             } else if (parsed[0]=="Plane") {
@@ -92,11 +96,14 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec4 s_color3(.6f,.8f,.2f,1);
 
                 Material pMaterial = Material(a_color3, d_color3, s_color3, 10.f);
+                cout<<"Making new plane"<<endl;
                 for(int i = 0; i<parsed.size(); i++){           
                     if(parsed[i]=="p") {
+                        cout<<"Found point"<<endl;
                         pPosition = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if(parsed[i]=="n") {
+                        cout<<"Found normal"<<endl;
                         pNormal = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     /*
@@ -106,23 +113,28 @@ void Scene::readFromFile(const std::string& file) {
                     }*/
                         
                 }
-                
+                cout<<"New plane added"<<endl;
                 objects.push_back(new Plane(pNormal, pPosition, pMaterial));
             
             } else if (parsed[0]=="Camera") {
                 glm::vec3 cEye, cAt, cUp;
                 
+                cout<<"Creating camera"<<endl;
                 for (int i = 1; i<parsed.size(); i++) {
                     if (parsed[i] == "eye"){
+                        cout<<"Found eye"<<endl;
                         cEye = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i] == "at") {
+                        cout<<"Found at"<<endl;
                         cAt = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i] == "up") {
+                        cout<<"Found up"<<endl;
                         cUp = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                 }
+                cout<<"Added camera"<<endl;
                 c = Camera(cEye, cAt, cUp, 1, 10);
                 
             } else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
@@ -131,29 +143,38 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec3 lD, lP, lAtten;
                 float lT, lA;
                 
+                cout<<"Creating a new light source"<<endl;
                 for (int i = 1; i<parsed.size(); i++) {
                     if (parsed[i]=="ia") {
+                        cout<<"Found ambient"<<endl;
                         lIa = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="d") {
+                        cout<<"Found distance"<<endl;
                         lD = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="p") {
+                        cout<<"Found point"<<endl;
                         lP = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="t") {
+                        cout<<"Found theta"<<endl;
                         lT = sTF(parsed[i+1]);
                     }
                     if (parsed[i]=="id") {
+                        cout<<"Found diffuse"<<endl;
                         lId = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="is") {
+                        cout<<"Found specular"<<endl;
                         lIs = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="attenconst") {
+                        cout<<"Found linear attencost"<<endl;
                         lAtten = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="a") {
+                        cout<<"Found angular attencost"<<endl;
                         lA = sTF(parsed[i+1]);
                     }
                     
