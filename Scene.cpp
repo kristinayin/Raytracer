@@ -9,10 +9,11 @@
 #include <fstream>
 #include <sstream>
 
+/*
 void Scene::addLight(Light lt){
     lights.push_back(lt);
 }
-
+*/
  
  // converts strings to float values
 float sTF(const std::string& str) {
