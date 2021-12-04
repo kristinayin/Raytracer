@@ -124,39 +124,41 @@ void Scene::readFromFile(const std::string& file) {
                 c = Camera(cEye, cAt, cUp, 1, 10);
                 
             } else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
-                Light sLight;
+                glm::vec4 lIa, lId, lIs;
+                glm::vec3 lD, lP, lAtten;
+                float lT, lA;
                 
                 for (int i = 1; i<parsed.size(); i++) {
                     if (parsed[i]=="ia") {
-                        glm::vec4 lIa = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                        lIa = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="d") {
-                        glm::vec3 lD = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
+                        lD = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="p") {
-                        glm::vec3 lP = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
+                        lP = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="t") {
-                        float lT = sTF(parsed[i+1]);
+                        lT = sTF(parsed[i+1]);
                     }
                     if (parsed[i]=="id") {
-                        glm::vec4 lId = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                        lId = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="is") {
-                        glm::vec4 lIs = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+                        lIs = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     if (parsed[i]=="attenconst") {
-                        glm::vec3 lAtten = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
+                        lAtten = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i]=="a") {
-                        float lA = sTF(parsed[i+1]);
+                        lA = sTF(parsed[i+1]);
                     }
                     
                     // calling light constructors based on type of light -- in example.scene, light type has to go at the end
-                    if (parsed[i] == "ambient") { sLight = new Light(lIa); }
-                    if (parsed[i] == "directional") { sLight = new Light(lD, lIa, lId, lIs); }
-                    if (parsed[i] == "point") { sLight = new Light(lP, lIa, lId, lIs, lAtten); }
-                    if (parsed[i] == "spotlight") { sLight = new Light(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
+                    if (parsed[i] == "ambient") { Light sLight(lIa); }
+                    if (parsed[i] == "directional") { Light sLight(lD, lIa, lId, lIs); }
+                    if (parsed[i] == "point") { Light sLight(lP, lIa, lId, lIs, lAtten); }
+                    if (parsed[i] == "spotlight") { Light slight(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
                         
                 }
                 lights.push_back(sLight);
