@@ -54,15 +54,17 @@ void Scene::readFromFile(const std::string& file) {
             if(parsed[0]=="Sphere"){
                 glm::vec3 sCenter;
                 float sRadius;
-                // read in material
-                glm::vec4 sKd, sKs, sKa;
-                float sP;
+                
+                /*
+                // glm::vec4 sKd, sKs, sKa;
+                // float sP;
 
                 glm::vec4 a_color(.6f,.2f,.4f,1);
                 glm::vec4 d_color(.1f,.4f,.8f,1);
                 glm::vec4 s_color(1.f,.8f,0.f,1);
 
                 Material sMaterial = Material(a_color, d_color, s_color, 10.f);
+                */
 
                 for(int i = 1; i<parsed.size(); i++){          
                     if(parsed[i] == "center") {
@@ -71,14 +73,13 @@ void Scene::readFromFile(const std::string& file) {
                     if(parsed[i] == "radius") {
                         sRadius = sTF(parsed[i+1]);
                     }
-                        /*
-                        if (parsed[i] == "material") {
-                            sMaterial.readMtl(parsed[i+1]);
-                        }
-                        */
-
+                        
+                    if (parsed[i] == "material") {
+                        sMaterial.readMtl(parsed[i+1]);
                     }
+                        
 
+                }
                 objects.push_back(new Sphere(sCenter, sRadius, sMaterial));
             
             } else if (parsed[0]=="Plane") {
