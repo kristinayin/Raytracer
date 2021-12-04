@@ -98,7 +98,7 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec4 d_color(.1f,.4f,.8f,1);
                 glm::vec4 s_color(1.f,.8f,0.f,1);
                 */
-                //Material sMaterial; //= Material(a_color, d_color, s_color, 10.f);
+                Material sMaterial; //= Material(a_color, d_color, s_color, 10.f);
                 
                 cout<<"Making a sphere"<<endl;
                 for(int i = 1; i<parsed.size(); i++){          
@@ -113,7 +113,7 @@ void Scene::readFromFile(const std::string& file) {
                         
                     if (parsed[i] == "material") {
                         cout<<"Found material"<<endl;
-                        Material sMaterial = readMtl(parsed[i+1]);
+                        sMaterial = new Material readMtl(parsed[i+1]);
                     }    
 
                 }
@@ -142,7 +142,7 @@ void Scene::readFromFile(const std::string& file) {
                     }
                     
                     if (parsed[i] == "material") {
-                        pMaterial.readMtl(parsed[i+1]);
+                        pMaterial = new Material readMtl(parsed[i+1]);
                            
                     }
                     
