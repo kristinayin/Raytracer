@@ -8,7 +8,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-
+using namespace std;
 /*
 void Scene::addLight(Light lt){
     lights.push_back(lt);
