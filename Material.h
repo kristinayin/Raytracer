@@ -41,6 +41,7 @@ struct Material {
      return split;
   }
   
+/*
   Material readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
     std::string line;
     std::ifstream mtl;
@@ -80,6 +81,7 @@ struct Material {
     return Material(kd, ks, ka, p);
     mtl.close();
   }
+ */
   
   //Material() {};
   Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka),p(_p) {}

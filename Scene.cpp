@@ -28,6 +28,46 @@ std::vector<std::string> parse(std::string str){
     split.push_back(str);
     return split;
 }
+
+Material readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
+  std::string line;
+  std::ifstream mtl;
+  mtl.open(mtlFile);
+
+  //glm::vec4 getKd;//diffuse
+  //glm::vec4 getKs;//specular
+  //glm::vec4 getKa;//ambient
+  //float getP;
+
+  if(mtl.is_open()){
+    while(getline(mtl, line)){
+      std::vector<std::string> parsed = parse(line);
+      
+      if(parsed[0] == "Ka") {
+          for (int i = 1; parsed.size(); i++) {
+              ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+
+          }
+      }
+      if(parsed[0]=="Kd") {
+          for (int i = 1; parsed.size(); i++) {
+              kd = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+          }
+      }
+      if(parsed[0]=="Ks") {
+          for (int i = 1; parsed.size(); i++) {
+              ks = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+          }
+      }
+      if(parsed[0]=="Ns") {
+          p = sTF(parsed[1]);
+      }
+    }
+  }
+
+  return Material(kd, ks, ka, p);
+  mtl.close();
+}
  
 // take in example.scene file
 void Scene::readFromFile(const std::string& file) {
@@ -73,7 +113,7 @@ void Scene::readFromFile(const std::string& file) {
                         
                     if (parsed[i] == "material") {
                         cout<<"Found material"<<endl;
-                        sMaterial = sMaterial.readMtl(parsed[i+1]);
+                        Material sMaterial = readMtl(parsed[i+1]);
                     }    
 
                 }
