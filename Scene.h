@@ -8,7 +8,7 @@
 class Scene {
   public:
     Scene(){}
-    void addLight(Light lt);
+    //void addLight(Light lt);
     
     void readFromFile(const std::string& file);
     

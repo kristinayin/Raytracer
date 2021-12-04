@@ -2,7 +2,7 @@
 #include "Object.h"
 #include "Sphere.h"
 #include "Plane.h"
-#include "Light.h"
+#include "Lighting.h"
 #include "Material.h"
 #include "Camera.h"
 #include <string>
