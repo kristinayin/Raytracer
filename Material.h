@@ -53,22 +53,30 @@ struct Material {
 
     if(mtl.is_open()){
       while(getline(mtl, line)){
-        if(line == "Ka"){//ambient
-          ka = glm::vec4(sTF(parsed[1]), sTF(parsed[2]), sTF(parsed[3]), 1);
-          
-        }else if(line == "Kd"){//diffuse
-          kd = glm::vec4(sTF(parsed[1]), sTF(parsed[2]), sTF(parsed[3]), 1);
-          
-        }else if(line == "Ks"){//specular
-          ks = glm::vec4(sTF(parsed[1]), sTF(parsed[2]), sTF(parsed[3]), 1);
-          
-        }else if(line == "Ns"){//shininess
-          p = sTF(parsed[1]);
+        std::vector<std::string> parsed = parse(line);
+        
+        if(parsed[0] == "Ka") {
+            for (int i = 1; parsed.size(); i++) {
+                ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+            }
+        }
+        if(parsed[0]=="Kd") {
+            for (int i = 1; parsed.size(); i++) {
+                kd = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+            }
+        }
+        if(parsed[0]=="Ks") {
+            for (int i = 1; parsed.size(); i++) {
+                ks = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
+            }
+        }
+        if(parsed[0]=="Ns") {
+            p = sTF(parsed[i+1]);
         }
       }
     }
 
-    mtl.close();
+  mtl.close();
   }
   
   Material(){};
