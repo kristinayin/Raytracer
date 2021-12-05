@@ -1,6 +1,7 @@
 Simplistic Ray Tracer
 
 // Team //
+
 Kristina Yin
 Patrick Lee
 Frankie Zamora
