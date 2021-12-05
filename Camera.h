@@ -9,9 +9,11 @@
 
 class Camera{
     public:
-        Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float n, float f): _eye(eye), _at(at), _up(up), _n(n), _f(f) {};
+        Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float focal, float f, float fov, float ratio): _eye(eye), _at(at), 
+                                                                                                     _up(up), _focal(focal), _f(f), 
+                                                                                                     _fov(fov), _ratio(ratio){};
 
-        Camera(): _eye(glm::vec3{0, 0, 0}), _at(glm::vec3 {0, 0, 1}), _up(glm::vec3 {0,1,0}), _n(1), _f(10){};
+        Camera(): _eye(glm::vec3{0, 0, 0}), _at(glm::vec3 {0, 0, 1}), _up(glm::vec3 {0,1,0}), _focal(1), _f(10), _fov(45), _ratio(16/9){};
 
         glm::mat4 view(glm::vec3 eye, glm::vec3 at, glm::vec3 up){
             return glm::lookAt(eye, at, up);
@@ -27,12 +29,36 @@ class Camera{
 
         void rotateUD(float ud);//look up down
 
-        int getN() const{
-            return _n;
+        int getFocal() const{
+            return _focal;
         }
 
         const glm::vec3& getEye() const{
             return _eye;
+        }
+
+        void setTop(float fov){
+            _t = _focal*tan(glm::radians(fov/2));
+        }
+
+        void setRight(float _ratio){
+            _r = _ratio*_t;
+        }
+
+        const float getTop()const{
+            return _t;
+        }
+
+        const float getBott()const{
+            return -1*_t;
+        }
+
+        const float getRight()const{
+            return _r;
+        }
+
+        const float getLeft() const{
+            return -1*_r;
         }
 
         //need to include a point when doing mv matrix
@@ -41,19 +67,13 @@ class Camera{
 
         //add a bunch of getter functions
 
-        /*
-        glm::vec3 _eye{0, 0, 0}; 
-        glm::vec3 u{1, 0, 0}; 
-        glm::vec3 v{0, 1, 0}; 
-        glm::vec3 w{0, 0, 1};
-        float focal = 1;
-        */
-
     private:
         glm::vec3 _eye;//camera location
         glm::vec3 _at;//where you want the camera to look at
         glm::vec3 _up;//specifies a vector pointing the positive y direction used to create right vector; usually set as glm::vec3(0, 1, 0)
-        float _n, _f;//n is near distance and f is far distance
+        float _focal, _f, _t, _b, _l, _r;//n is near distance (focal length) and f is far distance
+        float _fov;//camera's field of view angle in the y direction
+        float _ratio;//aspect ratio for the camera
 
 };
 

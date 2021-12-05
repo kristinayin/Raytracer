@@ -22,7 +22,7 @@ glm::vec3 getDirection(float col, float right, float left, float pixelX,
   
   float tau = left + ((right - left)/pixelX)*(col + 0.5);
   float sigma = bott + ((top - bott)/pixelY)*(row + 0.5);
-  glm::vec3 dir = -c.getN()*glm::vec3{0, 0, 1} + tau*glm::vec3{1, 0, 0} + sigma*glm::vec3{0, 1, 0};
+  glm::vec3 dir = -c.getFocal()*glm::vec3{0, 0, 1} + tau*glm::vec3{1, 0, 0} + sigma*glm::vec3{0, 1, 0};
   //u, v, w will just be the unit vectors
   return glm::normalize(dir);
 
@@ -56,15 +56,17 @@ void RayTracer::render(const Scene& _scene) const {
   const Camera &camera = _scene.getCam();
   int length=1360;
   int height= 768;
+  /*
   float t = 1.f*tan(glm::radians(45.f/2));
   float b = -t;
   float r = ((float)length/height)*t;
   float l = -r;
+  */
 
   for(int i = 0; i<length; i++){//length is # of col
     for(int j = 0; j<height; j++){//height is # of rows
       
-      glm::vec3 direction = getDirection(i, r, l, length, j, t, b, height, camera);//calculates direction from camera to fragment
+      glm::vec3 direction = getDirection(i, camera.getRight(), camera.getLeft(), length, j, camera.getTop(), camera.getBott(), height, camera);//calculates direction from camera to fragment
 
       Ray r(camera.getEye(),direction);//using ray struct that takes in some origin and direction
       //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;

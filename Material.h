@@ -21,6 +21,8 @@ struct Material {
   //update Material struct
   //use ifstream to read in values
   
+  //Material(): ka(glm::vec4(0.5, 0.5, 0.5, 1)) {};
+  Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka),p(_p) {}
 
   // converts strings to float values
   float sTF(const std::string& str) {
@@ -83,8 +85,7 @@ struct Material {
     return Material(kd, ks, ka, p);
   }
   
-  Material(): ka(glm::vec4(0.5, 0.5, 0.5, 1)) {};
-  Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka),p(_p) {}
+  
 
   
 
