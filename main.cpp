@@ -298,11 +298,11 @@ keyCallback(GLFWwindow* _window, int _key, int _scancode,
     switch(_key) {
       //movement keys
       case GLFW_KEY_W:
-        scn.getCam().moveZ(1);
+        scn.getCam().moveZ(-1);
 
         break;
        case GLFW_KEY_S:
-        scn.getCam().moveZ(-1);
+        scn.getCam().moveZ(1);
         break;
        case GLFW_KEY_A:
         scn.getCam().moveX(-1);
