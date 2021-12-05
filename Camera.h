@@ -9,8 +9,12 @@
 
 class Camera{
     public:
-        Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float focal, float fov, float ratio): _eye(eye), _at(at), _up(up), 
-                                                                                                _focal(focal), _fov(fov), _ratio(ratio){};
+        Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float focal, float fov, float ratio): _eye(eye), _at(at), _up(up), _focal(focal), _fov(fov), _ratio(ratio){
+            _t = focal*tan(glm::radians(fov/2));
+            _b = -_t;
+            _r = ratio*_t;
+            _l = -_r;
+        };
 
         Camera(): _eye(glm::vec3{0, 0, 0}), _at(glm::vec3 {0, 0, 1}), _up(glm::vec3 {0,1,0}), _focal(1){};
 
@@ -32,12 +36,20 @@ class Camera{
             return _focal;
         }
 
-        float getFov() const{
-            return _fov;
+        float getTop() const{
+            return _t;
         }
 
-        float getRatio() const{
-            return _ratio;
+        float getBott() const{
+            return _b;
+        }
+
+        float getLeft() const{
+            return _l;
+        }
+
+        float getRight() const{
+            return _r;
         }
 
         const glm::vec3& getEye() const{
@@ -50,7 +62,7 @@ class Camera{
         glm::vec3 _eye;//camera location
         glm::vec3 _at;//where you want the camera to look at
         glm::vec3 _up;//specifies a vector pointing the positive y direction used to create right vector; usually set as glm::vec3(0, 1, 0)
-        float _focal;
+        float _focal, _t, _b, _l, _r;
         float _fov;//camera's field of view angle in the y direction
         float _ratio;//aspect ratio for the camera
 
