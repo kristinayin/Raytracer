@@ -20,6 +20,10 @@ Frankie Zamora
 
 * Rasterization - Kristina, Patrick
 * Material information for all models in both rendering modes should come from mtl files - Kristina, Patrick
+* Varying the number and types of light sources - Frankie
+* Support for directional lights in both rendering modes - Frankie
+* Support for positional lights in both rendering modes. Note: attenuation is added. - Frankie
+* Support for spotlights in both rendering modes - Frankie
 
 // Collaborators and External Resources // 
 
