@@ -17,32 +17,17 @@ struct Material {
   glm::vec4 kd;//diffuse
   glm::vec4 ks;//specular
   glm::vec4 ka;//ambient
-  float p;//shininess
+  float Ns;//shininess
 
-  Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _p): kd(_kd), ks(_ks), ka(_ka), p(_p) {}
+  Material(const glm::vec4& _kd, const glm::vec4& _ks, const glm::vec4& _ka, float _Ns): kd(_kd), ks(_ks), ka(_ka), Ns(_Ns) {}
 
   // converts strings to float values
   float sTF(const std::string& str) {
      float f = std::stof(str);
      return f;
   }
- 
- // parse through, make each word (split by space) into a string
- /*
-  std::vector<std::string> parse(std::string str){
-     std::vector<std::string> split;
-     int found;
-     while(str.find(" ")!=-1){
-       found=str.find(" ");
-       split.push_back(str.substr(0,found));
-       str=str.substr(found+1);
-     }
-     split.push_back(str);
-     return split;
-  }
-  */
 
-  Material readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
+  void readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
     std::string line;
     std::ifstream mtl;
     mtl.open(mtlFile);
@@ -77,15 +62,13 @@ struct Material {
             parsed.clear();
         }
         if(parsed[0]=="Ns") {
-            p = sTF(parsed[1]);
+            Ns = sTF(parsed[1]);
             parsed.clear();
         }
       }
     }
 
     mtl.close();
-    
-    return Material(kd, ks, ka, p);
   }
   
   
@@ -112,7 +95,7 @@ glm::vec4 blinnPhong(const Light& L,const glm::vec3& cam, const glm::vec3& norma
     glm::vec3 r = glm::normalize(glm::reflect(-l, normal));//reflected vector
     //float dist = glm::length(x-d);
     //float a = 1/(L.getLAC()[0] + L.getLAC()[1] * dist + L.getLAC()[2] * dist * dist);//attenuation doesnt work properly
-    return ks*L.getIs()*glm::pow(std::max(0.f, glm::dot(v, r)), p);
+    return ks*L.getIs()*glm::pow(std::max(0.f, glm::dot(v, r)), Ns);
 }
 
 glm::vec4 ambientLight(Light L)const{
