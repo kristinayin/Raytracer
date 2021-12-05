@@ -15,19 +15,21 @@ Frankie Zamora
 * Manipulating the camera location and view directions in any way. - Frankie
 * Support a minimally user-controlled perspective camera in both rendering modes. - Frankie
 
-
 // Broken Features and Extras //
 
 * Rasterization - Kristina, Patrick
 * Material information for all models in both rendering modes should come from mtl files - Kristina, Patrick
 
-
 // Collaborators and External Resources // 
 
-
+* OpenGL.com: https://learnopengl.com/
+* OpenFrameworks GLM Documentation: https://openframeworks.cc/documentation/glm/
+* cplusplus.com Tutorials: https://www.cplusplus.com/doc/tutorial/
 
 // Honor Code Acknowledgment // 
 
-I am committed to being a person of integrity. I pledge, as a member of the Santa Clara University community, to abide by and uphold the standards of academic integrity contained in the Student Conduct Code.
+I certify that I have listed above all the sources that I consulted regarding this assignment, and that I have not received or given any assistance that is contrary to the letter or the spirit of the collaboration guidelines for this assignment. 
+ 
+Signature: Kristina Yin, Patrick Lee, Frankie Zamora
+Date: 12/5/21
 
-- Kristina, Patrick, Frankie
