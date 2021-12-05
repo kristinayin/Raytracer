@@ -28,6 +28,7 @@ struct Material {
   }
  
  // parse through, make each word (split by space) into a string
+ /*
   std::vector<std::string> parse(std::string str){
      std::vector<std::string> split;
      int found;
@@ -39,35 +40,45 @@ struct Material {
      split.push_back(str);
      return split;
   }
-  
+  */
 
   Material readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
     std::string line;
     std::ifstream mtl;
     mtl.open(mtlFile);
 
+    std::vector<std::string> parsed;
+
     if(mtl.is_open()){
       while(getline(mtl, line)){
-        std::vector<std::string> parsed = parse(line);
+
+        std::stringstream s(line);
+        std::string word;
+        while (s >> word) {
+            parsed.push_back(word);
+        }
         
         if(parsed[0] == "Ka") {
             for (int i = 1; parsed.size(); i++) {
-                ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
-                
+                ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4])); 
             }
+            parsed.clear();
         }
         if(parsed[0]=="Kd") {
             for (int i = 1; parsed.size(); i++) {
                 kd = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
             }
+            parsed.clear();
         }
         if(parsed[0]=="Ks") {
             for (int i = 1; parsed.size(); i++) {
                 ks = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
             }
+            parsed.clear();
         }
         if(parsed[0]=="Ns") {
             p = sTF(parsed[1]);
+            parsed.clear();
         }
       }
     }

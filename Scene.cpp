@@ -8,7 +8,6 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-using namespace std;
  
  // converts strings to float values
 float sTF(const std::string& str) {
@@ -39,7 +38,8 @@ void Scene::readFromFile(const std::string& file) {
                 
                 glm::vec4 sKd, sKs, sKa;
                 float sP;
-                
+                //Material pMaterial;
+
                 for(int i = 1; i<parsed.size(); i++){          
                     if(parsed[i] == "center") {
                         sCenter = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
@@ -47,51 +47,8 @@ void Scene::readFromFile(const std::string& file) {
                     if(parsed[i] == "radius") {
                         sRadius = sTF(parsed[i+1]);
                     }
-
-                    /*
-                    if(parsed[i] == "material"){
-                        std::string mtlLine;
-                        std::ifstream mtlFile;
-                        mtlFile.open(parsed[i+1]);
-
-                        if(mtlFile.is_open()){
-                            while(getline(mtlFile, mtlLine)){
-                                std::vector<std::string> mtlParsed = parse(mtlLine);
-
-                                if(mtlParsed[0] == "Ka"){
-                                    for(int i = 1; i<mtlParsed.size(); i++){
-                                        sKa = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
-                                    }
-                                }
-                                
-                                if(mtlParsed[0] == "Kd"){
-                                    for(int i = 1; i<mtlParsed.size(); i++){
-                                        sKd = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
-                                    }
-                                    
-
-                                }
-
-                                if(mtlParsed[0] == "Ks"){
-                                    for(int i = 1; i<mtlParsed.size(); i++){
-                                        sKs = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
-                                    }
-                                    
-                                }
-
-                                if(mtlParsed[0] == "Ns"){
-                                    sP = sTF(mtlParsed[i+1]);
-                                }
-
-                            }
-                        }else{
-                            cout<<"File is not opening"<<endl;
-                        }
-
-                        mtlFile.close();
-                    }
-                    */
                     
+                    //last four lines read in material from example scene
                     if (parsed[i] == "ka") {
                         sKa = glm::vec4(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]), 1.0);
                     }
@@ -108,17 +65,22 @@ void Scene::readFromFile(const std::string& file) {
                         sP = sTF(parsed[i+1]);
                     }
                     
+                    /*
+                    if(parsed[i] == "material"){//suppose to use it for reading material mtl file, but had some issues
+                        sMaterial.readMaterial();
+                    }
+                    */
                      
                     
                 }
-                objects.push_back(new Sphere(sCenter, sRadius, Material(sKd, sKs, sKa, sP)));
+                objects.push_back(new Sphere(sCenter, sRadius, Material(sKd, sKs, sKa, sP)));//wanted to replace Material(pKd, pKs, pKa, pP) with sMaterial, but doesn't work
                 parsed.clear();
 
             } else if (parsed[0]=="Plane") {
                 glm::vec3 pPosition, pNormal;
                 glm::vec4 pKd, pKs, pKa;
                 float pP;
-                
+                //Material pMaterial;
                 for(int i = 0; i<parsed.size(); i++){           
                     if(parsed[i]=="p") {
                         pPosition = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
@@ -127,7 +89,7 @@ void Scene::readFromFile(const std::string& file) {
                         pNormal = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     
-                    //last four lines read in material
+                    //last four lines read in material from example scene
                     if (parsed[i] == "ka") {
                         pKa = glm::vec4(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]), 1.0);
                     }
@@ -143,10 +105,17 @@ void Scene::readFromFile(const std::string& file) {
                     if (parsed[i] == "Ns") {
                         pP = sTF(parsed[i+1]);
                     }
+
+                    /*
+                    if(parsed[i] == "material"){//suppose to use it for reading material mtl file, but had some issues
+                        pMaterial.readMaterial();
+                    }
+                    */
+
                     
                         
                 }
-                objects.push_back(new Plane(pNormal, pPosition, Material(pKd, pKs, pKa, pP)));
+                objects.push_back(new Plane(pNormal, pPosition, Material(pKd, pKs, pKa, pP)));//wanted to replace Material(pKd, pKs, pKa, pP) with pMaterial, but doesn't work
                 parsed.clear();
 
             } else if (parsed[0]=="Camera") {
@@ -201,6 +170,16 @@ void Scene::readFromFile(const std::string& file) {
                     if (parsed[i]=="attenconst") {//find linear attenuation const
                         lAtten = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
+
+                    /*
+                    if (parsed[i] == "d"){//finds distance of light source
+                        lD = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
+                    }
+
+                    if (parsed[i] == "t"){//find cutoff angle for spotlight
+                        lT = sTF(parsed[i+1]);
+                    }
+                    */
                     
                     // calling light constructors based on type of light -- in example.scene, light type has to go at the end
                     /*
@@ -211,7 +190,8 @@ void Scene::readFromFile(const std::string& file) {
                     */
                          
                 }
-                lights.push_back(Light(lP, lIa, lId, lIs, lAtten));
+                lights.push_back(Light(lP, lIa, lId, lIs, lAtten));//used for point lights
+                //lights.push_back(sLight); intended to keep various types of lights
                 parsed.clear();
             }
         }

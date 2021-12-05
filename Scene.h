@@ -8,10 +8,6 @@
 class Scene {
   public:
     Scene(){}
-
-    void addLight(Light lt){
-      lights.push_back(lt);
-    }
     
     void readFromFile(const std::string& file);
     
