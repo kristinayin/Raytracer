@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-
+//Frankie
 void Camera::moveX(float x){
     _eye[0] += x;
 }

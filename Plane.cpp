@@ -26,8 +26,3 @@ Collision Plane:: collide(const Ray& _ray) const {
     return Collision();
 }
 
-/*
-Material getMaterial(){
-  return m_material;//figure out why this is not declared
-}
-*/
