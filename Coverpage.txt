@@ -30,6 +30,7 @@ Frankie Zamora
 * OpenGL.com: https://learnopengl.com/
 * OpenFrameworks GLM Documentation: https://openframeworks.cc/documentation/glm/
 * cplusplus.com Tutorials: https://www.cplusplus.com/doc/tutorial/
+* Computer Graphics Programming in OpenGL with C++ 2nd Edition by V. Scott Gordon and Jogn Clevenger
 
 // Honor Code Acknowledgment // 
 
