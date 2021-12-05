@@ -13,7 +13,7 @@ Frankie Zamora
 * Collision of rays with a single infinite ground plane and a set of spheres. - Patrick, Frankie, Kristina
 * Ambient, diffuse, and specular lighting from multiple point lights. - Patrick, Frankie, Kristina
 * Shadow determination in the lighting computations. - Patrick
-* Manipulating the camera location and view directions in any way. - Frankie
+* Manipulating the camera location and view directions in any way. - Frankie, Patrick
 * Support a minimally user-controlled perspective camera in both rendering modes. - Frankie
 
 // Broken Features and Extras //
