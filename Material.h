@@ -47,11 +47,6 @@ struct Material {
     std::ifstream mtl;
     mtl.open(mtlFile);
 
-    //glm::vec4 getKd;//diffuse
-    //glm::vec4 getKs;//specular
-    //glm::vec4 getKa;//ambient
-    //float getP;
-
     if(mtl.is_open()){
       while(getline(mtl, line)){
         std::vector<std::string> parsed = parse(line);

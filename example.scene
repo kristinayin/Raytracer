@@ -17,6 +17,8 @@ Sphere center -40 25 -100 radius 1 ka 1.0 1.0 1.0 kd 1.0 1.0 1.0 ks 1. 1. 1. Ns 
 Sphere center 40 25 -100 radius 1 ka 1.0 1.0 1.0 kd 1.0 1.0 1.0 ks 1. 1. 1. Ns 100
 Sphere center -35 25 -100 radius 1 ka 1.0 1.0 1.0 kd 1.0 1.0 1.0 ks 1. 1. 1. Ns 100
 Sphere center 35 25 -100 radius 1 ka 1.0 1.0 1.0 kd 1.0 1.0 1.0 ks 1. 1. 1. Ns 100
-Light p 0 -5 -10 ia 0.1 0.1 0.1 1.0 id 0.5 0.7 0.4 1.0 is 0.8 0.8 0.8 1.0 attenconst 1.0 1.0 1.0 point
+Light p 0 50 15 ia 0.1 0.1 0.1 1.0 id 1.0 0.4 0.8 1.0 is 0.3 0.3 0.8 1.0 attenconst 0.1 0.1 0.1
+Light p -50 20 -200 ia 0.1 0.1 0.3 1.0 id 0.3 0.7 0.4 1.0 is 0.8 0.7 0.9 1.0 attenconst 0.1 0.3 0.6
+Light p 50 20 -200 ia 0.1 0.1 0.3 1.0 id 0.3 0.7 0.4 1.0 is 0.8 0.7 0.9 1.0 attenconst 0.1 0.3 0.6
 Plane p 0 -1 0 n 0 1 0 ka 0.1 0.4 0.8 kd 0.1 0.2 0.8 ks .0 0.8 .2 Ns 50
 

@@ -36,37 +36,6 @@ class Camera{
             return _eye;
         }
 
-        /*
-        void setTop(){
-            _t = _focal*tan(glm::radians(_fov/2));
-        }
-
-        void setRight(){
-            _r = _ratio*_t;
-        }
-
-        const float getTop()const{
-            return _t;
-        }
-
-        const float getBott()const{
-            return -1*_t;
-        }
-
-        const float getRight()const{
-            return _r;
-        }
-
-        const float getLeft() const{
-            return -1*_r;
-        }
-        */
-        //need to include a point when doing mv matrix
-        //camera uses view matrix
-        //object uses transformation matrix
-
-        //add a bunch of getter functions
-
     private:
         glm::vec3 _eye;//camera location
         glm::vec3 _at;//where you want the camera to look at
