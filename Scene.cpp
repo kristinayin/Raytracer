@@ -151,7 +151,7 @@ void Scene::readFromFile(const std::string& file) {
 
             } else if (parsed[0]=="Camera") {
                 glm::vec3 cEye, cAt, cUp;
-                float cFov, cRatio, cF;
+                float cFov, cRatio, cFocal;
 
                 for (int i = 1; i<parsed.size(); i++) {
                     if (parsed[i] == "eye"){
@@ -163,17 +163,17 @@ void Scene::readFromFile(const std::string& file) {
                     if (parsed[i] == "up") {
                         cUp = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
-                    if (parsed[i] == "angle") {
+                    if (parsed[i] == "fov") {
                         cFov = sTF(parsed[i+1]);
                     }
                     if (parsed[i] == "aspect") {
                         cRatio = (sTF(parsed[i+1])/sTF(parsed[i+2]));
                     }
                     if (parsed[i] == "focal") {
-                        cF = sTF(parsed[i+1]);
+                        cFocal = sTF(parsed[i+1]);
                     }
                 }
-                c = Camera(cEye, cAt, cUp, cF);
+                c = Camera(cEye, cAt, cUp, cFocal, cFov, cRatio);
                 parsed.clear();
             }
             

@@ -1,4 +1,4 @@
-Camera eye 0 0 0 at 0 0 -1 up 0 1 0 focal 1 angle 45 aspect 16 9
+Camera eye 0 0 0 at 0 0 -1 up 0 1 0 focal 1 fov 45 aspect 16 9
 Sphere center 0 0 -50 radius 5 ka 0.3 0.3 1.0 kd 0.3 .3 1.0 ks 0.0 .8 1.0 Ns 50
 Sphere center 0 20 -75 radius 9 ka 0.3 0.3 1.0 kd 0.3 .3 1.0 ks 0.0 .8 1.0 Ns 50
 Sphere center -20 0 -50 radius 5 ka 0.0 0.3 1.0 kd 0.0 1. 1.0 ks 0.0 1. 1.0 Ns 50

@@ -58,9 +58,11 @@ void RayTracer::render(const Scene& _scene) const {
   int length=1360;
   int height= 768;
   
-  float t = 1.f*tan(glm::radians(45.f/2));
+  //float t = 1.f*tan(glm::radians(45.f/2));
+  float t = camera.getFocal()*tan(glm::radians(camera.getFov()/2));
   float b = -t;
-  float r = ((float)length/height)*t;
+  //float r = ((float)length/height)*t;
+  float r = camera.getRatio()*t;
   float l = -r;
 
   for(int i = 0; i<length; i++){//length is # of col
