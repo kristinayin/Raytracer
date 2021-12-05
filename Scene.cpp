@@ -252,16 +252,19 @@ void Scene::readFromFile(const std::string& file) {
                     }
                     if (parsed[i] == "angle") {
                         cFov = sTF(parsed[i+1]);
+                        cout<<cFov<<endl;
                     }
                     if (parsed[i] == "aspect") {
-                        cRatio = (sTF(parsed[i+1)/sTF(parsed[i+2]));
+                        cRatio = (sTF(parsed[i+1])/sTF(parsed[i+2]));
+                        cout<<cRatio<<endl;
                     }
                     if (parsed[i] == "focal") {
                         cF = sTF(parsed[i+1]);
+                        cout<<cF<<endl;
                     }
                 }
                 cout<<"Added camera"<<endl;
-                c = Camera(cEye, cAt, cUp, cF, 10, cFov, cRatio);
+                c = Camera(cEye, cAt, cUp, cF, 10);
                 
             }
             

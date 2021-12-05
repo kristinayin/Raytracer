@@ -10,6 +10,7 @@
 #include <iostream>
 #include <memory>
 #include <thread>
+using namespace std;
 //Frankie
 void RayTracer::clear() const {//makes a blank white screen
   for(int i = 0; i< m_width * m_height; i++){
@@ -56,17 +57,24 @@ void RayTracer::render(const Scene& _scene) const {
   const Camera &camera = _scene.getCam();
   int length=1360;
   int height= 768;
-  /*
+  
   float t = 1.f*tan(glm::radians(45.f/2));
+  //float t = camera.getTop();
+  //cout<<t<<endl;
   float b = -t;
+  //float b = camera.getBott();
+  //cout<<b<<endl;
   float r = ((float)length/height)*t;
+  //float r = camera.getRight();
+  //cout<<r<<endl;
   float l = -r;
-  */
+  //float l = camera.getLeft();
+  //cout<<l<<endl;
 
   for(int i = 0; i<length; i++){//length is # of col
     for(int j = 0; j<height; j++){//height is # of rows
       
-      glm::vec3 direction = getDirection(i, camera.getRight(), camera.getLeft(), length, j, camera.getTop(), camera.getBott(), height, camera);//calculates direction from camera to fragment
+      glm::vec3 direction = getDirection(i, r, l, length, j, t, b, height, camera);//calculates direction from camera to fragment
 
       Ray r(camera.getEye(),direction);//using ray struct that takes in some origin and direction
       //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;

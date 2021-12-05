@@ -9,11 +9,10 @@
 
 class Camera{
     public:
-        Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float focal, float f, float fov, float ratio): _eye(eye), _at(at), 
-                                                                                                     _up(up), _focal(focal), _f(f), 
-                                                                                                     _fov(fov), _ratio(ratio){};
+        Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float focal, float f): _eye(eye), _at(at), 
+                                                                                                     _up(up), _focal(focal), _f(f){};
 
-        Camera(): _eye(glm::vec3{0, 0, 0}), _at(glm::vec3 {0, 0, 1}), _up(glm::vec3 {0,1,0}), _focal(1), _f(10), _fov(45), _ratio(16/9){};
+        Camera(): _eye(glm::vec3{0, 0, 0}), _at(glm::vec3 {0, 0, 1}), _up(glm::vec3 {0,1,0}), _focal(1), _f(10){};
 
         glm::mat4 view(glm::vec3 eye, glm::vec3 at, glm::vec3 up){
             return glm::lookAt(eye, at, up);
@@ -37,11 +36,12 @@ class Camera{
             return _eye;
         }
 
-        void setTop(float fov){
-            _t = _focal*tan(glm::radians(fov/2));
+        /*
+        void setTop(){
+            _t = _focal*tan(glm::radians(_fov/2));
         }
 
-        void setRight(float _ratio){
+        void setRight(){
             _r = _ratio*_t;
         }
 
@@ -60,7 +60,7 @@ class Camera{
         const float getLeft() const{
             return -1*_r;
         }
-
+        */
         //need to include a point when doing mv matrix
         //camera uses view matrix
         //object uses transformation matrix
