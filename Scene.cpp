@@ -234,7 +234,7 @@ void Scene::readFromFile(const std::string& file) {
             
             } else if (parsed[0]=="Camera") {
                 glm::vec3 cEye, cAt, cUp;
-                float cFov, cRatio;
+                float cFov, cRatio, cF;
 
                 cout<<"Creating camera"<<endl;
                 for (int i = 1; i<parsed.size(); i++) {
@@ -250,11 +250,22 @@ void Scene::readFromFile(const std::string& file) {
                         cout<<"Found up"<<endl;
                         cUp = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
+                    if (parsed[i] == "angle") {
+                        cFov = sTF(parsed[i+1]);
+                    }
+                    if (parsed[i] == "aspect") {
+                        cRatio = (sTF(parsed[i+1)/sTF(parsed[i+2]));
+                    }
+                    if (parsed[i] == "focal") {
+                        cF = sTF(parsed[i+1]);
+                    }
                 }
                 cout<<"Added camera"<<endl;
-                c = Camera(cEye, cAt, cUp, 1, 10, cFov, cRatio);
+                c = Camera(cEye, cAt, cUp, cF, 10, cFov, cRatio);
                 
-            }/*else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
+            }
+            
+            /*else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
                 
                 glm::vec4 lIa, lId, lIs;
                 glm::vec3 lP, lAtten;
