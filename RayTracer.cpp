@@ -59,17 +59,9 @@ void RayTracer::render(const Scene& _scene) const {
   int height= 768;
   
   float t = 1.f*tan(glm::radians(45.f/2));
-  //float t = camera.getTop();
-  //cout<<t<<endl;
   float b = -t;
-  //float b = camera.getBott();
-  //cout<<b<<endl;
   float r = ((float)length/height)*t;
-  //float r = camera.getRight();
-  //cout<<r<<endl;
   float l = -r;
-  //float l = camera.getLeft();
-  //cout<<l<<endl;
 
   for(int i = 0; i<length; i++){//length is # of col
     for(int j = 0; j<height; j++){//height is # of rows
@@ -77,7 +69,6 @@ void RayTracer::render(const Scene& _scene) const {
       glm::vec3 direction = getDirection(i, r, l, length, j, t, b, height, camera);//calculates direction from camera to fragment
 
       Ray r(camera.getEye(),direction);//using ray struct that takes in some origin and direction
-      //std::cout<<_scene.objects.size()<<" scene size"<<std::endl;
       Collision pointOfColl = isCollision(r, _scene);
       
 
@@ -94,25 +85,19 @@ void RayTracer::render(const Scene& _scene) const {
            float dist = glm::distance(_scene.getLights()[k].getPoint(), pointOfColl.m_x);//gets distance needed for attenuation
 
             //float al = 1/((_scene.getLights()[k].getLAC()[0]) + (_scene.getLights()[k].getLAC()[1]*dist) + (_scene.getLights()[k].getLAC()[2] * (dist * dist)));//attenuation
-            float al = 1;//this needs to be fixed
-            color+= al*(pointOfColl.m_material->lambertian(_scene.getLights()[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
-            color+= al*(pointOfColl.m_material->blinnPhong(_scene.getLights()[k], camera.getEye(), pointOfColl.m_normal, pointOfColl.m_x));//adding Blinnfong shading
+            //float al = 1;//this needs to be fixed
+            color+= (pointOfColl.m_material->lambertian(_scene.getLights()[k], pointOfColl.m_normal, pointOfColl.m_x));//lambertian shading
+            color+= (pointOfColl.m_material->blinnPhong(_scene.getLights()[k], camera.getEye(), pointOfColl.m_normal, pointOfColl.m_x));//adding Blinnfong shading
           }
           
         }
-        //color = glm::vec4((r.m_direction + glm::vec3(1, 1, 1))/2, 1.0);
         m_frame[length*j+i]= color;
        
       }
-    
-      // this should draw pixels to the framebuffer and give them a generic color
-      //glm::vec4 color((direction+glm::vec3(1,1,1))/2,1);
-      //m_frame[length*j+i]= color;
+
     }
     
   }
-  //commenting out now but might be useful later
-  //std::cout<<m_width<<"  = mwidth "<< m_height<< " mheight "<<std::endl;
   glDrawPixels(m_width, m_height, GL_RGBA, GL_FLOAT, m_frame.get());
 }
 
