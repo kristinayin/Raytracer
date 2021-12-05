@@ -14,7 +14,7 @@ using namespace std;
 //Frankie
 void RayTracer::clear() const {//makes a blank white screen
   for(int i = 0; i< m_width * m_height; i++){
-    m_frame[i]=glm::vec4(1.f,1.f,1.f,1.f);
+    m_frame[i]=glm::vec4(0.f,0.f,0.f,0.f);
   }
 }
 //Frankie/Patrick
