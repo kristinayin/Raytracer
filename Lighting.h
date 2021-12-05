@@ -8,18 +8,18 @@ class Light{
         //glm::vec3 lambertianShading(glm::vec3 kd, glm::vec3 id, Object o);
         //Light() {}
         //global ambient light
-        Light(const glm::vec4&ia): i_a(ia) {}//only requires one intensity
+        //Light(const glm::vec4&ia): i_a(ia) {}//only requires one intensity
 
         //directional
-        Light(const glm::vec3& d, const glm::vec4& ia, const glm::vec4& id, 
-              const glm::vec4& is): direction(d), i_a(ia), i_d(id), i_s(is) {}//linear attenuation always have value of 1
+        //Light(const glm::vec3& d, const glm::vec4& ia, const glm::vec4& id, 
+        //      const glm::vec4& is): direction(d), i_a(ia), i_d(id), i_s(is) {}//linear attenuation always have value of 1
         
         //point light
         Light(const glm::vec3& p, const glm::vec4& ia, const glm::vec4& id, const glm::vec4& is, const glm::vec3& attenconst): point(p), i_a(ia), i_d(id), i_s(is), LAC(attenconst) {}//angluar attenuation always has value of 1
 
 
         //spotlight
-        Light(const glm::vec3& p, const glm::vec3& d, const float t, const glm::vec4& ia, const glm::vec4& id, const glm::vec4& is, const glm::vec3& attenconst, const float a): point(p), direction(d), theta(t), i_a(ia), i_d(id), i_s(is), LAC(attenconst), attenuation(a) {} // a is angular attenuation constant
+        //Light(const glm::vec3& p, const glm::vec3& d, const float t, const glm::vec4& ia, const glm::vec4& id, const glm::vec4& is, const glm::vec3& attenconst, const float a): point(p), direction(d), theta(t), i_a(ia), i_d(id), i_s(is), LAC(attenconst), attenuation(a) {} // a is angular attenuation constant
 
         const glm::vec3& getPoint()const{
             return point;

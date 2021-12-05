@@ -8,6 +8,7 @@
 class Scene {
   public:
     Scene(){}
+
     void addLight(Light lt){
       lights.push_back(lt);
     }
@@ -39,9 +40,6 @@ class Scene {
     std::vector<Object*> objects;
     std::vector<Light> lights;
     Camera c;
-    /*
-    #include <iostream>//stringstream
-    */
     
 };
 

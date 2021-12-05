@@ -85,41 +85,8 @@ void
 initialize(GLFWwindow* _window) {
   glClearColor(0.f, 0.f, 0.f, 1.f);
   
-  glm::vec4 a_color(.6f,.2f,.4f,1);
-  glm::vec4 d_color(.1f,.4f,.8f,1);
-  glm::vec4 s_color(1.f,.8f,0.f,1);
-
-  glm::vec4 a_color3(.2f,.7f,.5f,1);
-  glm::vec4 d_color3(.3f,.4f,.2f,1);
-  glm::vec4 s_color3(.6f,.8f,.2f,1);
-
-  Material m = Material(a_color, a_color, s_color, 10.f);
-  Material m2 = Material(a_color3,d_color,s_color, 100.f);
-  Material m3 = Material(a_color3,d_color3,s_color3, 10.f);
-
-  //Plane *p = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
-  //Plane *p2 = new Plane(glm::vec3(0,1,0), glm::vec3(0,-1,0),m);
-  //Sphere *s1 = new Sphere(glm::vec3(0,2,-10), 1,m);
-  //Sphere *s2 = new Sphere(glm::vec3(1,3,-15), 2,m3);
-  //Sphere *s3 = new Sphere(glm::vec3(0,0,2),3,m);
-  Light l(glm::vec3 (0, 50, 15), glm::vec4 (0.1, 0.1, 0.1, 1), glm::vec4 (1.0, 0.4, 0.8, 1), glm::vec4 (0.3, 0.3, 0.8, 1), glm::vec3 (.1, .1, .1));
-  Light l2(glm::vec3(-50,20,-200),glm::vec4(0.1,0.1,0.3,1),glm::vec4(0.3,0.7,0.4,1),glm::vec4(0.8,0.7,0.9,1),glm::vec3(.1,3,.6));
-  Light l3(glm::vec3(50,20,-200),glm::vec4(0.1,0.1,0.3,1),glm::vec4(0.3,0.7,0.4,1),glm::vec4(0.8,0.7,0.9,1),glm::vec3(.1,.3,.6));
-  //Light l3(glm::vec3(1,7,-15),glm::vec4(0.3,0.2,0.1,1),glm::vec4(0.8,0.9,0.9,1),glm::vec4(0.8,0.9,0.9,1), glm::vec3 (1., 1., 1.));
-  //scn.addObject(p);
-  scn.addLight(l);
-  scn.addLight(l2);
-  scn.addLight(l3);
-  //scn.addObject(p);
-  //scn.addObject(s1);
-  //scn.addObject(s2);
-  //scn.addObject(s3);
-  
   scn.readFromFile("example.scene");
 
-  //Light x = scn.getLights()[0];
-  //scn.getLights().erase(0);
-  //scn.addLight(x);
   g_frame = std::make_unique<glm::vec4[]>(g_width*g_height);
 
   //initialize method to Renderer (like initialize g_frame)

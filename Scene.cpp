@@ -29,151 +29,6 @@ std::vector<std::string> parse(std::string str){
     return split;
 }
 
-glm::vec4 readMtlKa(const std::string& mtlFile){
-    std::string line;
-    std::ifstream mtl;
-    mtl.open(mtlFile);
-    glm::vec4 ka;//ambient
-
-
-    if(mtl.is_open()){
-      while(getline(mtl, line)){
-        std::vector<std::string> parsed = parse(line);
-        
-        if(parsed[0] == "Ka") {
-            for (int i = 1; parsed.size(); i++) {
-                ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),1);
-                mtl.close();
-                break;
-            }
-        }
-        
-      }
-    }
-
-    return ka;
-}
-
-glm::vec4 readMtlKd(const std::string& mtlFile){
-    std::string line;
-    std::ifstream mtl;
-    mtl.open(mtlFile);
-    glm::vec4 kd;//diffuse
-
-
-    if(mtl.is_open()){
-      while(getline(mtl, line)){
-        std::vector<std::string> parsed = parse(line);
-        
-        if(parsed[0] == "Kd") {
-            for (int i = 1; parsed.size(); i++) {
-                kd = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),1);
-                mtl.close();
-                break;
-            }
-        }
-        
-      }
-    }
-
-    return kd;
-}
-
-glm::vec4 readMtlKs(const std::string& mtlFile){
-    std::string line;
-    std::ifstream mtl;
-    mtl.open(mtlFile);
-    glm::vec4 ks;//specular
-
-
-    if(mtl.is_open()){
-      while(getline(mtl, line)){
-        std::vector<std::string> parsed = parse(line);
-        
-        if(parsed[0] == "Ks") {
-            for (int i = 1; parsed.size(); i++) {
-                ks = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),1);
-                mtl.close();
-                break;
-            }
-        }
-        
-      }
-    }
-
-    return ks;
-}
-
-float readMtlP(const std::string& mtlFile){
-    std::string line;
-    std::ifstream mtl;
-    mtl.open(mtlFile);
-    float p;//shininess
-
-
-    if(mtl.is_open()){
-      while(getline(mtl, line)){
-        std::vector<std::string> parsed = parse(line);
-        
-        if(parsed[0] == "Ka") {
-            for (int i = 1; parsed.size(); i++) {
-                p = sTF(parsed[1]);
-                mtl.close();
-                break;
-            }
-        }
-        
-      }
-    }
-
-    return p;
-}
-
-/*
-Material readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
-    std::string line;
-    std::ifstream mtl;
-    mtl.open(mtlFile);
-
-    glm::vec4 kd;//diffuse
-    glm::vec4 ks;//specular
-    glm::vec4 ka;//ambient
-    float p;
-
-    if(mtl.is_open()){
-      while(getline(mtl, line)){
-        std::vector<std::string> parsed = parse(line);
-        
-        if(parsed[0] == "Ka") {
-            for (int i = 1; parsed.size(); i++) {
-                ka = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
-                cout<<ka[0]<<endl;
-            }
-        }
-        if(parsed[0]=="Kd") {
-            for (int i = 1; parsed.size(); i++) {
-                kd = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
-                cout<<kd[0]<<endl;
-            }
-        }
-        if(parsed[0]=="Ks") {
-            for (int i = 1; parsed.size(); i++) {
-                ks = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
-                cout<<ks[0]<<endl;
-            }
-        }
-        if(parsed[0]=="Ns") {
-            p = sTF(parsed[1]);
-        }
-      }
-    }
-
-    mtl.close();
-    
-    return Material(kd, ks, ka, p);
-  }
-*/
-
 // take in example.scene file
 void Scene::readFromFile(const std::string& file) {
     std::string line;
@@ -194,52 +49,80 @@ void Scene::readFromFile(const std::string& file) {
             if(parsed[0]=="Sphere"){
                 glm::vec3 sCenter;
                 float sRadius;
-                //glm::vec4 ka, kd, ks;
-                //float p;
                 
                 glm::vec4 sKd, sKs, sKa;
                 float sP;
                 
-                glm::vec4 a_color(0.737255f,0.560784f,0.560784f,1);
-                glm::vec4 d_color(.7f,.7f,5.f,1);
-                glm::vec4 s_color(0.f,1.f,1.f,1);
-                
-                //Material sMaterial = Material(a_color, d_color, s_color, 100.f);
-                //Material getMaterial = Material(a_color, d_color, s_color, 100.f);
-                cout<<"Making a sphere"<<endl;
                 for(int i = 1; i<parsed.size(); i++){          
                     if(parsed[i] == "center") {
-                        //cout<<"Found center"<<endl;
                         sCenter = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if(parsed[i] == "radius") {
-                        //cout<<"Found radius"<<endl;
                         sRadius = sTF(parsed[i+1]);
                     }
-                      
+                    /*
+                    if(parsed[i] == "material"){
+                        std::string mtlLine;
+                        std::ifstream mtlFile;
+                        mtlFile.open(parsed[i+1]);
+
+                        if(mtlFile.is_open()){
+                            while(getline(mtlFile, mtlLine)){
+                                std::vector<std::string> mtlParsed = parse(mtlLine);
+
+                                if(mtlParsed[0] == "Ka"){
+                                    for(int i = 1; i<mtlParsed.size(); i++){
+                                        sKa = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
+                                    }
+                                }
+                                
+                                if(mtlParsed[0] == "Kd"){
+                                    for(int i = 1; i<mtlParsed.size(); i++){
+                                        sKd = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
+                                    }
+                                    
+
+                                }
+
+                                if(mtlParsed[0] == "Ks"){
+                                    for(int i = 1; i<mtlParsed.size(); i++){
+                                        sKs = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
+                                    }
+                                    
+                                }
+
+                                if(mtlParsed[0] == "Ns"){
+                                    sP = sTF(mtlParsed[i+1]);
+                                }
+
+                            }
+                        }else{
+                            cout<<"File is not opening"<<endl;
+                        }
+
+                        mtlFile.close();
+                    }
+                    */
+                    
                     if (parsed[i] == "ka") {
-                        //cout<<"Found material"<<endl;
                         sKa = glm::vec4(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]), 1.0);
                     }
 
                     if (parsed[i] == "kd") {
-                        //cout<<"Found material"<<endl;
                         sKd = glm::vec4(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]), 1.0);
                     }
 
                     if (parsed[i] == "ks") {
-                        //cout<<"Found material"<<endl;
                         sKs = glm::vec4(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]), 1.0);
                     }
 
                     if (parsed[i] == "Ns") {
-                        //cout<<"Found material"<<endl;
                         sP = sTF(parsed[i+1]);
                     }
+                    
                      
                     
                 }
-                cout<<"New sphere added"<<endl;
                 objects.push_back(new Sphere(sCenter, sRadius, Material(sKd, sKs, sKa, sP)));
             
             } else if (parsed[0]=="Plane") {
@@ -247,63 +130,90 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec4 pKd, pKs, pKa;
                 float pP;
                 
-                glm::vec4 a_color3(1.f,0.f,0.f,1);
-                glm::vec4 d_color3(1.f,0.f,0.f,1);
-                glm::vec4 s_color3(1.f,0.f,0.f,1);
-                
-                //Material pMaterial = Material(a_color3, d_color3, s_color3, 10.f);
-                cout<<"Making new plane"<<endl;
                 for(int i = 0; i<parsed.size(); i++){           
                     if(parsed[i]=="p") {
-                        cout<<"Found point"<<endl;
                         pPosition = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if(parsed[i]=="n") {
-                        cout<<"Found normal"<<endl;
                         pNormal = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
-                     
+                    /*
+                    if(parsed[i] == "material"){
+                        std::string mtlLine;
+                        std::ifstream mtlFile;
+                        mtlFile.open(parsed[i+1]);
+
+                        if(mtlFile.is_open()){
+                            while(getline(mtlFile, mtlLine)){
+                                std::vector<std::string> mtlParsed = parse(mtlLine);
+
+                                if(mtlParsed[0] == "Ka"){
+                                    for(int i = 1; i<mtlParsed.size(); i++){
+                                        pKa = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
+                                    }
+                                    
+                                }
+                                
+                                if(mtlParsed[0] == "Kd"){
+                                    for(int i = 1; i<mtlParsed.size(); i++){
+                                        pKd = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
+                                    }
+                                    
+
+                                }
+
+                                if(mtlParsed[0] == "Ks"){
+                                    for(int i = 1; i<mtlParsed.size(); i++){
+                                        pKs = glm::vec4(sTF(mtlParsed[i+1]), sTF(mtlParsed[i+2]), sTF(mtlParsed[i+3]), 1);
+                                    }
+                                    
+                                }
+
+                                if(mtlParsed[0] == "Ns"){
+                                    pP = sTF(mtlParsed[i+1]);
+                                }
+
+                            }
+                        }else{
+                            cout<<"File is not opening"<<endl;
+                        }
+
+                        mtlFile.close();
+                    }
+                    */
+                    
                     if (parsed[i] == "ka") {
-                        //cout<<"Found material"<<endl;
                         pKa = glm::vec4(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]), 1.0);
                     }
 
                     if (parsed[i] == "kd") {
-                        //cout<<"Found material"<<endl;
                         pKd = glm::vec4(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]), 1.0);
                     }
 
                     if (parsed[i] == "ks") {
-                        //cout<<"Found material"<<endl;
                         pKs = glm::vec4(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]), 1.0);
                     }
 
                     if (parsed[i] == "Ns") {
-                        //cout<<"Found material"<<endl;
                         pP = sTF(parsed[i+1]);
                     }
                     
                         
                 }
-                cout<<"New plane added"<<endl;
                 objects.push_back(new Plane(pNormal, pPosition, Material(pKd, pKs, pKa, pP)));
             
             } else if (parsed[0]=="Camera") {
                 glm::vec3 cEye, cAt, cUp;
                 float cFov, cRatio, cF;
 
-                cout<<"Creating camera"<<endl;
                 for (int i = 1; i<parsed.size(); i++) {
                     if (parsed[i] == "eye"){
-                        cout<<"Found eye"<<endl;
                         cEye = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i] == "at") {
-                        cout<<"Found at"<<endl;
                         cAt = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i] == "up") {
-                        cout<<"Found up"<<endl;
                         cUp = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
                     if (parsed[i] == "angle") {
@@ -324,65 +234,35 @@ void Scene::readFromFile(const std::string& file) {
                 
             }
             
-            /*else if (parsed[0]=="Light") { // pLight = point light (might add dif lights like ambient, direction)
+            else if (parsed[0]=="Light") { // only dealing with point lights (might add dif lights like ambient, direction)
                 
                 glm::vec4 lIa, lId, lIs;
                 glm::vec3 lP, lAtten;
-                // float lT, lA;
                 
-                cout<<"Creating a new light source"<<endl;
                 for (int i = 1; i<parsed.size(); i++) {
-                    if (parsed[i]=="ia") {
-                        cout<<"Found ambient"<<endl;
+                    if (parsed[i]=="ia") {//find ambient intensity
                         cout<<parsed[i+1]<<endl;
                         lIa = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
-                    /*
-                    if (parsed[i]=="d") {
-                        cout<<"Found distance"<<endl;
-                        cout<<parsed[i+1]<<endl;
-                        lD = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
-                    }
-                    
                    
-                    if (parsed[i]=="p") {
-                        cout<<"Found point"<<endl;
+                    if (parsed[i]=="p") {//find point
                         cout<<parsed[i+1]<<endl;
                         lP = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
-                    
-                    /*
-                    if (parsed[i]=="t") {
-                        cout<<"Found theta"<<endl;
-                        cout<<parsed[i+1]<<endl;
-                        lT = sTF(parsed[i+1]);
-                    }
-                    
                    
-                    if (parsed[i]=="id") {
-                        cout<<"Found diffuse"<<endl;
+                    if (parsed[i]=="id") {//find diffuse intensity
                         cout<<parsed[i+1]<<endl;
                         lId = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
-                    if (parsed[i]=="is") {
-                        cout<<"Found specular"<<endl;
+                    if (parsed[i]=="is") {//find specular intensity
                         cout<<parsed[i+1]<<endl;
                         lIs = glm::vec4(sTF(parsed[i+1]),sTF(parsed[i+2]),sTF(parsed[i+3]),sTF(parsed[i+4]));
                     }
                     
-                    if (parsed[i]=="attenconst") {
-                        cout<<"Found linear attencost"<<endl;
+                    if (parsed[i]=="attenconst") {//find linear attenuation const
                         cout<<parsed[i+1]<<endl;
                         lAtten = glm::vec3(sTF(parsed[i+1]), sTF(parsed[i+2]), sTF(parsed[i+3]));
                     }
-                    
-                    /*
-                    if (parsed[i]=="a") {
-                        cout<<"Found angular attencost"<<endl;
-                        cout<<parsed[i+1]<<endl;
-                        lA = sTF(parsed[i+1]);
-                    }
-                    */
                     
                     // calling light constructors based on type of light -- in example.scene, light type has to go at the end
                     /*
@@ -390,15 +270,11 @@ void Scene::readFromFile(const std::string& file) {
                     if (parsed[i] == "directional") { sLight = Light(lD, lIa, lId, lIs); }
                     if (parsed[i] == "point") { sLight = Light(lP, lIa, lId, lIs, lAtten); }
                     if (parsed[i] == "spotlight") { sLight = Light(lP, lD, lT, lIa, lId, lIs, lAtten, lA); }
-                    
+                    */
                          
                 }
-                Light l(lP, lIa, lId, lIs, lAtten);
-                cout<<l.getId()[0]<<" "<<l.getId()[1]<<" "<<l.getId()[2]<<endl;
-                //addLight(l);
-                //lights.push_back(Light(glm::vec3 (0, 5, -10), glm::vec4 (0.1, 0.1, 0.1, 1), glm::vec4 (0.5, 0.7, 0.4, 1), glm::vec4 (0.8, 0.8, 0.8, 1), glm::vec3 (1., 1., 1.)));
-                lights.push_back(l);
-            }*/
+                lights.push_back(Light(lP, lIa, lId, lIs, lAtten));
+            }
         }
     }
     File.close();
