@@ -1,0 +1,33 @@
+Simplistic Ray Tracer
+
+// Team //
+Kristina Yin
+Patrick Lee
+Frankie Zamora
+
+// Claimed Features and Extras // 
+
+* Reading a scene from an external file. - Kristina, Patrick
+* Ray generation in perspective view. - Patrick, Frankie, Kristina
+* Collision of rays with a single infinite ground plane and a set of spheres. - Patrick, Frankie, Kristina
+* Ambient, diffuse, and specular lighting from multiple point lights. - Patrick
+* Shadow determination in the lighting computations. - Patrick
+* Manipulating the camera location and view directions in any way. - Frankie
+* Support a minimally user-controlled perspective camera in both rendering modes. - Frankie
+
+
+// Broken Features and Extras //
+
+* Rasterization - Kristina, Patrick
+* Material information for all models in both rendering modes should come from mtl files - Kristina, Patrick
+
+
+// Collaborators and External Resources // 
+
+
+
+// Honor Code Acknowledgment // 
+
+I am committed to being a person of integrity. I pledge, as a member of the Santa Clara University community, to abide by and uphold the standards of academic integrity contained in the Student Conduct Code.
+
+- Kristina, Patrick, Frankie
