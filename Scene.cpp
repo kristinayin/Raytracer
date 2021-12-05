@@ -100,11 +100,11 @@ void Scene::readFromFile(const std::string& file) {
                 // glm::vec4 sKd, sKs, sKa;
                 // float sP;
                 
-                glm::vec4 a_color(.6f,.2f,.4f,1);
-                glm::vec4 d_color(.1f,.4f,.8f,1);
-                glm::vec4 s_color(1.f,.8f,0.f,1);
+                glm::vec4 a_color(0.737255f,0.560784f,0.560784f,1);
+                glm::vec4 d_color(.7f,.7f,5.f,1);
+                glm::vec4 s_color(0.f,1.f,1.f,1);
                 
-                Material sMaterial = Material(a_color, d_color, s_color, 10.f);
+                Material sMaterial = Material(a_color, d_color, s_color, 100.f);
                 
                 cout<<"Making a sphere"<<endl;
                 for(int i = 1; i<parsed.size(); i++){          
@@ -174,9 +174,9 @@ void Scene::readFromFile(const std::string& file) {
                 glm::vec4 pKd, pKs, pKa;
                 float pP;
                 
-                glm::vec4 a_color3(.2f,.7f,.5f,1);
-                glm::vec4 d_color3(.3f,.4f,.2f,1);
-                glm::vec4 s_color3(.6f,.8f,.2f,1);
+                glm::vec4 a_color3(0.f,0.3f,1.f,1);
+                glm::vec4 d_color3(.0f,.4f,.9f,1);
+                glm::vec4 s_color3(.2f,.8f,.2f,1);
                 
                 Material pMaterial = Material(a_color3, d_color3, s_color3, 10.f);
                 cout<<"Making new plane"<<endl;
