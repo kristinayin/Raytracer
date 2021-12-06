@@ -1,3 +1,7 @@
+/*
+ External resource: https://learnopengl.com/Getting-started/Camera
+ */
+
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
 

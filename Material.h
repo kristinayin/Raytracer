@@ -27,7 +27,7 @@ struct Material {
      return f;
   }
 
-  void readMtl(const std::string& mtlFile){//read thru one mtl file for each obj
+  void readMtl(const std::string& mtlFile){//read thru one mtl file for each obj // Kristina
     std::string line;
     std::ifstream mtl;
     mtl.open(mtlFile);

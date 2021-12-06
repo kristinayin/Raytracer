@@ -1,3 +1,10 @@
+/*
+ Kristina
+ external resources:
+ https://stackoverflow.com/questions/11719538/how-to-use-stringstream-to-separate-comma-separated-strings
+ https://www.cplusplus.com/doc/tutorial/files/
+*/
+
 #include "Scene.h"
 #include "Object.h"
 #include "Sphere.h"
@@ -8,8 +15,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
- 
- // converts strings to float values
+
+// converts strings to float values
 float sTF(const std::string& str) {
     float f = std::stof(str);
     return f;

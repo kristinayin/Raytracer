@@ -52,7 +52,7 @@ Collision isCollision(const Ray& r, const Scene& s){
   
 }
 
-//Frankie Z/Patrick L
+//Frankie Z/Patrick L/Kristina
 void RayTracer::render(const Scene& _scene) const {
   const Camera &camera = _scene.getCam();
   int length=1360;
