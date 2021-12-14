@@ -1,0 +1,36 @@
+--------------------------------------------------------------------------------
+-- Base Grade Information
+--------------------------------------------------------------------------------
+
+ Checkpoints:                                                              25/25
+    Features:                                                              50/50
+      Extras:                                                               6/15
+Presentation:                                                              39/50
+________________________________________________________________________________
+  Deductions:                                                                 -8
+________________________________________________________________________________
+      Total:                                                             112/140
+
+--------------------------------------------------------------------------------
+-- Comments
+--------------------------------------------------------------------------------
+
+* Base Features Claimed *
+
++10 - Reading scene from external file
++10 - Ray generation in Perspective View
++10 - Collision of rays with plane and sphere
++10 - ADS Lighting from a single point light
++10 - Shadow determination in lighting computations
+
+* Extras Claimed *
+
++2 - User input to manipulate scene
++2 - Multiple lights
++2 - Experimenting with MTL files, rasterization, and light types
+
+* Deductions *
+
+-2 External file name is hard coded.
+-1 Not all parameters are read in from a file (global ambient).
+-5 Shadowing is incorrect because bounds on shadow rays are not checked.
